@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:avurudu_nakath_app/features/splash/splash_screen.dart';
+import 'package:avurudu_nakath_app/features/splash/presentation/pages/splash_screen.dart';
 
 void main() {
   testWidgets('Splash screen pumps correctly', (WidgetTester tester) async {
