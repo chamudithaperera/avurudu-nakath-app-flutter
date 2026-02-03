@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../../core/services/storage_service.dart';
+import '../../../home/presentation/pages/home_screen.dart';
+import '../../../language_selection/presentation/pages/language_selection_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -71,10 +74,26 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    _controller.forward().then((value) {
-      // Navigate to next screen after animation
-      // TODO: Replace with navigation to actual Home/Language screen
-      debugPrint('Splash animation complete');
+    _controller.forward().then((value) async {
+      // Check for language selection
+      final storageService = StorageService();
+      final hasLanguage = await storageService.hasKey(
+        StorageService.keyLanguage,
+      );
+
+      if (mounted) {
+        if (hasLanguage) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+          );
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => const LanguageSelectionScreen(),
+            ),
+          );
+        }
+      }
     });
   }
 
