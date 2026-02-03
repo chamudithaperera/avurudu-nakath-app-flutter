@@ -1,0 +1,12 @@
+flutter_native_splash:
+  color: "#FFFDE7" # Light yellow/cream background
+  image: "assets/images/sun.png"
+  branding: "assets/images/sun.png"
+  color_dark: "#2C2C2C"
+  image_dark: "assets/images/sun.png"
+  branding_dark: "assets/images/sun.png"
+  
+  android_12:
+    image: "assets/images/sun.png"
+    icon_background_color: "#FFFDE7"
+    icon_background_color_dark: "#2C2C2C"
