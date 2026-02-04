@@ -1,0 +1,6 @@
+arb-dir: lib/l10n/ui
+template-arb-file: ui_si.arb
+output-class: UiLocalizations
+output-localization-file: ui_localizations.dart
+synthetic-package: false
+output-dir: lib/l10n/generated/ui
