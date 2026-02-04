@@ -5,6 +5,7 @@ import '../../domain/entities/nakath_event.dart';
 import '../../domain/usecases/get_all_nakath_events.dart';
 import '../widgets/nakath_hero_card.dart';
 import '../widgets/nakath_list_tile.dart';
+import '../widgets/nakath_detail_popup.dart'; // Added
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,6 +27,13 @@ class _HomeScreenState extends State<HomeScreen> {
     final useCase = GetAllNakathEvents(repository);
 
     _eventsFuture = useCase();
+  }
+
+  void _showNakathDetail(NakathEvent event) {
+    showDialog(
+      context: context,
+      builder: (context) => NakathDetailPopup(event: event),
+    );
   }
 
   @override
@@ -75,7 +83,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
           return CustomScrollView(
             slivers: [
-              SliverToBoxAdapter(child: NakathHeroCard(event: nextEvent)),
+              SliverToBoxAdapter(
+                child: NakathHeroCard(
+                  event: nextEvent,
+                  onTap: () => _showNakathDetail(nextEvent),
+                ),
+              ),
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -105,9 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   final event = otherEvents[index];
                   return NakathListTile(
                     event: event,
-                    onTap: () {
-                      // TODO: Show detail popup
-                    },
+                    onTap: () => _showNakathDetail(event),
                   );
                 }, childCount: otherEvents.length),
               ),
