@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../domain/entities/nakath_event.dart';
 import '../mappers/nakath_localizer.dart';
+import 'countdown_timer.dart'; // Added
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
 
 class NakathDetailPopup extends StatelessWidget {
@@ -26,6 +27,11 @@ class NakathDetailPopup extends StatelessWidget {
       formattedTime = event.date ?? '';
     }
 
+    final targetTime =
+        event.start ??
+        (event.date != null ? DateTime.tryParse(event.date!) : null);
+    final isFuture = targetTime != null && targetTime.isAfter(DateTime.now());
+
     return Dialog(
       backgroundColor: Colors.transparent,
       insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
@@ -35,17 +41,17 @@ class NakathDetailPopup extends StatelessWidget {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: const Color(0xFFFFFDE7), // Light Cream
-              borderRadius: BorderRadius.circular(24),
+              color: const Color(0xFFFFFDE7), // Light Cream Background
+              borderRadius: BorderRadius.circular(28),
               border: Border.all(
-                color: const Color(0xFF3E2723), // Deep Brown
-                width: 3,
+                color: const Color(0xFF3E2723), // Deep Brown Border
+                width: 2.5,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
+                  color: Colors.black.withOpacity(0.4),
+                  blurRadius: 25,
+                  offset: const Offset(0, 12),
                 ),
               ],
             ),
@@ -53,17 +59,24 @@ class NakathDetailPopup extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Decorative Header
+                  // Decorative Header with Gradient
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(
-                      vertical: 20,
-                      horizontal: 16,
+                      vertical: 24,
+                      horizontal: 20,
                     ),
                     decoration: const BoxDecoration(
-                      color: Color(0xFFFFECB3), // Light Amber
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xFFFFECB3), // Light Amber
+                          Color(0xFFFFD54F), // Amber
+                        ],
+                      ),
                       borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20),
+                        top: Radius.circular(25),
                       ),
                       border: Border(
                         bottom: BorderSide(color: Color(0xFF3E2723), width: 2),
@@ -72,18 +85,19 @@ class NakathDetailPopup extends StatelessWidget {
                     child: Column(
                       children: [
                         const Icon(
-                          Icons.sunny,
-                          size: 40,
-                          color: Color(0xFFFF6F00),
+                          Icons.wb_sunny_rounded, // Better sun icon
+                          size: 48,
+                          color: Color(0xFFE65100), // Deep Orange
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 16),
                         Text(
                           title,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
-                            fontSize: 22,
+                            fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF3E2723),
+                            letterSpacing: 0.5,
                           ),
                         ),
                       ],
@@ -92,74 +106,120 @@ class NakathDetailPopup extends StatelessWidget {
 
                   // Content Body
                   Padding(
-                    padding: const EdgeInsets.all(24.0),
+                    padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // Time Row
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.access_time_filled,
-                              color: Color(0xFFFFB300),
-                              size: 20,
+                        // Countdown Section (If Future)
+                        if (isFuture && targetTime != null) ...[
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 16,
+                              horizontal: 8,
                             ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                formattedTime,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF5D4037),
-                                ),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(
+                                color: const Color(0xFFD7CCC8),
+                                width: 1,
                               ),
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        const Divider(color: Color(0xFFD7CCC8)),
-                        const SizedBox(height: 20),
+                            child: Column(
+                              children: [
+                                Text(
+                                  uiL10n.nextUpcoming.toUpperCase(),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w800,
+                                    color: Color(0xFF8D6E63),
+                                    letterSpacing: 1.2,
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+                                CountdownTimer(targetTime: targetTime),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                        ],
 
-                        // Description
+                        // Time Detail Row
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: 16,
+                          ),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFFE0B2).withOpacity(0.3),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.calendar_today_rounded,
+                                color: Color(0xFFBF360C),
+                                size: 18,
+                              ),
+                              const SizedBox(width: 10),
+                              Flexible(
+                                child: Text(
+                                  formattedTime,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0xFF4E342E),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+
+                        const Divider(color: Color(0xFFD7CCC8), thickness: 1.2),
+                        const SizedBox(height: 24),
+
+                        // Description Text
                         Text(
                           description,
                           textAlign: TextAlign.justify,
                           style: const TextStyle(
                             fontSize: 16,
-                            height: 1.6,
+                            height: 1.7,
                             color: Color(0xFF3E2723),
+                            letterSpacing: 0.2,
                           ),
                         ),
                       ],
                     ),
                   ),
 
-                  // Close Button
+                  // Action Buttons (Just Close for now)
                   Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 24,
-                      left: 16,
-                      right: 16,
-                    ),
+                    padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
                     child: SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () => Navigator.of(context).pop(),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF3E2723),
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          foregroundColor: const Color(0xFFFFF8E1),
+                          padding: const EdgeInsets.symmetric(vertical: 18),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(16),
                           ),
-                          elevation: 4,
+                          elevation: 6,
+                          shadowColor: const Color(0xFF3E2723).withOpacity(0.5),
                         ),
                         child: Text(
-                          uiL10n.close,
+                          uiL10n.close.toUpperCase(),
                           style: const TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w800,
+                            letterSpacing: 1.5,
                           ),
                         ),
                       ),
@@ -170,17 +230,28 @@ class NakathDetailPopup extends StatelessWidget {
             ),
           ),
 
-          // Extra Kandyan Ornament top middle (Liyawela style placeholder)
+          // Decorative Emblem at the top
           Positioned(
-            top: -10,
+            top: -12,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: const Color(0xFFFFB300),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: const Color(0xFF3E2723), width: 2),
+                shape: BoxShape.circle,
+                border: Border.all(color: const Color(0xFF3E2723), width: 2.5),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 8,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
-              child: const Icon(Icons.star, color: Colors.white, size: 16),
+              child: const Icon(
+                Icons.star_rounded,
+                color: Colors.white,
+                size: 24,
+              ),
             ),
           ),
         ],
