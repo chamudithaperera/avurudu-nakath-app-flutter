@@ -135,7 +135,7 @@ class _SplashScreenState extends State<SplashScreen>
               child: FadeTransition(
                 opacity: _sinhalaOpacity,
                 child: const Text(
-                  'අපේ අවුරුදු නුකුත්', // Ape Avurudu Nakath
+                  'අපේ අවුරුදු නැකැත්', // Ape Avurudu Nakath
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,

@@ -1,0 +1,70 @@
+{
+  "year": 2025,
+  "events": [
+    {
+      "id": "new_moon_2025",
+      "type": "dateOnly",
+      "titleKey": "nakath_newMoon_title",
+      "descriptionKey": "nakath_newMoon_desc",
+      "date": "2025-03-30",
+      "notificationPolicy": "none"
+    },
+    {
+      "id": "bathing_last_year",
+      "type": "dateOnly",
+      "titleKey": "nakath_bathingLastYear_title",
+      "descriptionKey": "nakath_bathingLastYear_desc",
+      "date": "2025-04-12",
+      "notificationPolicy": "none"
+    },
+    {
+      "id": "punya_kalaya_2025",
+      "type": "range",
+      "titleKey": "nakath_punyaKalaya_title",
+      "descriptionKey": "nakath_punyaKalaya_desc",
+      "start": "2025-04-13T20:57:00+05:30",
+      "end": "2025-04-14T09:45:00+05:30",
+      "notificationPolicy": "atStartAndMinus5"
+    },
+    {
+      "id": "new_year_dawn_2025",
+      "type": "dateTime",
+      "titleKey": "nakath_newYearDawn_title",
+      "descriptionKey": "nakath_newYearDawn_desc",
+      "start": "2025-04-14T03:21:00+05:30",
+      "notificationPolicy": "atStartAndMinus5"
+    },
+    {
+      "id": "cooking_food_2025",
+      "type": "dateTime",
+      "titleKey": "nakath_cookingFood_title",
+      "descriptionKey": "nakath_cookingFood_desc",
+      "start": "2025-04-14T03:54:00+05:30",
+      "notificationPolicy": "atStartAndMinus5"
+    },
+    {
+      "id": "eating_working_transactions_2025",
+      "type": "dateTime",
+      "titleKey": "nakath_eatingWorking_title",
+      "descriptionKey": "nakath_eatingWorking_desc",
+      "start": "2025-04-14T04:29:00+05:30",
+      "notificationPolicy": "atStartAndMinus5"
+    },
+    {
+      "id": "anointing_oil_2025",
+      "type": "dateTime",
+      "titleKey": "nakath_anointingOil_title",
+      "descriptionKey": "nakath_anointingOil_desc",
+      "start": "2025-04-16T09:41:00+05:30",
+      "notificationPolicy": "atStartAndMinus5"
+    },
+    {
+      "id": "leaving_for_work_2025",
+      "type": "dateTime",
+      "titleKey": "nakath_leavingForWork_title",
+      "descriptionKey": "nakath_leavingForWork_desc",
+      "start": "2025-04-17T06:28:00+05:30",
+      "notificationPolicy": "atStartAndMinus5"
+    }
+  ]
+}
