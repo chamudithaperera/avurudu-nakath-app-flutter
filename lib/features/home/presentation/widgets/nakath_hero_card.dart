@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../domain/entities/nakath_event.dart';
 import 'countdown_timer.dart';
+import '../mappers/nakath_localizer.dart';
+import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
 
 class NakathHeroCard extends StatelessWidget {
   final NakathEvent event;
@@ -9,8 +12,13 @@ class NakathHeroCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Use proper localization
-    final title = event.titleKey; // Placeholder
+    final title = event.getLocalizedTitle(context);
+    final uiL10n = UiLocalizations.of(context)!;
+
+    String formattedTime = '';
+    if (event.start != null) {
+      formattedTime = DateFormat('yyyy-MM-dd hh:mm a').format(event.start!);
+    }
 
     return Container(
       margin: const EdgeInsets.all(16.0),
@@ -44,9 +52,9 @@ class NakathHeroCard extends StatelessWidget {
                 const Icon(Icons.star, color: Color(0xFFFF6F00)), // Star icon
                 const SizedBox(width: 8),
                 Text(
-                  'Next Auspicious Time',
-                  style: TextStyle(
-                    color: const Color(0xFF3E2723),
+                  uiL10n.nextUpcoming,
+                  style: const TextStyle(
+                    color: Color(0xFF3E2723),
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
                   ),
@@ -89,7 +97,7 @@ class NakathHeroCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    event.start.toString(), // TODO: Format date
+                    formattedTime,
                     style: TextStyle(
                       fontSize: 14,
                       color: Theme.of(context).colorScheme.onSurfaceVariant,

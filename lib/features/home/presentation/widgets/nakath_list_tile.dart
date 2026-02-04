@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../domain/entities/nakath_event.dart';
+import '../mappers/nakath_localizer.dart';
 
 class NakathListTile extends StatelessWidget {
   final NakathEvent event;
@@ -9,6 +11,13 @@ class NakathListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String formattedTime = '';
+    if (event.start != null) {
+      formattedTime = DateFormat('yyyy-MM-dd hh:mm a').format(event.start!);
+    } else {
+      formattedTime = event.date ?? '';
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Material(
@@ -31,8 +40,8 @@ class NakathListTile extends StatelessWidget {
                 Container(
                   width: 40,
                   height: 40,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFFFF8E1), // Pale Amber
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFFFF8E1), // Pale Amber
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
@@ -47,7 +56,7 @@ class NakathListTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        event.titleKey, // Placeholder
+                        event.getLocalizedTitle(context),
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -56,9 +65,7 @@ class NakathListTile extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        event.start != null
-                            ? event.start.toString()
-                            : (event.date ?? ''),
+                        formattedTime,
                         style: TextStyle(
                           fontSize: 14,
                           color: Theme.of(context).colorScheme.onSurfaceVariant,

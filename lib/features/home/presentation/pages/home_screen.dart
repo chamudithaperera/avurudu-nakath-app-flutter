@@ -5,6 +5,7 @@ import '../../domain/entities/nakath_event.dart';
 import '../../domain/usecases/get_all_nakath_events.dart';
 import '../widgets/nakath_hero_card.dart';
 import '../widgets/nakath_list_tile.dart';
+import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,9 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final uiL10n = UiLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('අපේ අවුරුදු නැකැත්'), // Localized title ideally
+        title: Text(uiL10n.appTitle),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -85,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          'All Auspicious Times',
+                          uiL10n.allNakath,
                           style: TextStyle(
                             color: Colors.brown.shade700,
                             fontWeight: FontWeight.bold,
