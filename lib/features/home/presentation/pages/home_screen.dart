@@ -124,54 +124,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 24,
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              color: theme.colorScheme.primary.withValues(
-                                alpha: 0.3,
-                              ),
-                              thickness: 1.5,
-                            ),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: Center(
+                        child: Text(
+                          uiL10n.allNakath.toUpperCase(),
+                          style: TextStyle(
+                            color: theme.colorScheme.primary,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 14,
+                            letterSpacing: 2,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                            ),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/images/liyawela_border.png',
-                                  height: 30,
-                                  color: theme.colorScheme.primary.withValues(
-                                    alpha: 0.5,
-                                  ),
-                                ),
-                                Text(
-                                  uiL10n.allNakath.toUpperCase(),
-                                  style: TextStyle(
-                                    color: theme.colorScheme.primary,
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 14,
-                                    letterSpacing: 2,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              color: theme.colorScheme.primary.withValues(
-                                alpha: 0.3,
-                              ),
-                              thickness: 1.5,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -192,14 +155,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: Column(
                         children: [
-                          Image.asset(
-                            'assets/images/liyawela_border.png',
-                            height: 40,
-                            color: theme.colorScheme.primary.withValues(
-                              alpha: 0.2,
-                            ),
+                          const SizedBox(height: 24),
+                          Divider(
+                            color: const Color(
+                              0xFF3E2723,
+                            ).withValues(alpha: 0.1),
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 24),
                           const Text(
                             'A Product of ChamXdev by Chamuditha Perera',
                             textAlign: TextAlign.center,

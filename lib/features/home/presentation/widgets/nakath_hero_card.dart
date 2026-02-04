@@ -67,11 +67,11 @@ class NakathHeroCard extends StatelessWidget {
                   right: -20,
                   bottom: -20,
                   child: Opacity(
-                    opacity: 0.1,
+                    opacity: 0.05,
                     child: Image.asset(
                       'assets/images/lotus_mandala.png',
                       width: 150,
-                      color: Colors.white,
+                      // Removed color tint to avoid 'colored square' issue
                     ),
                   ),
                 ),
@@ -138,16 +138,7 @@ class NakathHeroCard extends StatelessWidget {
                       ],
                       const SizedBox(height: 24),
 
-                      // Decorative Liyawela Border at the bottom
-                      Center(
-                        child: Image.asset(
-                          'assets/images/liyawela_border.png',
-                          width: double.infinity,
-                          height: 30,
-                          color: const Color(0xFFFFA000).withValues(alpha: 0.5),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
+                      const SizedBox(height: 12),
                     ],
                   ),
                 ),

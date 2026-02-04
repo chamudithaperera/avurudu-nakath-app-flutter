@@ -117,15 +117,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                   ),
 
                   const Spacer(),
-                  // Decorative Liyawela
-                  Opacity(
-                    opacity: 0.3,
-                    child: Image.asset(
-                      'assets/images/liyawela_border.png',
-                      height: 40,
-                      color: theme.colorScheme.primary,
-                    ),
-                  ),
+                  const SizedBox(height: 20),
                   const SizedBox(height: 20),
                 ],
               ),

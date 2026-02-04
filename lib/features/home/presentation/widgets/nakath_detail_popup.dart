@@ -190,14 +190,11 @@ class NakathDetailPopup extends StatelessWidget {
                         ),
                         const SizedBox(height: 24),
 
-                        // Traditional Liyawela Divider
-                        Image.asset(
-                          'assets/images/liyawela_border.png',
-                          height: 40,
-                          color: const Color(0xFF3E2723).withValues(alpha: 0.6),
-                          fit: BoxFit.contain,
+                        const SizedBox(height: 8),
+                        Divider(
+                          color: const Color(0xFF3E2723).withValues(alpha: 0.1),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: 24),
 
                         // Description Text
                         Text(
