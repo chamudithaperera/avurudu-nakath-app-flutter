@@ -175,15 +175,6 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                 ),
                 const SizedBox(height: 40),
-                // Subtle Liyawela decoration at bottom
-                Opacity(
-                  opacity: 0.3,
-                  child: Image.asset(
-                    'assets/images/liyawela_border.png',
-                    height: 40,
-                    color: const Color(0xFF3E2723),
-                  ),
-                ),
               ],
             ),
           ),

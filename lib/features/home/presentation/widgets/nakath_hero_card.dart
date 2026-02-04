@@ -62,20 +62,6 @@ class NakathHeroCard extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                // Decorative Motif Background
-                Positioned(
-                  right: -20,
-                  bottom: -20,
-                  child: Opacity(
-                    opacity: 0.05,
-                    child: Image.asset(
-                      'assets/images/lotus_mandala.png',
-                      width: 150,
-                      // Removed color tint to avoid 'colored square' issue
-                    ),
-                  ),
-                ),
-
                 Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: Column(
