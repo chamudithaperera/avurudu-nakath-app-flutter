@@ -20,6 +20,11 @@ class NakathHeroCard extends StatelessWidget {
       formattedTime = DateFormat('yyyy-MM-dd hh:mm a').format(event.start!);
     }
 
+    final targetTime =
+        event.start ??
+        (event.date != null ? DateTime.tryParse(event.date!) : null);
+    final isFuture = targetTime != null && targetTime.isAfter(DateTime.now());
+
     return Container(
       margin: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
@@ -76,28 +81,14 @@ class NakathHeroCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                if (event.start != null) ...[
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFE0B2), // Light Orange
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: CountdownTimer(
-                      targetTime: event.start!,
-                      textStyle: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFFE65100),
-                      ),
-                    ),
+                if (isFuture && targetTime != null) ...[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: CountdownTimer(targetTime: targetTime),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    formattedTime,
+                    event.start != null ? formattedTime : (event.date ?? ''),
                     style: TextStyle(
                       fontSize: 14,
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -105,10 +96,11 @@ class NakathHeroCard extends StatelessWidget {
                   ),
                 ] else ...[
                   Text(
-                    event.date ?? '',
+                    event.start != null ? formattedTime : (event.date ?? ''),
                     style: TextStyle(
-                      fontSize: 16,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ],

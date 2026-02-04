@@ -8,5 +8,9 @@
   "pleaseSelectLanguage": "කරුණාකර ඔබ කැමති භාෂාව තෝරන්න",
   "english": "ඉංග්‍රීසි",
   "sinhala": "සිංහල",
-  "tamil": "දෙමළ"
+  "tamil": "දෙමළ",
+  "days": "දින",
+  "hours": "පැය",
+  "minutes": "මිනිත්තු",
+  "seconds": "තත්පර"
 }

@@ -148,6 +148,30 @@ abstract class UiLocalizations {
   /// In si, this message translates to:
   /// **'දෙමළ'**
   String get tamil;
+
+  /// No description provided for @days.
+  ///
+  /// In si, this message translates to:
+  /// **'දින'**
+  String get days;
+
+  /// No description provided for @hours.
+  ///
+  /// In si, this message translates to:
+  /// **'පැය'**
+  String get hours;
+
+  /// No description provided for @minutes.
+  ///
+  /// In si, this message translates to:
+  /// **'මිනිත්තු'**
+  String get minutes;
+
+  /// No description provided for @seconds.
+  ///
+  /// In si, this message translates to:
+  /// **'තත්පර'**
+  String get seconds;
 }
 
 class _UiLocalizationsDelegate extends LocalizationsDelegate<UiLocalizations> {

@@ -34,4 +34,16 @@ class UiLocalizationsSi extends UiLocalizations {
 
   @override
   String get tamil => 'දෙමළ';
+
+  @override
+  String get days => 'දින';
+
+  @override
+  String get hours => 'පැය';
+
+  @override
+  String get minutes => 'මිනිත්තු';
+
+  @override
+  String get seconds => 'තත්පර';
 }
