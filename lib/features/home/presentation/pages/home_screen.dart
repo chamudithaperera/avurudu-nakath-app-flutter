@@ -41,91 +41,174 @@ class _HomeScreenState extends State<HomeScreen> {
     final uiL10n = UiLocalizations.of(context)!;
 
     return Scaffold(
+      backgroundColor: const Color(0xFFFFFDE7), // Light Cream background
       appBar: AppBar(
-        title: Text(uiL10n.appTitle),
+        title: Text(
+          uiL10n.appTitle,
+          style: const TextStyle(
+            fontWeight: FontWeight.w900,
+            letterSpacing: 1.2,
+            color: Color(0xFF3E2723),
+          ),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.info_outline),
+            icon: const Icon(Icons.info_outline, color: Color(0xFF3E2723)),
             onPressed: () {
               // TODO: Show About/Info
             },
           ),
         ],
       ),
-      body: FutureBuilder<List<NakathEvent>>(
-        future: _eventsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error loading data: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No nakath events found.'));
-          }
-
-          final events = snapshot.data!;
-          // Simple logic: Find first event in future, or first event if all past
-          // This logic can be moved to Domain later
-          final now = DateTime.now();
-          final upcomingEvents = events.where((e) {
-            final t =
-                e.start ?? (e.date != null ? DateTime.tryParse(e.date!) : null);
-            return t != null && t.isAfter(now);
-          }).toList();
-
-          final nextEvent = upcomingEvents.isNotEmpty
-              ? upcomingEvents.first
-              : events.first;
-          final otherEvents = events.where((e) => e != nextEvent).toList();
-
-          return CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: NakathHeroCard(
-                  event: nextEvent,
-                  onTap: () => _showNakathDetail(nextEvent),
-                ),
+      body: Stack(
+        children: [
+          // Background Decoration (Subtle sunburst/mandala feel)
+          Positioned(
+            top: -100,
+            right: -100,
+            child: Opacity(
+              opacity: 0.05,
+              child: Image.asset(
+                'assets/images/sun.png',
+                width: 400,
+                height: 400,
               ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 8,
+            ),
+          ),
+          Positioned(
+            bottom: -50,
+            left: -50,
+            child: Opacity(
+              opacity: 0.03,
+              child: Image.asset(
+                'assets/images/sun.png',
+                width: 300,
+                height: 300,
+              ),
+            ),
+          ),
+
+          FutureBuilder<List<NakathEvent>>(
+            future: _eventsFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text('Error loading data: ${snapshot.error}'),
+                );
+              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                return const Center(child: Text('No nakath events found.'));
+              }
+
+              final events = snapshot.data!;
+              final now = DateTime.now();
+              final upcomingEvents = events.where((e) {
+                final t =
+                    e.start ??
+                    (e.date != null ? DateTime.tryParse(e.date!) : null);
+                return t != null && t.isAfter(now);
+              }).toList();
+
+              final nextEvent = upcomingEvents.isNotEmpty
+                  ? upcomingEvents.first
+                  : events.first;
+              final otherEvents = events.where((e) => e != nextEvent).toList();
+
+              return CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: NakathHeroCard(
+                      event: nextEvent,
+                      onTap: () => _showNakathDetail(nextEvent),
+                    ),
                   ),
-                  child: Row(
-                    children: [
-                      Expanded(child: Divider(color: Colors.brown.shade200)),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Text(
-                          uiL10n.allNakath,
-                          style: TextStyle(
-                            color: Colors.brown.shade700,
-                            fontWeight: FontWeight.bold,
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Divider(
+                              color: Colors.brown.shade200,
+                              thickness: 1.5,
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+                            child: Text(
+                              uiL10n.allNakath.toUpperCase(),
+                              style: TextStyle(
+                                color: Colors.brown.shade800,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 13,
+                                letterSpacing: 1.5,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Divider(
+                              color: Colors.brown.shade200,
+                              thickness: 1.5,
+                            ),
+                          ),
+                        ],
                       ),
-                      Expanded(child: Divider(color: Colors.brown.shade200)),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  final event = otherEvents[index];
-                  return NakathListTile(
-                    event: event,
-                    onTap: () => _showNakathDetail(event),
-                  );
-                }, childCount: otherEvents.length),
-              ),
-              const SliverPadding(padding: EdgeInsets.only(bottom: 20)),
-            ],
-          );
-        },
+                  SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      final event = otherEvents[index];
+                      return NakathListTile(
+                        event: event,
+                        onTap: () => _showNakathDetail(event),
+                      );
+                    }, childCount: otherEvents.length),
+                  ),
+
+                  // Copyright Footer
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 40.0,
+                        horizontal: 24,
+                      ),
+                      child: Column(
+                        children: [
+                          const Divider(color: Color(0xFFD7CCC8), thickness: 1),
+                          const SizedBox(height: 20),
+                          const Text(
+                            'A Product of ChamXdev by Chamuditha Perera',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF8D6E63),
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            '© 2026 Nakath App. All rights reserved.',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: const Color(0xFF8D6E63).withOpacity(0.6),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
       ),
     );
   }
