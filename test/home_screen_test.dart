@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:avurudu_nakath_app/features/home/presentation/pages/home_screen.dart';
-import 'package:avurudu_nakath_app/features/home/presentation/widgets/nakath_hero_card.dart';
 
 void main() {
   // Integration test would be better here, but for unit test we need to mock data source override.

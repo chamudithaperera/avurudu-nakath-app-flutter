@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Avurudu Nakath App',
       theme: AppTheme.lightTheme,
       locale: _locale,
-      localizationsDelegates: const [
+      localizationsDelegates: [
         UiLocalizations.delegate,
         NakathLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
