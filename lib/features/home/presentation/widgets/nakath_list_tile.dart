@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../../domain/entities/nakath_event.dart';
 import '../mappers/nakath_localizer.dart';
 
@@ -11,75 +10,65 @@ class NakathListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String formattedTime = '';
-    if (event.start != null) {
-      formattedTime = DateFormat('yyyy-MM-dd hh:mm a').format(event.start!);
-    } else {
-      formattedTime = event.date ?? '';
-    }
+    final title = event.getLocalizedTitle(context);
+    final theme = Theme.of(context);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: onTap,
-          borderRadius: BorderRadius.circular(12),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: const Color(0xFFD7CCC8), // Light Brown
-              ),
-            ),
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                // Icon / Type indicator
-                Container(
-                  width: 40,
-                  height: 40,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFFFF8E1), // Pale Amber
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.access_time,
-                    color: Color(0xFFFFB300),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                // Content
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        event.getLocalizedTitle(context),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF3E2723),
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        formattedTime,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Chevron
-                const Icon(Icons.chevron_right, color: Color(0xFFA1887F)),
-              ],
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.7),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: theme.colorScheme.primary.withOpacity(0.1),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        leading: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primary.withOpacity(0.08),
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(
+            Icons.access_time_filled_rounded,
+            color: Color(0xFFD84315),
+            size: 24,
+          ),
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.w800,
+            fontSize: 16,
+            color: Color(0xFF3E2723),
+          ),
+        ),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: Text(
+            event.date ?? '',
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: const Color(0xFF3E2723).withOpacity(0.6),
             ),
           ),
         ),
+        trailing: const Icon(
+          Icons.arrow_forward_ios_rounded,
+          size: 16,
+          color: Color(0xFF3E2723),
+        ),
+        onTap: onTap,
       ),
     );
   }

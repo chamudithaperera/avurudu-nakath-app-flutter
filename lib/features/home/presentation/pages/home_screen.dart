@@ -39,55 +39,52 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final uiL10n = UiLocalizations.of(context)!;
+    final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFDE7), // Light Cream background
       appBar: AppBar(
-        title: Text(
-          uiL10n.appTitle,
-          style: const TextStyle(
-            fontWeight: FontWeight.w900,
-            letterSpacing: 1.2,
-            color: Color(0xFF3E2723),
-          ),
-        ),
+        title: Text(uiL10n.appTitle, style: theme.appBarTheme.titleTextStyle),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.info_outline, color: Color(0xFF3E2723)),
+            icon: const Icon(Icons.language_rounded),
             onPressed: () {
-              // TODO: Show About/Info
+              // TODO: Navigate to language selection or show quick picker
             },
           ),
         ],
       ),
       body: Stack(
         children: [
-          // Background Decoration (Subtle sunburst/mandala feel)
-          Positioned(
-            top: -100,
-            right: -100,
+          // Parchment Texture Base
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/parchment_texture.png',
+              fit: BoxFit.cover,
+              opacity: const AlwaysStoppedAnimation(0.6),
+            ),
+          ),
+
+          // Central Lotus Mandala (Large, subtle)
+          Center(
             child: Opacity(
-              opacity: 0.05,
+              opacity: 0.08,
               child: Image.asset(
-                'assets/images/sun.png',
-                width: 400,
-                height: 400,
+                'assets/images/lotus_mandala.png',
+                width: MediaQuery.of(context).size.width * 0.9,
               ),
             ),
           ),
+
+          // Top Mandala Decoration
           Positioned(
-            bottom: -50,
-            left: -50,
+            top: -150,
+            right: -100,
             child: Opacity(
-              opacity: 0.03,
-              child: Image.asset(
-                'assets/images/sun.png',
-                width: 300,
-                height: 300,
-              ),
+              opacity: 0.1,
+              child: Image.asset('assets/images/lotus_mandala.png', width: 400),
             ),
           ),
 
@@ -97,9 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return Center(
-                  child: Text('Error loading data: ${snapshot.error}'),
-                );
+                return Center(child: Text('Error: ${snapshot.error}'));
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                 return const Center(child: Text('No nakath events found.'));
               }
@@ -119,6 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
               final otherEvents = events.where((e) => e != nextEvent).toList();
 
               return CustomScrollView(
+                physics: const BouncingScrollPhysics(),
                 slivers: [
                   SliverToBoxAdapter(
                     child: NakathHeroCard(
@@ -128,12 +124,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 24, 16, 16),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 24,
+                      ),
                       child: Row(
                         children: [
                           Expanded(
                             child: Divider(
-                              color: Colors.brown.shade200,
+                              color: theme.colorScheme.primary.withOpacity(0.3),
                               thickness: 1.5,
                             ),
                           ),
@@ -141,19 +140,30 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: const EdgeInsets.symmetric(
                               horizontal: 16.0,
                             ),
-                            child: Text(
-                              uiL10n.allNakath.toUpperCase(),
-                              style: TextStyle(
-                                color: Colors.brown.shade800,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 13,
-                                letterSpacing: 1.5,
-                              ),
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/liyawela_border.png',
+                                  height: 30,
+                                  color: theme.colorScheme.primary.withOpacity(
+                                    0.5,
+                                  ),
+                                ),
+                                Text(
+                                  uiL10n.allNakath.toUpperCase(),
+                                  style: TextStyle(
+                                    color: theme.colorScheme.primary,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 14,
+                                    letterSpacing: 2,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           Expanded(
                             child: Divider(
-                              color: Colors.brown.shade200,
+                              color: theme.colorScheme.primary.withOpacity(0.3),
                               thickness: 1.5,
                             ),
                           ),
@@ -173,31 +183,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   // Copyright Footer
                   SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 40.0,
-                        horizontal: 24,
-                      ),
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 40, bottom: 60),
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
                       child: Column(
                         children: [
-                          const Divider(color: Color(0xFFD7CCC8), thickness: 1),
-                          const SizedBox(height: 20),
+                          Image.asset(
+                            'assets/images/liyawela_border.png',
+                            height: 40,
+                            color: theme.colorScheme.primary.withOpacity(0.2),
+                          ),
+                          const SizedBox(height: 16),
                           const Text(
                             'A Product of ChamXdev by Chamuditha Perera',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
                               color: Color(0xFF8D6E63),
-                              letterSpacing: 0.5,
                             ),
                           ),
                           const SizedBox(height: 8),
                           Text(
                             '© 2026 Nakath App. All rights reserved.',
                             style: TextStyle(
-                              fontSize: 10,
-                              color: const Color(0xFF8D6E63).withOpacity(0.6),
+                              fontSize: 11,
+                              color: const Color(0xFF8D6E63).withOpacity(0.5),
                             ),
                           ),
                         ],

@@ -106,62 +106,88 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFDE7), // Light yellow/cream
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Sun Image
-            AnimatedBuilder(
-              animation: _controller,
-              builder: (context, child) {
-                return Opacity(
-                  opacity: _sunOpacity.value,
-                  child: Transform.scale(
-                    scale: _sunScale.value,
-                    child: Image.asset(
-                      'assets/images/sun.png',
-                      height: 180,
-                      width: 180,
+      body: Stack(
+        children: [
+          // Parchment Texture Base
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/parchment_texture.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Lotus Mandala Hero
+                AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) {
+                    return Opacity(
+                      opacity: _sunOpacity.value,
+                      child: Transform.scale(
+                        scale: _sunScale.value,
+                        child: Transform.rotate(
+                          angle: _controller.value * 0.2, // Subtle rotation
+                          child: Image.asset(
+                            'assets/images/lotus_mandala.png',
+                            height: 220,
+                            width: 220,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(height: 60),
+                // Sinhala Title
+                SlideTransition(
+                  position: _sinhalaOffset,
+                  child: FadeTransition(
+                    opacity: _sinhalaOpacity,
+                    child: const Text(
+                      'අපේ අවුරුදු නැකැත්', // Ape Avurudu Nakath
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w900,
+                        color: Color(0xFF3E2723), // Deep brown
+                        letterSpacing: 1,
+                      ),
                     ),
                   ),
-                );
-              },
-            ),
-            const SizedBox(height: 40),
-            // Sinhala Title
-            SlideTransition(
-              position: _sinhalaOffset,
-              child: FadeTransition(
-                opacity: _sinhalaOpacity,
-                child: const Text(
-                  'අපේ අවුරුදු නැකැත්', // Ape Avurudu Nakath
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF3E2723), // Deep brown
+                ),
+                const SizedBox(height: 16),
+                // Tamil Title
+                SlideTransition(
+                  position: _tamilOffset,
+                  child: FadeTransition(
+                    opacity: _tamilOpacity,
+                    child: const Text(
+                      'எங்கள் புத்தாண்டு நெகத்', // Engal Puththandu Nakath
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF5D4037), // Lighter brown
+                        letterSpacing: 0.5,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 12),
-            // Tamil Title
-            SlideTransition(
-              position: _tamilOffset,
-              child: FadeTransition(
-                opacity: _tamilOpacity,
-                child: const Text(
-                  'எங்கள் புத்தாண்டு நெகத்', // Engal Puththandu Nakath
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF5D4037), // Lighter brown
+                const SizedBox(height: 40),
+                // Subtle Liyawela decoration at bottom
+                Opacity(
+                  opacity: 0.3,
+                  child: Image.asset(
+                    'assets/images/liyawela_border.png',
+                    height: 40,
+                    color: const Color(0xFF3E2723),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

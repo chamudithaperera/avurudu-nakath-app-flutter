@@ -43,53 +43,95 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     final uiL10n = UiLocalizations.of(context)!;
+    final theme = Theme.of(context);
 
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              // Logo Placeholder (Sun)
-              Image.asset('assets/images/sun.png', height: 120, width: 120),
-              const SizedBox(height: 40),
-              Text(
-                uiL10n.selectLanguage,
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                uiL10n.pleaseSelectLanguage,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-              ),
-              const SizedBox(height: 60),
-
-              // Sinhala Button
-              LanguageButton(
-                label: 'සිංහල',
-                subLabel: 'Sinhala',
-                onTap: () => _selectLanguage('si'),
-              ),
-
-              // Tamil Button
-              LanguageButton(
-                label: 'தமிழ்',
-                subLabel: 'Tamil',
-                onTap: () => _selectLanguage('ta'),
-              ),
-
-              const Spacer(),
-              const SizedBox(height: 20),
-            ],
+      body: Stack(
+        children: [
+          // Parchment Texture Base
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/parchment_texture.png',
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
+
+          // Background Mandala
+          Positioned(
+            bottom: -50,
+            right: -50,
+            child: Opacity(
+              opacity: 0.1,
+              child: Image.asset('assets/images/lotus_mandala.png', width: 300),
+            ),
+          ),
+
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Spacer(),
+                  // Hero Mandala
+                  Image.asset(
+                    'assets/images/lotus_mandala.png',
+                    height: 140,
+                    width: 140,
+                  ),
+                  const SizedBox(height: 48),
+                  Text(
+                    uiL10n.selectLanguage.toUpperCase(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w900,
+                      color: theme.colorScheme.primary,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    uiL10n.pleaseSelectLanguage,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: theme.colorScheme.onSurface.withOpacity(0.7),
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 60),
+
+                  // Sinhala Button
+                  LanguageButton(
+                    label: 'සිංහල',
+                    subLabel: 'Sinhala',
+                    onTap: () => _selectLanguage('si'),
+                  ),
+                  const SizedBox(height: 16),
+                  // Tamil Button
+                  LanguageButton(
+                    label: 'தமிழ்',
+                    subLabel: 'Tamil',
+                    onTap: () => _selectLanguage('ta'),
+                  ),
+
+                  const Spacer(),
+                  // Decorative Liyawela
+                  Opacity(
+                    opacity: 0.3,
+                    child: Image.asset(
+                      'assets/images/liyawela_border.png',
+                      height: 40,
+                      color: theme.colorScheme.primary,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

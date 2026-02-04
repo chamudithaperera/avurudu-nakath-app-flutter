@@ -1,135 +1,153 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../../domain/entities/nakath_event.dart';
-import 'countdown_timer.dart';
 import '../mappers/nakath_localizer.dart';
+import 'countdown_timer.dart';
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
 
 class NakathHeroCard extends StatelessWidget {
   final NakathEvent event;
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
 
-  const NakathHeroCard({super.key, required this.event, this.onTap});
+  const NakathHeroCard({super.key, required this.event, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    final title = event.getLocalizedTitle(context);
     final uiL10n = UiLocalizations.of(context)!;
-
-    String formattedTime = '';
-    if (event.start != null) {
-      formattedTime = DateFormat('yyyy-MM-dd hh:mm a').format(event.start!);
-    }
+    final title = event.getLocalizedTitle(context);
 
     final targetTime =
         event.start ??
         (event.date != null ? DateTime.tryParse(event.date!) : null);
     final isFuture = targetTime != null && targetTime.isAfter(DateTime.now());
 
-    return Container(
-      margin: const EdgeInsets.all(16.0),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
           onTap: onTap,
-          borderRadius: BorderRadius.circular(16),
-          child: Container(
+          borderRadius: BorderRadius.circular(24),
+          child: Ink(
+            width: double.infinity,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: const Color(0xFF3E2723), // Deep Brown
-                width: 2,
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF3E2723), // Deep Brown
+                  Color(0xFF5D4037), // Lighter Brown
+                ],
               ),
+              borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
+                  color: Colors.black.withOpacity(0.3),
+                  blurRadius: 15,
+                  offset: const Offset(0, 8),
                 ),
               ],
+              border: Border.all(
+                color: const Color(0xFFFFA000), // Gold
+                width: 1.5,
+              ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: Stack(
               children: [
-                // Header
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFFFECB3), // Light Amber
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(14),
+                // Decorative Motif Background
+                Positioned(
+                  right: -20,
+                  bottom: -20,
+                  child: Opacity(
+                    opacity: 0.1,
+                    child: Image.asset(
+                      'assets/images/lotus_mandala.png',
+                      width: 150,
+                      color: Colors.white,
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.star,
-                        color: Color(0xFFFF6F00),
-                      ), // Star icon
-                      const SizedBox(width: 8),
-                      Text(
-                        uiL10n.nextUpcoming,
-                        style: const TextStyle(
-                          color: Color(0xFF3E2723),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
+
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(24.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFFFA000),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Text(
+                              uiL10n.nextUpcoming.toUpperCase(),
+                              style: const TextStyle(
+                                color: Color(0xFF3E2723),
+                                fontSize: 10,
+                                fontWeight: FontWeight.w900,
+                                letterSpacing: 1,
+                              ),
+                            ),
+                          ),
+                          const Icon(
+                            Icons.wb_sunny_rounded,
+                            color: Color(0xFFFFA000),
+                            size: 28,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
                       Text(
                         title,
-                        textAlign: TextAlign.center,
                         style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF3E2723),
+                          color: Colors.white,
+                          fontSize: 26,
+                          fontWeight: FontWeight.w900,
+                          height: 1.2,
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 12),
                       if (isFuture) ...[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: CountdownTimer(targetTime: targetTime),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          event.start != null
-                              ? formattedTime
-                              : (event.date ?? ''),
+                        const Text(
+                          'COUNTDOWN',
                           style: TextStyle(
-                            fontSize: 14,
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.onSurfaceVariant,
+                            color: Colors.white70,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 2,
                           ),
                         ),
+                        const SizedBox(height: 8),
+                        CountdownTimer(targetTime: targetTime),
                       ] else ...[
                         Text(
-                          event.start != null
-                              ? formattedTime
-                              : (event.date ?? ''),
-                          style: TextStyle(
-                            fontSize: 18,
+                          event.date ?? '',
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ],
+                      const SizedBox(height: 20),
+
+                      // Decorative Liyawela Border at the bottom
+                      Center(
+                        child: Image.asset(
+                          'assets/images/liyawela_border.png',
+                          width: double.infinity,
+                          height: 30,
+                          color: const Color(0xFFFFA000).withOpacity(0.5),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                // Liyawela border concept (bottom)
-                Container(
-                  height: 4,
-                  width: double.infinity,
-                  color: const Color(0xFFFFB300),
                 ),
               ],
             ),

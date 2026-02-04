@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../domain/entities/nakath_event.dart';
 import '../mappers/nakath_localizer.dart';
-import 'countdown_timer.dart'; // Added
+import 'countdown_timer.dart';
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
 
 class NakathDetailPopup extends StatelessWidget {
@@ -85,9 +85,9 @@ class NakathDetailPopup extends StatelessWidget {
                     child: Column(
                       children: [
                         const Icon(
-                          Icons.wb_sunny_rounded, // Better sun icon
+                          Icons.wb_sunny_rounded,
                           size: 48,
-                          color: Color(0xFFE65100), // Deep Orange
+                          color: Color(0xFFE65100),
                         ),
                         const SizedBox(height: 16),
                         Text(
@@ -111,19 +111,21 @@ class NakathDetailPopup extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         // Countdown Section (If Future)
-                        if (isFuture && targetTime != null) ...[
+                        if (isFuture) ...[
                           Container(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 16,
-                              horizontal: 8,
-                            ),
+                            padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.5),
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                color: const Color(0xFFD7CCC8),
-                                width: 1,
+                                color: const Color(0xFF3E2723).withOpacity(0.2),
                               ),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 10,
+                                ),
+                              ],
                             ),
                             child: Column(
                               children: [
@@ -151,8 +153,11 @@ class NakathDetailPopup extends StatelessWidget {
                             horizontal: 16,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFFFE0B2).withOpacity(0.3),
+                            color: const Color(0xFFFFB300).withOpacity(0.1),
                             borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: const Color(0xFFFFB300).withOpacity(0.3),
+                            ),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -179,8 +184,14 @@ class NakathDetailPopup extends StatelessWidget {
                         ),
                         const SizedBox(height: 24),
 
-                        const Divider(color: Color(0xFFD7CCC8), thickness: 1.2),
-                        const SizedBox(height: 24),
+                        // Traditional Liyawela Divider
+                        Image.asset(
+                          'assets/images/liyawela_border.png',
+                          height: 40,
+                          color: const Color(0xFF3E2723).withOpacity(0.6),
+                          fit: BoxFit.contain,
+                        ),
+                        const SizedBox(height: 16),
 
                         // Description Text
                         Text(
@@ -197,7 +208,7 @@ class NakathDetailPopup extends StatelessWidget {
                     ),
                   ),
 
-                  // Action Buttons (Just Close for now)
+                  // Action Button
                   Padding(
                     padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
                     child: SizedBox(
@@ -212,7 +223,6 @@ class NakathDetailPopup extends StatelessWidget {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           elevation: 6,
-                          shadowColor: const Color(0xFF3E2723).withOpacity(0.5),
                         ),
                         child: Text(
                           uiL10n.close.toUpperCase(),
@@ -230,7 +240,7 @@ class NakathDetailPopup extends StatelessWidget {
             ),
           ),
 
-          // Decorative Emblem at the top
+          // Decorative Emblem
           Positioned(
             top: -12,
             child: Container(
@@ -239,11 +249,11 @@ class NakathDetailPopup extends StatelessWidget {
                 color: const Color(0xFFFFB300),
                 shape: BoxShape.circle,
                 border: Border.all(color: const Color(0xFF3E2723), width: 2.5),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
+                    color: Colors.black26,
                     blurRadius: 8,
-                    offset: const Offset(0, 4),
+                    offset: Offset(0, 4),
                   ),
                 ],
               ),
