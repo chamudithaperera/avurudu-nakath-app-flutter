@@ -37,7 +37,9 @@ class LanguageButton extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(
+                    alpha: 0.1,
+                  ), // Slightly stronger shadow for modern feel
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),

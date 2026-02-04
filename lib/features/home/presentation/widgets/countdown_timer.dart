@@ -4,8 +4,9 @@ import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
 
 class CountdownTimer extends StatefulWidget {
   final DateTime targetTime;
+  final Color? labelColor;
 
-  const CountdownTimer({super.key, required this.targetTime});
+  const CountdownTimer({super.key, required this.targetTime, this.labelColor});
 
   @override
   State<CountdownTimer> createState() => _CountdownTimerState();
@@ -95,9 +96,9 @@ class _CountdownTimerState extends State<CountdownTimer> {
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 4,
-                offset: const Offset(0, 2),
+                color: Colors.black.withValues(alpha: 0.15),
+                blurRadius: 6,
+                offset: const Offset(0, 3),
               ),
             ],
           ),
@@ -113,13 +114,14 @@ class _CountdownTimerState extends State<CountdownTimer> {
             ),
           ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 6),
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w500,
-            color: Color(0xFF5D4037),
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+            color: widget.labelColor ?? const Color(0xFF5D4037),
+            letterSpacing: 0.5,
           ),
         ),
       ],
@@ -128,13 +130,15 @@ class _CountdownTimerState extends State<CountdownTimer> {
 
   Widget _buildDivider() {
     return Container(
-      margin: const EdgeInsets.only(left: 4, right: 4, bottom: 16),
-      child: const Text(
+      margin: const EdgeInsets.only(left: 4, right: 4, bottom: 20),
+      child: Text(
         ':',
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: Color(0xFF3E2723),
+          color:
+              widget.labelColor?.withValues(alpha: 0.8) ??
+              const Color(0xFF3E2723),
         ),
       ),
     );

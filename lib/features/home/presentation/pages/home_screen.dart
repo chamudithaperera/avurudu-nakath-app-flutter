@@ -132,7 +132,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Expanded(
                             child: Divider(
-                              color: theme.colorScheme.primary.withOpacity(0.3),
+                              color: theme.colorScheme.primary.withValues(
+                                alpha: 0.3,
+                              ),
                               thickness: 1.5,
                             ),
                           ),
@@ -145,8 +147,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Image.asset(
                                   'assets/images/liyawela_border.png',
                                   height: 30,
-                                  color: theme.colorScheme.primary.withOpacity(
-                                    0.5,
+                                  color: theme.colorScheme.primary.withValues(
+                                    alpha: 0.5,
                                   ),
                                 ),
                                 Text(
@@ -163,7 +165,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Expanded(
                             child: Divider(
-                              color: theme.colorScheme.primary.withOpacity(0.3),
+                              color: theme.colorScheme.primary.withValues(
+                                alpha: 0.3,
+                              ),
                               thickness: 1.5,
                             ),
                           ),
@@ -191,7 +195,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           Image.asset(
                             'assets/images/liyawela_border.png',
                             height: 40,
-                            color: theme.colorScheme.primary.withOpacity(0.2),
+                            color: theme.colorScheme.primary.withValues(
+                              alpha: 0.2,
+                            ),
                           ),
                           const SizedBox(height: 16),
                           const Text(
@@ -208,7 +214,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             '© 2026 Nakath App. All rights reserved.',
                             style: TextStyle(
                               fontSize: 11,
-                              color: const Color(0xFF8D6E63).withOpacity(0.5),
+                              color: const Color(
+                                0xFF8D6E63,
+                              ).withValues(alpha: 0.5),
                             ),
                           ),
                         ],

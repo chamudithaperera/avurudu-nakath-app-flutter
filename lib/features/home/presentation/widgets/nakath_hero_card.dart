@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../domain/entities/nakath_event.dart';
 import '../mappers/nakath_localizer.dart';
 import 'countdown_timer.dart';
@@ -19,6 +20,14 @@ class NakathHeroCard extends StatelessWidget {
         event.start ??
         (event.date != null ? DateTime.tryParse(event.date!) : null);
     final isFuture = targetTime != null && targetTime.isAfter(DateTime.now());
+
+    String displayDate = event.date ?? '';
+    if (displayDate.isEmpty && event.start != null) {
+      displayDate = DateFormat('MMMM dd, yyyy').format(event.start!);
+      if (event.start != null) {
+        displayDate += ' • ${DateFormat('hh:mm a').format(event.start!)}';
+      }
+    }
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -41,7 +50,7 @@ class NakathHeroCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
+                  color: Colors.black.withValues(alpha: 0.3),
                   blurRadius: 15,
                   offset: const Offset(0, 8),
                 ),
@@ -113,28 +122,21 @@ class NakathHeroCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       if (isFuture) ...[
-                        const Text(
-                          'COUNTDOWN',
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 2,
-                          ),
+                        CountdownTimer(
+                          targetTime: targetTime,
+                          labelColor: Colors.white,
                         ),
-                        const SizedBox(height: 8),
-                        CountdownTimer(targetTime: targetTime),
                       ] else ...[
                         Text(
-                          event.date ?? '',
+                          displayDate,
                           style: const TextStyle(
-                            color: Colors.white70,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ],
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 24),
 
                       // Decorative Liyawela Border at the bottom
                       Center(
@@ -142,7 +144,7 @@ class NakathHeroCard extends StatelessWidget {
                           'assets/images/liyawela_border.png',
                           width: double.infinity,
                           height: 30,
-                          color: const Color(0xFFFFA000).withOpacity(0.5),
+                          color: const Color(0xFFFFA000).withValues(alpha: 0.5),
                           fit: BoxFit.contain,
                         ),
                       ),

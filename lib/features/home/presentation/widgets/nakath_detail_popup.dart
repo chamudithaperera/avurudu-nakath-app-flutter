@@ -49,7 +49,7 @@ class NakathDetailPopup extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.4),
+                  color: Colors.black.withValues(alpha: 0.4),
                   blurRadius: 25,
                   offset: const Offset(0, 12),
                 ),
@@ -118,7 +118,9 @@ class NakathDetailPopup extends StatelessWidget {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                color: const Color(0xFF3E2723).withOpacity(0.2),
+                                color: const Color(
+                                  0xFF3E2723,
+                                ).withValues(alpha: 0.2),
                               ),
                               boxShadow: const [
                                 BoxShadow(
@@ -153,10 +155,14 @@ class NakathDetailPopup extends StatelessWidget {
                             horizontal: 16,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFFFB300).withOpacity(0.1),
+                            color: const Color(
+                              0xFFFFB300,
+                            ).withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
-                              color: const Color(0xFFFFB300).withOpacity(0.3),
+                              color: const Color(
+                                0xFFFFB300,
+                              ).withValues(alpha: 0.3),
                             ),
                           ),
                           child: Row(
@@ -188,7 +194,7 @@ class NakathDetailPopup extends StatelessWidget {
                         Image.asset(
                           'assets/images/liyawela_border.png',
                           height: 40,
-                          color: const Color(0xFF3E2723).withOpacity(0.6),
+                          color: const Color(0xFF3E2723).withValues(alpha: 0.6),
                           fit: BoxFit.contain,
                         ),
                         const SizedBox(height: 16),
