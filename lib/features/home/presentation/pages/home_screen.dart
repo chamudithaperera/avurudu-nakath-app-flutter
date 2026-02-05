@@ -133,17 +133,41 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SliverToBoxAdapter(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: Center(
-                        child: Text(
-                          uiL10n.allNakath.toUpperCase(),
-                          style: TextStyle(
-                            color: theme.colorScheme.primary,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 14,
-                            letterSpacing: 2,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 24,
+                        horizontal: 24,
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Divider(
+                              color: theme.colorScheme.primary.withValues(
+                                alpha: 0.3,
+                              ),
+                              thickness: 1,
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              uiL10n.allNakath.toUpperCase(),
+                              style: TextStyle(
+                                color: theme.colorScheme.primary,
+                                fontWeight: FontWeight.w900,
+                                fontSize: 14,
+                                letterSpacing: 2,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Divider(
+                              color: theme.colorScheme.primary.withValues(
+                                alpha: 0.3,
+                              ),
+                              thickness: 1,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
