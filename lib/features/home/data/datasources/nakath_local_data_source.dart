@@ -10,7 +10,7 @@ class NakathLocalDataSourceImpl implements NakathLocalDataSource {
   @override
   Future<List<NakathEventModel>> getNakathEvents() async {
     final jsonString = await rootBundle.loadString(
-      'assets/data/nakath_2025.json',
+      'assets/data/nakath_2026.json',
     );
     final Map<String, dynamic> jsonMap = json.decode(jsonString);
     final List<dynamic> eventsJson = jsonMap['events'];

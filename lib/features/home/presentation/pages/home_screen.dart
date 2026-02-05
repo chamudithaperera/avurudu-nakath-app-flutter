@@ -8,6 +8,8 @@ import '../widgets/nakath_list_tile.dart';
 import '../widgets/nakath_detail_popup.dart'; // Added
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
 
+import '../../../../core/services/notification_service.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -26,7 +28,14 @@ class _HomeScreenState extends State<HomeScreen> {
     final repository = NakathRepositoryImpl(localDataSource: dataSource);
     final useCase = GetAllNakathEvents(repository);
 
-    _eventsFuture = useCase();
+    _eventsFuture = useCase().then((events) async {
+      // Schedule notifications when data is loaded
+      final notificationService = NotificationService();
+      await notificationService.init();
+      await notificationService.requestPermissions();
+      await notificationService.scheduleNotifications(events);
+      return events;
+    });
   }
 
   void _showNakathDetail(NakathEvent event) {
