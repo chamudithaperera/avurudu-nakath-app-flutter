@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Avurudu Nakath App',
+      title: 'Avurudu Nakath',
       theme: AppTheme.lightTheme,
       locale: _locale,
       localizationsDelegates: [
