@@ -76,24 +76,34 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-          // Central Lotus Mandala (Large, subtle)
+          // Top Right Mandala Decoration
+          Positioned(
+            top: -100,
+            right: -100,
+            child: Opacity(
+              opacity: 0.1,
+              child: Image.asset('assets/images/lotus_mandala.png', width: 300),
+            ),
+          ),
+
+          // Center Mandala Decoration (Large, subtle)
           Center(
             child: Opacity(
-              opacity: 0.08,
+              opacity: 0.05,
               child: Image.asset(
                 'assets/images/lotus_mandala.png',
-                width: MediaQuery.of(context).size.width * 0.9,
+                width: MediaQuery.of(context).size.width * 0.8,
               ),
             ),
           ),
 
-          // Top Mandala Decoration
+          // Bottom Left Mandala Decoration
           Positioned(
-            top: -150,
-            right: -100,
+            bottom: -100,
+            left: -100,
             child: Opacity(
               opacity: 0.1,
-              child: Image.asset('assets/images/lotus_mandala.png', width: 400),
+              child: Image.asset('assets/images/lotus_mandala.png', width: 300),
             ),
           ),
 
