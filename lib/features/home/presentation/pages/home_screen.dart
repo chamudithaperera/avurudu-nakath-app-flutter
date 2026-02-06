@@ -54,7 +54,13 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(
           uiL10n.appTitle,
-          style: Theme.of(context).appBarTheme.titleTextStyle,
+          style: const TextStyle(
+            fontFamily: 'TharuSansala',
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.2,
+            color: Color(0xFFF8EED1),
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -154,14 +160,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
                             uiL10n.allNakath.toUpperCase(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                  color: const Color(0xFFF8EED1),
-                                  fontSize: 12,
-                                  letterSpacing: 1.6,
-                                ),
+                            style: const TextStyle(
+                              fontFamily: 'GemunuX',
+                              color: Color(0xFFF8EED1),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              letterSpacing: 1.6,
+                            ),
                           ),
                         ),
                         Expanded(

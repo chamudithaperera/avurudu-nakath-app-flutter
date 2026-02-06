@@ -58,6 +58,7 @@ class LanguageButton extends StatelessWidget {
                 Text(
                   label,
                   style: TextStyle(
+                    fontFamily: 'TharuRun',
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                     color: const Color(0xFF2B1B16),
@@ -69,6 +70,7 @@ class LanguageButton extends StatelessWidget {
                   Text(
                     subLabel,
                     style: TextStyle(
+                      fontFamily: 'TharuRun',
                       fontSize: 14,
                       color: const Color(0xFF4E2A1E),
                       fontWeight: FontWeight.w600,

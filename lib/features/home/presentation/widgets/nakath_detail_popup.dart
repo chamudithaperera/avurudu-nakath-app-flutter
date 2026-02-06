@@ -93,11 +93,12 @@ class NakathDetailPopup extends StatelessWidget {
                         Text(
                           title,
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                color: const Color(0xFFFFF7E6),
-                              ),
+                          style: const TextStyle(
+                            fontFamily: 'TharuMahee',
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFFFFF7E6),
+                          ),
                         ),
                       ],
                     ),
@@ -132,15 +133,13 @@ class NakathDetailPopup extends StatelessWidget {
                               children: [
                                 Text(
                                   uiL10n.nextUpcoming.toUpperCase(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                        color: const Color(0xFF8C1B1B),
-                                        letterSpacing: 1.2,
-                                      ),
+                                  style: const TextStyle(
+                                    fontFamily: 'GemunuX',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0xFF8C1B1B),
+                                    letterSpacing: 1.2,
+                                  ),
                                 ),
                                 const SizedBox(height: 12),
                                 CountdownTimer(targetTime: targetTime),
@@ -203,11 +202,12 @@ class NakathDetailPopup extends StatelessWidget {
                         Text(
                           description,
                           textAlign: TextAlign.justify,
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                fontSize: 16,
-                                height: 1.7,
-                                color: const Color(0xFF2B1B16),
-                              ),
+                          style: const TextStyle(
+                            fontFamily: 'Tharu',
+                            fontSize: 16,
+                            height: 1.7,
+                            color: Color(0xFF2B1B16),
+                          ),
                         ),
                       ],
                     ),

@@ -181,7 +181,7 @@ class _SplashScreenState extends State<SplashScreen>
                           'අපේ අවුරුදු නැකැත්',
                           textAlign: TextAlign.center,
                           style: const TextStyle(
-                            fontFamily: 'GemunuX',
+                            fontFamily: 'TharuSansala',
                             fontSize: 28,
                             fontWeight: FontWeight.w700,
                             color: Color(0xFF2B1B16),

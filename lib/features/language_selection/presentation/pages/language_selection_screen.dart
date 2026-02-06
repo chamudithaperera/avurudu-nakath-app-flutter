@@ -79,11 +79,13 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
               Text(
                 uiL10n.selectLanguage.toUpperCase(),
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontSize: 20,
-                      color: const Color(0xFFF8EED1),
-                      letterSpacing: 1.2,
-                    ),
+                style: const TextStyle(
+                  fontFamily: 'KDNAMAL',
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFFF8EED1),
+                  letterSpacing: 1.2,
+                ),
               ),
               const SizedBox(height: 10),
               Text(

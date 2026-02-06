@@ -120,6 +120,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
         Text(
           label,
           style: TextStyle(
+            fontFamily: 'GemunuX',
             fontSize: 11,
             fontWeight: FontWeight.w700,
             color: widget.labelColor ?? const Color(0xFFE9D5A8),

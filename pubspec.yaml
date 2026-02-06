@@ -115,6 +115,15 @@ flutter:
     - family: TharuSansala
       fonts:
         - asset: assets/fonts/tharu_digital_sansala.ttf
+    - family: KDNAMAL
+      fonts:
+        - asset: assets/fonts/0KDNAMAL-Regular.ttf
+    - family: TharuMahee
+      fonts:
+        - asset: assets/fonts/tharu_digital_mahee.ttf
+    - family: Tharu
+      fonts:
+        - asset: assets/fonts/tharu.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package

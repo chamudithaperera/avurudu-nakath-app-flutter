@@ -69,11 +69,12 @@ class NakathListTile extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
-                color: const Color(0xFF2B1B16),
-              ),
+          style: const TextStyle(
+            fontFamily: 'TharuMahee',
+            fontWeight: FontWeight.w700,
+            fontSize: 16,
+            color: Color(0xFF2B1B16),
+          ),
         ),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 6.0),
@@ -88,11 +89,12 @@ class NakathListTile extends StatelessWidget {
               Flexible(
                 child: Text(
                   timeInfo,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: const Color(0xFF4E2A1E),
-                      ),
+                  style: const TextStyle(
+                    fontFamily: 'GemunuX',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF4E2A1E),
+                  ),
                 ),
               ),
             ],
