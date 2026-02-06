@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/services/storage_service.dart';
 import '../../../home/presentation/pages/home_screen.dart';
 import '../../../language_selection/presentation/pages/language_selection_screen.dart';
+import '../../../../core/widgets/kandyan_background.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -106,79 +108,111 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          // Parchment Texture Base
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/parchment_texture.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Lotus Mandala Hero
-                AnimatedBuilder(
-                  animation: _controller,
-                  builder: (context, child) {
-                    return Opacity(
-                      opacity: _sunOpacity.value,
-                      child: Transform.scale(
-                        scale: _sunScale.value,
-                        child: Transform.rotate(
-                          angle: _controller.value * 0.2, // Subtle rotation
+      body: KandyanBackground(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedBuilder(
+                animation: _controller,
+                builder: (context, child) {
+                  return Opacity(
+                    opacity: _sunOpacity.value,
+                    child: Transform.scale(
+                      scale: _sunScale.value,
+                      child: Transform.rotate(
+                        angle: _controller.value * 0.2,
+                        child: Container(
+                          padding: const EdgeInsets.all(18),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: const Color(0xFFC99A3B),
+                              width: 2.5,
+                            ),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black54,
+                                blurRadius: 18,
+                                offset: Offset(0, 10),
+                              ),
+                            ],
+                          ),
                           child: Image.asset(
                             'assets/images/lotus_mandala.png',
-                            height: 220,
-                            width: 220,
+                            height: 190,
+                            width: 190,
                           ),
                         ),
                       ),
-                    );
-                  },
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 50),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 18,
                 ),
-                const SizedBox(height: 60),
-                // Sinhala Title
-                SlideTransition(
-                  position: _sinhalaOffset,
-                  child: FadeTransition(
-                    opacity: _sinhalaOpacity,
-                    child: const Text(
-                      'අපේ අවුරුදු නැකැත්', // Ape Avurudu Nakath
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.w900,
-                        color: Color(0xFF3E2723), // Deep brown
-                        letterSpacing: 1,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF8EED1).withValues(alpha: 0.95),
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(
+                    color: const Color(0xFFC99A3B),
+                    width: 2,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 16,
+                      offset: Offset(0, 8),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    SlideTransition(
+                      position: _sinhalaOffset,
+                      child: FadeTransition(
+                        opacity: _sinhalaOpacity,
+                        child: Text(
+                          'අපේ අවුරුදු නැකැත්',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.cinzel(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xFF2B1B16),
+                            letterSpacing: 1.2,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                // Tamil Title
-                SlideTransition(
-                  position: _tamilOffset,
-                  child: FadeTransition(
-                    opacity: _tamilOpacity,
-                    child: const Text(
-                      'எங்கள் புத்தாண்டு நெகத்', // Engal Puththandu Nakath
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF5D4037), // Lighter brown
-                        letterSpacing: 0.5,
+                    const SizedBox(height: 10),
+                    SlideTransition(
+                      position: _tamilOffset,
+                      child: FadeTransition(
+                        opacity: _tamilOpacity,
+                        child: Text(
+                          'எங்கள் புத்தாண்டு நெகத்',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.cormorantGaramond(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xFF4E2A1E),
+                            letterSpacing: 0.6,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-                const SizedBox(height: 40),
-              ],
-            ),
+              ),
+              const SizedBox(height: 40),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

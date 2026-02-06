@@ -4,6 +4,7 @@ import '../../domain/entities/nakath_event.dart';
 import '../mappers/nakath_localizer.dart';
 import 'countdown_timer.dart';
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NakathHeroCard extends StatelessWidget {
   final NakathEvent event;
@@ -43,25 +44,37 @@ class NakathHeroCard extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFF3E2723), // Deep Brown
-                  Color(0xFF5D4037), // Lighter Brown
+                  Color(0xFF2B1B16),
+                  Color(0xFF4E2A1E),
+                  Color(0xFF8C1B1B),
                 ],
               ),
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.3),
-                  blurRadius: 15,
-                  offset: const Offset(0, 8),
+                  color: Colors.black.withValues(alpha: 0.5),
+                  blurRadius: 20,
+                  offset: const Offset(0, 12),
                 ),
               ],
               border: Border.all(
-                color: const Color(0xFFFFA000), // Gold
-                width: 1.5,
+                color: const Color(0xFFC99A3B),
+                width: 2,
               ),
             ),
             child: Stack(
               children: [
+                Positioned(
+                  right: -20,
+                  top: -20,
+                  child: Opacity(
+                    opacity: 0.12,
+                    child: Image.asset(
+                      'assets/images/lotus_mandala.png',
+                      width: 160,
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: Column(
@@ -76,22 +89,26 @@ class NakathHeroCard extends StatelessWidget {
                               vertical: 6,
                             ),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFFA000),
+                              color: const Color(0xFFC99A3B),
                               borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: const Color(0xFFFFF7E6),
+                                width: 1,
+                              ),
                             ),
                             child: Text(
                               uiL10n.nextUpcoming.toUpperCase(),
-                              style: const TextStyle(
-                                color: Color(0xFF3E2723),
+                              style: GoogleFonts.cinzel(
+                                color: const Color(0xFF2B1B16),
                                 fontSize: 10,
-                                fontWeight: FontWeight.w900,
+                                fontWeight: FontWeight.w700,
                                 letterSpacing: 1,
                               ),
                             ),
                           ),
                           const Icon(
                             Icons.wb_sunny_rounded,
-                            color: Color(0xFFFFA000),
+                            color: Color(0xFFC99A3B),
                             size: 28,
                           ),
                         ],
@@ -99,24 +116,25 @@ class NakathHeroCard extends StatelessWidget {
                       const SizedBox(height: 20),
                       Text(
                         title,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 26,
-                          fontWeight: FontWeight.w900,
+                        style: GoogleFonts.cinzel(
+                          color: const Color(0xFFFFF7E6),
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700,
                           height: 1.2,
+                          letterSpacing: 0.6,
                         ),
                       ),
                       const SizedBox(height: 12),
                       if (isFuture) ...[
                         CountdownTimer(
                           targetTime: targetTime,
-                          labelColor: Colors.white,
+                          labelColor: const Color(0xFFFFF7E6),
                         ),
                       ] else ...[
                         Text(
                           displayDate,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: GoogleFonts.cormorantGaramond(
+                            color: const Color(0xFFFFF7E6),
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
                           ),

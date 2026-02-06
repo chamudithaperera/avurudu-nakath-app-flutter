@@ -4,6 +4,7 @@ import '../../domain/entities/nakath_event.dart';
 import '../mappers/nakath_localizer.dart';
 import 'countdown_timer.dart';
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NakathDetailPopup extends StatelessWidget {
   final NakathEvent event;
@@ -41,17 +42,17 @@ class NakathDetailPopup extends StatelessWidget {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: const Color(0xFFFFFDE7), // Light Cream Background
+              color: const Color(0xFFF8EED1),
               borderRadius: BorderRadius.circular(28),
               border: Border.all(
-                color: const Color(0xFF3E2723), // Deep Brown Border
+                color: const Color(0xFFC99A3B),
                 width: 2.5,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.4),
-                  blurRadius: 25,
-                  offset: const Offset(0, 12),
+                  color: Colors.black.withValues(alpha: 0.45),
+                  blurRadius: 26,
+                  offset: const Offset(0, 14),
                 ),
               ],
             ),
@@ -71,15 +72,15 @@ class NakathDetailPopup extends StatelessWidget {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                          Color(0xFFFFECB3), // Light Amber
-                          Color(0xFFFFD54F), // Amber
+                          Color(0xFFC99A3B),
+                          Color(0xFF8C1B1B),
                         ],
                       ),
                       borderRadius: BorderRadius.vertical(
                         top: Radius.circular(25),
                       ),
                       border: Border(
-                        bottom: BorderSide(color: Color(0xFF3E2723), width: 2),
+                        bottom: BorderSide(color: Color(0xFF2B1B16), width: 2),
                       ),
                     ),
                     child: Column(
@@ -87,17 +88,17 @@ class NakathDetailPopup extends StatelessWidget {
                         const Icon(
                           Icons.wb_sunny_rounded,
                           size: 48,
-                          color: Color(0xFFE65100),
+                          color: Color(0xFFFFF7E6),
                         ),
                         const SizedBox(height: 16),
                         Text(
                           title,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF3E2723),
-                            letterSpacing: 0.5,
+                          style: GoogleFonts.cinzel(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFFFFF7E6),
+                            letterSpacing: 1,
                           ),
                         ),
                       ],
@@ -115,11 +116,11 @@ class NakathDetailPopup extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: const Color(0xFFFFF7E6),
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
                                 color: const Color(
-                                  0xFF3E2723,
+                                  0xFF2B1B16,
                                 ).withValues(alpha: 0.2),
                               ),
                               boxShadow: const [
@@ -133,11 +134,11 @@ class NakathDetailPopup extends StatelessWidget {
                               children: [
                                 Text(
                                   uiL10n.nextUpcoming.toUpperCase(),
-                                  style: const TextStyle(
+                                  style: GoogleFonts.cinzel(
                                     fontSize: 12,
-                                    fontWeight: FontWeight.w800,
-                                    color: Color(0xFF8D6E63),
-                                    letterSpacing: 1.2,
+                                    fontWeight: FontWeight.w700,
+                                    color: const Color(0xFF8C1B1B),
+                                    letterSpacing: 1.6,
                                   ),
                                 ),
                                 const SizedBox(height: 12),
@@ -155,13 +156,11 @@ class NakathDetailPopup extends StatelessWidget {
                             horizontal: 16,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(
-                              0xFFFFB300,
-                            ).withValues(alpha: 0.1),
+                            color: const Color(0xFFC99A3B).withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(12),
                             border: Border.all(
                               color: const Color(
-                                0xFFFFB300,
+                                0xFFC99A3B,
                               ).withValues(alpha: 0.3),
                             ),
                           ),
@@ -170,7 +169,7 @@ class NakathDetailPopup extends StatelessWidget {
                             children: [
                               const Icon(
                                 Icons.calendar_today_rounded,
-                                color: Color(0xFFBF360C),
+                                color: Color(0xFF8C1B1B),
                                 size: 18,
                               ),
                               const SizedBox(width: 10),
@@ -178,10 +177,10 @@ class NakathDetailPopup extends StatelessWidget {
                                 child: Text(
                                   formattedTime,
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: GoogleFonts.cormorantGaramond(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700,
-                                    color: Color(0xFF4E342E),
+                                    color: const Color(0xFF4E2A1E),
                                   ),
                                 ),
                               ),
@@ -192,7 +191,7 @@ class NakathDetailPopup extends StatelessWidget {
 
                         const SizedBox(height: 8),
                         Divider(
-                          color: const Color(0xFF3E2723).withValues(alpha: 0.1),
+                          color: const Color(0xFF2B1B16).withValues(alpha: 0.15),
                         ),
                         const SizedBox(height: 24),
 
@@ -200,11 +199,11 @@ class NakathDetailPopup extends StatelessWidget {
                         Text(
                           description,
                           textAlign: TextAlign.justify,
-                          style: const TextStyle(
+                          style: GoogleFonts.cormorantGaramond(
                             fontSize: 16,
                             height: 1.7,
-                            color: Color(0xFF3E2723),
-                            letterSpacing: 0.2,
+                            color: const Color(0xFF2B1B16),
+                            letterSpacing: 0.3,
                           ),
                         ),
                       ],
@@ -219,20 +218,24 @@ class NakathDetailPopup extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () => Navigator.of(context).pop(),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF3E2723),
-                          foregroundColor: const Color(0xFFFFF8E1),
+                          backgroundColor: const Color(0xFF2B1B16),
+                          foregroundColor: const Color(0xFFFFF7E6),
                           padding: const EdgeInsets.symmetric(vertical: 18),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
+                            side: const BorderSide(
+                              color: Color(0xFFC99A3B),
+                              width: 1.4,
+                            ),
                           ),
                           elevation: 6,
                         ),
                         child: Text(
                           uiL10n.close.toUpperCase(),
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: 1.5,
+                          style: GoogleFonts.cinzel(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 1.8,
                           ),
                         ),
                       ),
@@ -249,9 +252,9 @@ class NakathDetailPopup extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: const Color(0xFFFFB300),
+                color: const Color(0xFFC99A3B),
                 shape: BoxShape.circle,
-                border: Border.all(color: const Color(0xFF3E2723), width: 2.5),
+                border: Border.all(color: const Color(0xFF2B1B16), width: 2.5),
                 boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,

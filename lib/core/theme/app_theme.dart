@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   // Kandyan Color Palette
-  static const Color kandyanCrimson = Color(0xFFB71C1C);
-  static const Color kandyanGold = Color(0xFFFFA000);
-  static const Color deepBrown = Color(0xFF3E2723);
-  static const Color parchmentCream = Color(0xFFFFFDE7);
-  static const Color softAmber = Color(0xFFFFECB3);
+  static const Color kandyanCrimson = Color(0xFF8C1B1B);
+  static const Color kandyanGold = Color(0xFFC99A3B);
+  static const Color deepBrown = Color(0xFF2B1B16);
+  static const Color lacquerBrown = Color(0xFF4E2A1E);
+  static const Color parchmentCream = Color(0xFFF8EED1);
+  static const Color softAmber = Color(0xFFF1D48E);
+  static const Color warmIvory = Color(0xFFFFF7E6);
 
   static ThemeData get lightTheme {
+    final base = ThemeData.light();
+    final textTheme = GoogleFonts.cormorantGaramondTextTheme(base.textTheme);
     return ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
@@ -16,48 +21,56 @@ class AppTheme {
         primary: kandyanCrimson,
         secondary: kandyanGold,
         onPrimary: Colors.white,
-        surface: parchmentCream,
+        surface: warmIvory,
         onSurface: deepBrown,
       ),
-      scaffoldBackgroundColor: parchmentCream,
-      appBarTheme: const AppBarTheme(
+      scaffoldBackgroundColor: warmIvory,
+      appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        titleTextStyle: TextStyle(
-          color: deepBrown,
+        titleTextStyle: GoogleFonts.cinzel(
+          color: warmIvory,
           fontSize: 22,
-          fontWeight: FontWeight.w900,
-          letterSpacing: 1.5,
+          fontWeight: FontWeight.w700,
+          letterSpacing: 2,
         ),
-        iconTheme: IconThemeData(color: deepBrown),
+        iconTheme: const IconThemeData(color: warmIvory),
       ),
       cardTheme: CardThemeData(
-        color: Colors.white,
-        elevation: 8,
-        shadowColor: Colors.black26,
+        color: warmIvory,
+        elevation: 10,
+        shadowColor: Colors.black54,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: const BorderSide(color: deepBrown, width: 1.5),
+          side: const BorderSide(color: kandyanGold, width: 1.6),
         ),
       ),
-      textTheme: const TextTheme(
-        displayLarge: TextStyle(
+      textTheme: textTheme.copyWith(
+        displayLarge: GoogleFonts.cinzel(
           fontSize: 32,
-          fontWeight: FontWeight.bold,
-          color: deepBrown,
+          fontWeight: FontWeight.w700,
+          color: warmIvory,
+          letterSpacing: 1.5,
         ),
-        titleLarge: TextStyle(
+        titleLarge: GoogleFonts.cinzel(
           fontSize: 20,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w600,
+          color: deepBrown,
+          letterSpacing: 1.1,
+        ),
+        bodyLarge: textTheme.bodyLarge?.copyWith(
+          fontSize: 16,
           color: deepBrown,
         ),
-        bodyLarge: TextStyle(fontSize: 16, color: deepBrown),
+        bodyMedium: textTheme.bodyMedium?.copyWith(
+          color: deepBrown,
+        ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: deepBrown,
-          foregroundColor: Colors.white,
+          backgroundColor: lacquerBrown,
+          foregroundColor: warmIvory,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),

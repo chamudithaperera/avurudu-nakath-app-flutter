@@ -27,21 +27,29 @@ class LanguageButton extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 20),
             decoration: BoxDecoration(
-              color: isSelected
-                  ? Theme.of(context).colorScheme.primaryContainer
-                  : Colors.white,
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFF8EED1),
+                  Color(0xFFE8CC8A),
+                ],
+              ),
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                color: Theme.of(context).colorScheme.outlineVariant,
-                width: 1.5,
+                color: const Color(0xFFC99A3B),
+                width: 2,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(
-                    alpha: 0.1,
-                  ), // Slightly stronger shadow for modern feel
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
+                  color: Colors.black.withValues(alpha: 0.35),
+                  blurRadius: 14,
+                  offset: const Offset(0, 8),
+                ),
+                BoxShadow(
+                  color: Colors.white.withValues(alpha: 0.6),
+                  blurRadius: 12,
+                  offset: const Offset(-4, -4),
                 ),
               ],
             ),
@@ -52,7 +60,8 @@ class LanguageButton extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: const Color(0xFF2B1B16),
+                    letterSpacing: 1,
                   ),
                 ),
                 if (subLabel.isNotEmpty) ...[
@@ -61,7 +70,8 @@ class LanguageButton extends StatelessWidget {
                     subLabel,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      color: const Color(0xFF4E2A1E),
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/services/storage_service.dart';
 import '../../data/datasources/language_local_data_source.dart';
 import '../../data/repositories/language_repository_impl.dart';
@@ -7,6 +8,7 @@ import '../widgets/language_button.dart';
 import '../../../home/presentation/pages/home_screen.dart';
 import 'package:avurudu_nakath_app/main.dart';
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
+import '../../../../core/widgets/kandyan_background.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
   const LanguageSelectionScreen({super.key});
@@ -43,87 +45,76 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     final uiL10n = UiLocalizations.of(context)!;
-    final theme = Theme.of(context);
 
     return Scaffold(
-      body: Stack(
-        children: [
-          // Parchment Texture Base
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/parchment_texture.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          // Background Mandala
-          Positioned(
-            bottom: -50,
-            right: -50,
-            child: Opacity(
-              opacity: 0.1,
-              child: Image.asset('assets/images/lotus_mandala.png', width: 300),
-            ),
-          ),
-
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Spacer(),
-                  // Hero Mandala
-                  Image.asset(
-                    'assets/images/lotus_mandala.png',
-                    height: 140,
-                    width: 140,
+      body: KandyanBackground(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Spacer(),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: const Color(0xFFC99A3B),
+                    width: 2.5,
                   ),
-                  const SizedBox(height: 48),
-                  Text(
-                    uiL10n.selectLanguage.toUpperCase(),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w900,
-                      color: theme.colorScheme.primary,
-                      letterSpacing: 2,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 14,
+                      offset: Offset(0, 8),
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    uiL10n.pleaseSelectLanguage,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 60),
-
-                  // Sinhala Button
-                  LanguageButton(
-                    label: 'සිංහල',
-                    subLabel: 'Sinhala',
-                    onTap: () => _selectLanguage('si'),
-                  ),
-                  const SizedBox(height: 16),
-                  // Tamil Button
-                  LanguageButton(
-                    label: 'தமிழ்',
-                    subLabel: 'Tamil',
-                    onTap: () => _selectLanguage('ta'),
-                  ),
-
-                  const Spacer(),
-                  const SizedBox(height: 20),
-                  const SizedBox(height: 20),
-                ],
+                  ],
+                ),
+                child: Image.asset(
+                  'assets/images/lotus_mandala.png',
+                  height: 120,
+                  width: 120,
+                ),
               ),
-            ),
+              const SizedBox(height: 36),
+              Text(
+                uiL10n.selectLanguage.toUpperCase(),
+                textAlign: TextAlign.center,
+                style: GoogleFonts.cinzel(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xFFF8EED1),
+                  letterSpacing: 2,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                uiL10n.pleaseSelectLanguage,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.cormorantGaramond(
+                  fontSize: 16,
+                  color: const Color(0xFFE9D5A8),
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.3,
+                ),
+              ),
+              const SizedBox(height: 48),
+              LanguageButton(
+                label: 'සිංහල',
+                subLabel: 'Sinhala',
+                onTap: () => _selectLanguage('si'),
+              ),
+              const SizedBox(height: 16),
+              LanguageButton(
+                label: 'தமிழ்',
+                subLabel: 'Tamil',
+                onTap: () => _selectLanguage('ta'),
+              ),
+              const Spacer(),
+              const SizedBox(height: 18),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

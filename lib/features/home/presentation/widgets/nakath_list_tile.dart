@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../domain/entities/nakath_event.dart';
 import '../mappers/nakath_localizer.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class NakathListTile extends StatelessWidget {
   final NakathEvent event;
@@ -12,7 +13,6 @@ class NakathListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final title = event.getLocalizedTitle(context);
-    final theme = Theme.of(context);
 
     // Format full date and time for better visibility
     String displayDate = event.date ?? '';
@@ -29,19 +29,24 @@ class NakathListTile extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(
-          alpha: 0.9,
-        ), // More opaque for visibility
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFFF8EED1),
+            Color(0xFFE8CC8A),
+          ],
+        ),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: theme.colorScheme.primary.withValues(alpha: 0.15),
-          width: 1.5,
+          color: const Color(0xFFC99A3B),
+          width: 1.8,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
+            color: Colors.black.withValues(alpha: 0.35),
+            blurRadius: 14,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -53,21 +58,23 @@ class NakathListTile extends StatelessWidget {
         leading: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: theme.colorScheme.primary.withValues(alpha: 0.1),
+            color: const Color(0xFF8C1B1B).withValues(alpha: 0.12),
             shape: BoxShape.circle,
+            border: Border.all(color: const Color(0xFFC99A3B), width: 1.2),
           ),
           child: const Icon(
             Icons.access_time_filled_rounded,
-            color: Color(0xFFD84315),
+            color: Color(0xFF8C1B1B),
             size: 26,
           ),
         ),
         title: Text(
           title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w900,
-            fontSize: 17,
-            color: Color(0xFF3E2723),
+          style: GoogleFonts.cinzel(
+            fontWeight: FontWeight.w700,
+            fontSize: 16,
+            color: const Color(0xFF2B1B16),
+            letterSpacing: 0.4,
           ),
         ),
         subtitle: Padding(
@@ -77,16 +84,16 @@ class NakathListTile extends StatelessWidget {
               const Icon(
                 Icons.calendar_month,
                 size: 14,
-                color: Color(0xFF8D6E63),
+                color: Color(0xFF8C1B1B),
               ),
               const SizedBox(width: 6),
               Flexible(
                 child: Text(
                   timeInfo,
-                  style: const TextStyle(
+                  style: GoogleFonts.cormorantGaramond(
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF5D4037), // Darker for better visibility
+                    color: const Color(0xFF4E2A1E),
                   ),
                 ),
               ),
@@ -96,7 +103,7 @@ class NakathListTile extends StatelessWidget {
         trailing: const Icon(
           Icons.arrow_forward_ios_rounded,
           size: 16,
-          color: Color(0xFF3E2723),
+          color: Color(0xFF2B1B16),
         ),
         onTap: onTap,
       ),
