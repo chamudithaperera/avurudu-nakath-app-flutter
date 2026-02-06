@@ -180,10 +180,11 @@ class _SplashScreenState extends State<SplashScreen>
                         child: Text(
                           'අපේ අවුරුදු නැකැත්',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.notoSansSinhala(
+                          style: const TextStyle(
+                            fontFamily: 'GemunuX',
                             fontSize: 28,
                             fontWeight: FontWeight.w700,
-                            color: const Color(0xFF2B1B16),
+                            color: Color(0xFF2B1B16),
                           ),
                         ),
                       ),

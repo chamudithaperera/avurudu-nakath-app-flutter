@@ -13,12 +13,32 @@ class AppTheme {
 
   static ThemeData lightThemeForLocale(Locale? locale) {
     final base = ThemeData.light();
-    TextTheme textTheme = GoogleFonts.cormorantGaramondTextTheme(
-      base.textTheme,
-    );
+    TextTheme textTheme =
+        GoogleFonts.cormorantGaramondTextTheme(base.textTheme);
     final code = locale?.languageCode;
     if (code == 'si') {
-      textTheme = GoogleFonts.notoSansSinhalaTextTheme(textTheme);
+      textTheme = textTheme.copyWith(
+        displayLarge: textTheme.displayLarge?.copyWith(
+          fontFamily: 'GemunuX',
+          fontFamilyFallback: const ['Ranee', 'Anupama', 'TharuNidahasa'],
+        ),
+        titleLarge: textTheme.titleLarge?.copyWith(
+          fontFamily: 'Ranee',
+          fontFamilyFallback: const ['GemunuX', 'Anupama', 'TharuSansala'],
+        ),
+        bodyLarge: textTheme.bodyLarge?.copyWith(
+          fontFamily: 'Anupama',
+          fontFamilyFallback: const ['GemunuX', 'Ranee', 'TharuRun'],
+        ),
+        bodyMedium: textTheme.bodyMedium?.copyWith(
+          fontFamily: 'Anupama',
+          fontFamilyFallback: const ['GemunuX', 'Ranee', 'TharuRun'],
+        ),
+        labelLarge: textTheme.labelLarge?.copyWith(
+          fontFamily: 'TharuSansala',
+          fontFamilyFallback: const ['GemunuX', 'Ranee', 'Anupama'],
+        ),
+      );
     } else if (code == 'ta') {
       textTheme = GoogleFonts.notoSansTamilTextTheme(textTheme);
     }
