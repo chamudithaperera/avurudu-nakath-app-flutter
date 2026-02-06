@@ -92,14 +92,15 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                 uiL10n.pleaseSelectLanguage,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontSize: 16,
-                      color: const Color(0xFFE9D5A8),
-                    ),
+                  fontSize: 16,
+                  color: const Color(0xFFE9D5A8),
+                ),
               ),
               const SizedBox(height: 48),
               LanguageButton(
                 label: 'සිංහල',
                 subLabel: 'Sinhala',
+                labelFontFamily: 'TharuRun',
                 onTap: () => _selectLanguage('si'),
               ),
               const SizedBox(height: 16),

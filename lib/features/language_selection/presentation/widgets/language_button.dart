@@ -5,6 +5,7 @@ class LanguageButton extends StatelessWidget {
   final String subLabel; // Optional, maybe for English translation
   final VoidCallback onTap;
   final bool isSelected;
+  final String? labelFontFamily;
 
   const LanguageButton({
     super.key,
@@ -12,6 +13,7 @@ class LanguageButton extends StatelessWidget {
     this.subLabel = '',
     required this.onTap,
     this.isSelected = false,
+    this.labelFontFamily,
   });
 
   @override
@@ -30,16 +32,10 @@ class LanguageButton extends StatelessWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFFF8EED1),
-                  Color(0xFFE8CC8A),
-                ],
+                colors: [Color(0xFFF8EED1), Color(0xFFE8CC8A)],
               ),
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: const Color(0xFFC99A3B),
-                width: 2,
-              ),
+              border: Border.all(color: const Color(0xFFC99A3B), width: 2),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withValues(alpha: 0.35),
@@ -58,7 +54,7 @@ class LanguageButton extends StatelessWidget {
                 Text(
                   label,
                   style: TextStyle(
-                    fontFamily: 'TharuRun',
+                    fontFamily: labelFontFamily,
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                     color: const Color(0xFF2B1B16),
@@ -70,7 +66,6 @@ class LanguageButton extends StatelessWidget {
                   Text(
                     subLabel,
                     style: TextStyle(
-                      fontFamily: 'TharuRun',
                       fontSize: 14,
                       color: const Color(0xFF4E2A1E),
                       fontWeight: FontWeight.w600,
