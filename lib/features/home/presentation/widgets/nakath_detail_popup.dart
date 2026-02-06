@@ -4,7 +4,6 @@ import '../../domain/entities/nakath_event.dart';
 import '../mappers/nakath_localizer.dart';
 import 'countdown_timer.dart';
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class NakathDetailPopup extends StatelessWidget {
   final NakathEvent event;
@@ -94,12 +93,11 @@ class NakathDetailPopup extends StatelessWidget {
                         Text(
                           title,
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.cinzel(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFFFFF7E6),
-                            letterSpacing: 1,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                color: const Color(0xFFFFF7E6),
+                              ),
                         ),
                       ],
                     ),
@@ -134,12 +132,15 @@ class NakathDetailPopup extends StatelessWidget {
                               children: [
                                 Text(
                                   uiL10n.nextUpcoming.toUpperCase(),
-                                  style: GoogleFonts.cinzel(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: const Color(0xFF8C1B1B),
-                                    letterSpacing: 1.6,
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                        color: const Color(0xFF8C1B1B),
+                                        letterSpacing: 1.2,
+                                      ),
                                 ),
                                 const SizedBox(height: 12),
                                 CountdownTimer(targetTime: targetTime),
@@ -177,11 +178,14 @@ class NakathDetailPopup extends StatelessWidget {
                                 child: Text(
                                   formattedTime,
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.cormorantGaramond(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: const Color(0xFF4E2A1E),
-                                  ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: const Color(0xFF4E2A1E),
+                                      ),
                                 ),
                               ),
                             ],
@@ -199,12 +203,11 @@ class NakathDetailPopup extends StatelessWidget {
                         Text(
                           description,
                           textAlign: TextAlign.justify,
-                          style: GoogleFonts.cormorantGaramond(
-                            fontSize: 16,
-                            height: 1.7,
-                            color: const Color(0xFF2B1B16),
-                            letterSpacing: 0.3,
-                          ),
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                fontSize: 16,
+                                height: 1.7,
+                                color: const Color(0xFF2B1B16),
+                              ),
                         ),
                       ],
                     ),
@@ -232,11 +235,11 @@ class NakathDetailPopup extends StatelessWidget {
                         ),
                         child: Text(
                           uiL10n.close.toUpperCase(),
-                          style: GoogleFonts.cinzel(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 1.8,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 1.2,
+                              ),
                         ),
                       ),
                     ),

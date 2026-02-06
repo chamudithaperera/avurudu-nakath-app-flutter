@@ -116,13 +116,11 @@ class NakathHeroCard extends StatelessWidget {
                       const SizedBox(height: 20),
                       Text(
                         title,
-                        style: GoogleFonts.cinzel(
-                          color: const Color(0xFFFFF7E6),
-                          fontSize: 24,
-                          fontWeight: FontWeight.w700,
-                          height: 1.2,
-                          letterSpacing: 0.6,
-                        ),
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              color: const Color(0xFFFFF7E6),
+                              fontSize: 22,
+                              height: 1.2,
+                            ),
                       ),
                       const SizedBox(height: 12),
                       if (isFuture) ...[
@@ -133,11 +131,10 @@ class NakathHeroCard extends StatelessWidget {
                       ] else ...[
                         Text(
                           displayDate,
-                          style: GoogleFonts.cormorantGaramond(
-                            color: const Color(0xFFFFF7E6),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                          ),
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                color: const Color(0xFFFFF7E6),
+                                fontSize: 16,
+                              ),
                         ),
                       ],
                       const SizedBox(height: 24),

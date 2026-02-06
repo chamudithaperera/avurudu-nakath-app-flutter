@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/services/storage_service.dart';
 import '../../data/datasources/language_local_data_source.dart';
 import '../../data/repositories/language_repository_impl.dart';
@@ -80,23 +79,20 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
               Text(
                 uiL10n.selectLanguage.toUpperCase(),
                 textAlign: TextAlign.center,
-                style: GoogleFonts.cinzel(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xFFF8EED1),
-                  letterSpacing: 2,
-                ),
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontSize: 20,
+                      color: const Color(0xFFF8EED1),
+                      letterSpacing: 1.2,
+                    ),
               ),
               const SizedBox(height: 10),
               Text(
                 uiL10n.pleaseSelectLanguage,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.cormorantGaramond(
-                  fontSize: 16,
-                  color: const Color(0xFFE9D5A8),
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.3,
-                ),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontSize: 16,
+                      color: const Color(0xFFE9D5A8),
+                    ),
               ),
               const SizedBox(height: 48),
               LanguageButton(

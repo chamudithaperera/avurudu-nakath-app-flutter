@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../domain/entities/nakath_event.dart';
 import '../mappers/nakath_localizer.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class NakathListTile extends StatelessWidget {
   final NakathEvent event;
@@ -70,12 +69,11 @@ class NakathListTile extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: GoogleFonts.cinzel(
-            fontWeight: FontWeight.w700,
-            fontSize: 16,
-            color: const Color(0xFF2B1B16),
-            letterSpacing: 0.4,
-          ),
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+                color: const Color(0xFF2B1B16),
+              ),
         ),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 6.0),
@@ -90,11 +88,11 @@ class NakathListTile extends StatelessWidget {
               Flexible(
                 child: Text(
                   timeInfo,
-                  style: GoogleFonts.cormorantGaramond(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xFF4E2A1E),
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xFF4E2A1E),
+                      ),
                 ),
               ),
             ],

@@ -11,9 +11,17 @@ class AppTheme {
   static const Color softAmber = Color(0xFFF1D48E);
   static const Color warmIvory = Color(0xFFFFF7E6);
 
-  static ThemeData get lightTheme {
+  static ThemeData lightThemeForLocale(Locale? locale) {
     final base = ThemeData.light();
-    final textTheme = GoogleFonts.cormorantGaramondTextTheme(base.textTheme);
+    TextTheme textTheme = GoogleFonts.cormorantGaramondTextTheme(
+      base.textTheme,
+    );
+    final code = locale?.languageCode;
+    if (code == 'si') {
+      textTheme = GoogleFonts.notoSansSinhalaTextTheme(textTheme);
+    } else if (code == 'ta') {
+      textTheme = GoogleFonts.notoSansTamilTextTheme(textTheme);
+    }
     return ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(
@@ -29,11 +37,10 @@ class AppTheme {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        titleTextStyle: GoogleFonts.cinzel(
+        titleTextStyle: textTheme.titleLarge?.copyWith(
           color: warmIvory,
-          fontSize: 22,
           fontWeight: FontWeight.w700,
-          letterSpacing: 2,
+          letterSpacing: 1.2,
         ),
         iconTheme: const IconThemeData(color: warmIvory),
       ),
@@ -47,17 +54,16 @@ class AppTheme {
         ),
       ),
       textTheme: textTheme.copyWith(
-        displayLarge: GoogleFonts.cinzel(
+        displayLarge: textTheme.displayLarge?.copyWith(
           fontSize: 32,
           fontWeight: FontWeight.w700,
           color: warmIvory,
-          letterSpacing: 1.5,
+          letterSpacing: 0.6,
         ),
-        titleLarge: GoogleFonts.cinzel(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
+        titleLarge: textTheme.titleLarge?.copyWith(
+          fontWeight: FontWeight.w700,
           color: deepBrown,
-          letterSpacing: 1.1,
+          letterSpacing: 0.4,
         ),
         bodyLarge: textTheme.bodyLarge?.copyWith(
           fontSize: 16,

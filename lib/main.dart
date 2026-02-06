@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Avurudu Nakath',
-      theme: AppTheme.lightTheme,
+      theme: AppTheme.lightThemeForLocale(_locale),
       locale: _locale,
       localizationsDelegates: [
         UiLocalizations.delegate,

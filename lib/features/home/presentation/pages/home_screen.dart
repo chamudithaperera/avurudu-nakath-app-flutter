@@ -7,7 +7,6 @@ import '../widgets/nakath_hero_card.dart';
 import '../widgets/nakath_list_tile.dart';
 import '../widgets/nakath_detail_popup.dart'; // Added
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/services/notification_service.dart';
 import '../../../../core/widgets/kandyan_background.dart';
@@ -55,12 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(
           uiL10n.appTitle,
-          style: GoogleFonts.cinzel(
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            letterSpacing: 1.6,
-            color: const Color(0xFFF8EED1),
-          ),
+          style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -160,12 +154,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
                             uiL10n.allNakath.toUpperCase(),
-                            style: GoogleFonts.cinzel(
-                              color: const Color(0xFFF8EED1),
-                              fontWeight: FontWeight.w700,
-                              fontSize: 12,
-                              letterSpacing: 2,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                  color: const Color(0xFFF8EED1),
+                                  fontSize: 12,
+                                  letterSpacing: 1.6,
+                                ),
                           ),
                         ),
                         Expanded(
@@ -209,19 +205,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           'A Product of ChamXdev by Chamuditha Perera',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.cormorantGaramond(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFFE9D5A8),
-                          ),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                                color: const Color(0xFFE9D5A8),
+                              ),
                         ),
                         const SizedBox(height: 6),
                         Text(
                           '© 2026 Nakath App. All rights reserved.',
-                          style: GoogleFonts.cormorantGaramond(
-                            fontSize: 11,
-                            color: const Color(0xFFE9D5A8).withValues(alpha: 0.7),
-                          ),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontSize: 11,
+                                color:
+                                    const Color(0xFFE9D5A8).withValues(alpha: 0.7),
+                              ),
                         ),
                       ],
                     ),

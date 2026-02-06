@@ -180,11 +180,10 @@ class _SplashScreenState extends State<SplashScreen>
                         child: Text(
                           'අපේ අවුරුදු නැකැත්',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.cinzel(
+                          style: GoogleFonts.notoSansSinhala(
                             fontSize: 28,
                             fontWeight: FontWeight.w700,
                             color: const Color(0xFF2B1B16),
-                            letterSpacing: 1.2,
                           ),
                         ),
                       ),
@@ -197,11 +196,10 @@ class _SplashScreenState extends State<SplashScreen>
                         child: Text(
                           'எங்கள் புத்தாண்டு நெகத்',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.cormorantGaramond(
+                          style: GoogleFonts.notoSansTamil(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
                             color: const Color(0xFF4E2A1E),
-                            letterSpacing: 0.6,
                           ),
                         ),
                       ),
