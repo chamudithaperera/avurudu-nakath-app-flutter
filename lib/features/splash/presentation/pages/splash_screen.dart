@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/services/storage_service.dart';
 import '../../../home/presentation/pages/home_screen.dart';
 import '../../../language_selection/presentation/pages/language_selection_screen.dart';
-import '../../../../core/widgets/kandyan_background.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,8 +17,6 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<double> _sunScale;
   late Animation<Offset> _sinhalaOffset;
   late Animation<double> _sinhalaOpacity;
-  late Animation<Offset> _tamilOffset;
-  late Animation<double> _tamilOpacity;
 
   @override
   void initState() {
@@ -61,21 +57,6 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    // Tamil Text: Slide up and Fade in (0.6 - 0.9)
-    _tamilOffset =
-        Tween<Offset>(begin: const Offset(0.0, 0.5), end: Offset.zero).animate(
-          CurvedAnimation(
-            parent: _controller,
-            curve: const Interval(0.7, 1.0, curve: Curves.easeOut),
-          ),
-        );
-    _tamilOpacity = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.7, 1.0, curve: Curves.easeIn),
-      ),
-    );
-
     _controller.forward().then((value) async {
       // Check for language selection
       final storageService = StorageService();
@@ -108,118 +89,119 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: KandyanBackground(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AnimatedBuilder(
-                animation: _controller,
-                builder: (context, child) {
-                  return Opacity(
-                    opacity: _sunOpacity.value,
-                    child: Transform.scale(
-                      scale: _sunScale.value,
-                        child: Transform.rotate(
-                          angle: _controller.value * 0.2,
-                          child: Container(
-                            padding: const EdgeInsets.all(18),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: const Color(0xFFC99A3B),
-                                width: 2.5,
-                              ),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black54,
-                                  blurRadius: 18,
-                                  offset: Offset(0, 10),
-                                ),
-                              ],
-                              gradient: const RadialGradient(
-                                colors: [Color(0xFFC99A3B), Color(0xFF8C1B1B)],
-                                radius: 0.9,
-                              ),
-                            ),
-                            child: const SizedBox(
-                              height: 190,
-                              width: 190,
-                              child: Center(
-                                child: Icon(
-                                  Icons.wb_sunny_rounded,
-                                  size: 92,
-                                  color: Color(0xFFFFF7E6),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                },
+      backgroundColor: const Color(0xFFFDEE94), // Light Yellow Background
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Top Left: Sun
+          Positioned(
+            top: -50,
+            left: -50,
+            child: FadeTransition(
+              opacity: _sunOpacity,
+              child: Image.asset(
+                'assets/images/sun.png',
+                width: 200,
+                height: 200,
               ),
-              const SizedBox(height: 50),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 18,
-                ),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF8EED1).withValues(alpha: 0.95),
-                  borderRadius: BorderRadius.circular(18),
-                  border: Border.all(
-                    color: const Color(0xFFC99A3B),
-                    width: 2,
-                  ),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black45,
-                      blurRadius: 16,
-                      offset: Offset(0, 8),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    SlideTransition(
-                      position: _sinhalaOffset,
-                      child: FadeTransition(
-                        opacity: _sinhalaOpacity,
-                        child: Text(
-                          'අපේ අවුරුදු නැකැත්',
+            ),
+          ),
+          // Top Right: Erabadu
+          Positioned(
+            top: 0,
+            right: 0,
+            child: Image.asset('assets/images/erabadu.png', width: 150),
+          ),
+          // Center Content
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Text Section
+                SlideTransition(
+                  position: _sinhalaOffset,
+                  child: FadeTransition(
+                    opacity: _sinhalaOpacity,
+                    child: Column(
+                      children: [
+                        Text(
+                          'අපේ අවුරුදු නැකත්',
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontFamily: 'TharuSansala',
-                            fontSize: 28,
-                            fontWeight: FontWeight.w700,
+                          style: TextStyle(
+                            fontFamily: 'KDNAMAL', // Fallback for 4u-Nisansala
+                            fontSize: 42,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xFFFFD700), // Yellowish fill
+                            shadows: [
+                              Shadow(
+                                // Black outline effect
+                                offset: const Offset(-1.5, -1.5),
+                                color: Colors.black,
+                              ),
+                              Shadow(
+                                offset: const Offset(1.5, -1.5),
+                                color: Colors.black,
+                              ),
+                              Shadow(
+                                offset: const Offset(1.5, 1.5),
+                                color: Colors.black,
+                              ),
+                              Shadow(
+                                offset: const Offset(-1.5, 1.5),
+                                color: Colors.black,
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    SlideTransition(
-                      position: _tamilOffset,
-                      child: FadeTransition(
-                        opacity: _tamilOpacity,
-                        child: Text(
+                        const SizedBox(height: 8),
+                        Text(
                           'எங்கள் புத்தாண்டு நெகத்',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.notoSansTamil(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 40),
-            ],
+                const SizedBox(height: 40),
+                // Main Illustration (Pot/Family)
+                ScaleTransition(
+                  scale: _sunScale, // Reusing scale animation
+                  child: Image.asset(
+                    'assets/images/pot.png', // Placeholder for family
+                    height: 250,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+          // Bottom Left: Kiribath
+          Positioned(
+            bottom: 20,
+            left: -20,
+            child: Image.asset('assets/images/Kiribath.png', width: 120),
+          ),
+          // Bottom Center: Pancha
+          Positioned(
+            bottom: 20,
+            left: 0,
+            right: 0,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Image.asset('assets/images/panchagame.png', width: 150),
+            ),
+          ),
+          // Bottom Right: Sweets
+          Positioned(
+            bottom: 20,
+            right: -20,
+            child: Image.asset('assets/images/sweets.png', width: 120),
+          ),
+        ],
       ),
     );
   }
