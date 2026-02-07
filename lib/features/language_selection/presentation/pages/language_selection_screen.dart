@@ -3,11 +3,8 @@ import '../../../../core/services/storage_service.dart';
 import '../../data/datasources/language_local_data_source.dart';
 import '../../data/repositories/language_repository_impl.dart';
 import '../../domain/repositories/language_repository.dart';
-import '../widgets/language_button.dart';
 import '../../../home/presentation/pages/home_screen.dart';
 import 'package:avurudu_nakath_app/main.dart';
-import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
-import '../../../../core/widgets/kandyan_background.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
   const LanguageSelectionScreen({super.key});
@@ -43,84 +40,159 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final uiL10n = UiLocalizations.of(context)!;
-
     return Scaffold(
-      body: KandyanBackground(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: const Color(0xFFC99A3B),
-                    width: 2.5,
-                  ),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black45,
-                      blurRadius: 14,
-                      offset: Offset(0, 8),
+      backgroundColor: const Color(0xFFFDEE94), // Light Yellow Background
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Top Left: Sun
+          Positioned(
+            top: -60,
+            left: -60,
+            child: Opacity(
+              opacity: 0.9,
+              child: Image.asset(
+                'assets/images/sun.png',
+                width: 200,
+                height: 200,
+              ),
+            ),
+          ),
+          // Top Right: Erabadu
+          Positioned(
+            top: -20,
+            right: -20,
+            child: Opacity(
+              opacity: 0.8,
+              child: Image.asset('assets/images/erabadu.png', width: 150),
+            ),
+          ),
+          // Center Content
+          Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Family Image
+                    Image.asset('assets/images/splash cover.png', height: 180),
+                    const SizedBox(height: 40),
+
+                    // Sinhala Title
+                    Text(
+                      'ඔබගේ භාෂාව තෝරන්න',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontFamily: 'KDNAMAL',
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF4E342E), // Dark Brown
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+
+                    // Tamil Title
+                    Text(
+                      'உங்கள் மொழியைத் தேர்வுசெய்யவும்',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Color(0xFF5D4037), // Slightly lighter brown
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+
+                    // Sinhala Button
+                    _buildLanguageButton(
+                      label: 'සිංහල',
+                      fontFamily: 'TharuRun',
+                      onTap: () => _selectLanguage('si'),
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Tamil Button
+                    _buildLanguageButton(
+                      label: 'தமிழ்',
+                      fontFamily: 'TharuRun', // Or standard Tamil font
+                      onTap: () => _selectLanguage('ta'),
                     ),
                   ],
-                  gradient: const RadialGradient(
-                    colors: [Color(0xFFC99A3B), Color(0xFF8C1B1B)],
-                    radius: 0.9,
-                  ),
-                ),
-                child: const SizedBox(
-                  height: 120,
-                  width: 120,
-                  child: Center(
-                    child: Icon(
-                      Icons.auto_awesome,
-                      size: 64,
-                      color: Color(0xFFFFF7E6),
-                    ),
-                  ),
                 ),
               ),
-              const SizedBox(height: 36),
-              Text(
-                uiL10n.selectLanguage.toUpperCase(),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontFamily: 'KDNAMAL',
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 1.2,
-                ),
+            ),
+          ),
+          // Bottom Left: Kiribath
+          Positioned(
+            bottom: 0,
+            left: -10,
+            child: Opacity(
+              opacity: 0.8,
+              child: Image.asset('assets/images/Kiribath.png', width: 120),
+            ),
+          ),
+          // Bottom Center: Pancha
+          Positioned(
+            bottom: 10,
+            left: 0,
+            right: 0,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Opacity(
+                opacity: 0.8,
+                child: Image.asset('assets/images/panchagame.png', width: 130),
               ),
-              const SizedBox(height: 10),
-              Text(
-                uiL10n.pleaseSelectLanguage,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  fontSize: 16,
-                ),
+            ),
+          ),
+          // Bottom Right: Sweets
+          Positioned(
+            bottom: 0,
+            right: -10,
+            child: Opacity(
+              opacity: 0.8,
+              child: Image.asset('assets/images/sweets.png', width: 120),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLanguageButton({
+    required String label,
+    required VoidCallback onTap,
+    String? fontFamily,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          width: double.infinity,
+          height: 60,
+          decoration: BoxDecoration(
+            color: const Color(0xFFFFC107), // Amber
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.black, width: 1.5),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 4,
+                offset: Offset(0, 2),
               ),
-              const SizedBox(height: 48),
-              LanguageButton(
-                label: 'සිංහල',
-                subLabel: 'Sinhala',
-                labelFontFamily: 'TharuRun',
-                onTap: () => _selectLanguage('si'),
-              ),
-              const SizedBox(height: 16),
-              LanguageButton(
-                label: 'தமிழ்',
-                subLabel: 'Tamil',
-                labelFontFamily: 'TharuRun',
-                onTap: () => _selectLanguage('ta'),
-              ),
-              const Spacer(),
-              const SizedBox(height: 18),
             ],
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            label,
+            style: TextStyle(
+              fontFamily: fontFamily,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
           ),
         ),
       ),
