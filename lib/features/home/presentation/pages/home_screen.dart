@@ -59,13 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
             fontSize: 20,
             fontWeight: FontWeight.w700,
             letterSpacing: 1.2,
-            color: Color(0xFFF8EED1),
           ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Color(0xFFF8EED1)),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(14),
           child: Container(
@@ -101,14 +99,14 @@ class _HomeScreenState extends State<HomeScreen> {
               return Center(
                 child: Text(
                   'Error: ${snapshot.error}',
-                  style: const TextStyle(color: Color(0xFFF8EED1)),
+                  style: const TextStyle(),
                 ),
               );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return const Center(
                 child: Text(
                   'No nakath events found.',
-                  style: TextStyle(color: Color(0xFFF8EED1)),
+                  style: TextStyle(),
                 ),
               );
             }
@@ -162,7 +160,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             uiL10n.allNakath.toUpperCase(),
                             style: const TextStyle(
                               fontFamily: 'GemunuX',
-                              color: Color(0xFFF8EED1),
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
                               letterSpacing: 1.6,
@@ -213,7 +210,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w700,
-                                color: const Color(0xFFE9D5A8),
                               ),
                         ),
                         const SizedBox(height: 6),
@@ -221,8 +217,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           '© 2026 Nakath App. All rights reserved.',
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                 fontSize: 11,
-                                color:
-                                    const Color(0xFFE9D5A8).withValues(alpha: 0.7),
                               ),
                         ),
                       ],

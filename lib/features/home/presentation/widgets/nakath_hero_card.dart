@@ -4,7 +4,6 @@ import '../../domain/entities/nakath_event.dart';
 import '../mappers/nakath_localizer.dart';
 import 'countdown_timer.dart';
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class NakathHeroCard extends StatelessWidget {
   final NakathEvent event;
@@ -44,21 +43,21 @@ class NakathHeroCard extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFF2B1B16),
-                  Color(0xFF4E2A1E),
-                  Color(0xFF8C1B1B),
+                  Color(0xFFFFF7E6),
+                  Color(0xFFF8EED1),
+                  Color(0xFFF1D48E),
                 ],
               ),
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.5),
-                  blurRadius: 20,
-                  offset: const Offset(0, 12),
+                  color: Colors.black.withValues(alpha: 0.15),
+                  blurRadius: 14,
+                  offset: const Offset(0, 8),
                 ),
               ],
               border: Border.all(
-                color: const Color(0xFFC99A3B),
+                color: const Color(0xFF8C1B1B),
                 width: 2,
               ),
             ),
@@ -87,8 +86,8 @@ class NakathHeroCard extends StatelessWidget {
                             ),
                             child: Text(
                               uiL10n.nextUpcoming.toUpperCase(),
-                              style: GoogleFonts.cinzel(
-                                color: const Color(0xFF2B1B16),
+                              style: const TextStyle(
+                                fontFamily: 'GemunuX',
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
                                 letterSpacing: 1,
@@ -107,7 +106,6 @@ class NakathHeroCard extends StatelessWidget {
                         title,
                         style: const TextStyle(
                           fontFamily: 'TharuMahee',
-                          color: Color(0xFFFFF7E6),
                           fontSize: 22,
                           fontWeight: FontWeight.w700,
                           height: 1.2,
@@ -117,14 +115,12 @@ class NakathHeroCard extends StatelessWidget {
                       if (isFuture) ...[
                         CountdownTimer(
                           targetTime: targetTime,
-                          labelColor: const Color(0xFFFFF7E6),
                         ),
                       ] else ...[
                         Text(
                           displayDate,
                           style: const TextStyle(
                             fontFamily: 'GemunuX',
-                            color: Color(0xFFFFF7E6),
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                           ),

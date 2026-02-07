@@ -58,11 +58,9 @@ class AppTheme {
         elevation: 0,
         centerTitle: true,
         titleTextStyle: textTheme.titleLarge?.copyWith(
-          color: warmIvory,
           fontWeight: FontWeight.w700,
           letterSpacing: 1.2,
         ),
-        iconTheme: const IconThemeData(color: warmIvory),
       ),
       cardTheme: CardThemeData(
         color: warmIvory,
@@ -77,26 +75,21 @@ class AppTheme {
         displayLarge: textTheme.displayLarge?.copyWith(
           fontSize: 32,
           fontWeight: FontWeight.w700,
-          color: warmIvory,
           letterSpacing: 0.6,
         ),
         titleLarge: textTheme.titleLarge?.copyWith(
           fontWeight: FontWeight.w700,
-          color: deepBrown,
           letterSpacing: 0.4,
         ),
         bodyLarge: textTheme.bodyLarge?.copyWith(
           fontSize: 16,
-          color: deepBrown,
         ),
         bodyMedium: textTheme.bodyMedium?.copyWith(
-          color: deepBrown,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: lacquerBrown,
-          foregroundColor: warmIvory,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),

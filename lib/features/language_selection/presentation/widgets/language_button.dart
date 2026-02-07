@@ -18,6 +18,7 @@ class LanguageButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final effectiveFontFamily = labelFontFamily;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
       child: Material(
@@ -54,10 +55,9 @@ class LanguageButton extends StatelessWidget {
                 Text(
                   label,
                   style: TextStyle(
-                    fontFamily: labelFontFamily,
+                    fontFamily: effectiveFontFamily,
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
-                    color: const Color(0xFF2B1B16),
                     letterSpacing: 1,
                   ),
                 ),
@@ -66,8 +66,8 @@ class LanguageButton extends StatelessWidget {
                   Text(
                     subLabel,
                     style: TextStyle(
+                      fontFamily: effectiveFontFamily,
                       fontSize: 14,
-                      color: const Color(0xFF4E2A1E),
                       fontWeight: FontWeight.w600,
                     ),
                   ),

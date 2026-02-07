@@ -194,7 +194,6 @@ class _SplashScreenState extends State<SplashScreen>
                             fontFamily: 'TharuSansala',
                             fontSize: 28,
                             fontWeight: FontWeight.w700,
-                            color: Color(0xFF2B1B16),
                           ),
                         ),
                       ),
@@ -210,7 +209,6 @@ class _SplashScreenState extends State<SplashScreen>
                           style: GoogleFonts.notoSansTamil(
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
-                            color: const Color(0xFF4E2A1E),
                           ),
                         ),
                       ),

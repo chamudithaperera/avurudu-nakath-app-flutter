@@ -71,8 +71,8 @@ class NakathDetailPopup extends StatelessWidget {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                          Color(0xFFC99A3B),
-                          Color(0xFF8C1B1B),
+                          Color(0xFFFFF7E6),
+                          Color(0xFFF1D48E),
                         ],
                       ),
                       borderRadius: BorderRadius.vertical(
@@ -87,7 +87,7 @@ class NakathDetailPopup extends StatelessWidget {
                         const Icon(
                           Icons.wb_sunny_rounded,
                           size: 48,
-                          color: Color(0xFFFFF7E6),
+                          color: Color(0xFF8C1B1B),
                         ),
                         const SizedBox(height: 16),
                         Text(
@@ -97,7 +97,6 @@ class NakathDetailPopup extends StatelessWidget {
                             fontFamily: 'TharuMahee',
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
-                            color: Color(0xFFFFF7E6),
                           ),
                         ),
                       ],
@@ -137,7 +136,6 @@ class NakathDetailPopup extends StatelessWidget {
                                     fontFamily: 'GemunuX',
                                     fontSize: 12,
                                     fontWeight: FontWeight.w700,
-                                    color: Color(0xFF8C1B1B),
                                     letterSpacing: 1.2,
                                   ),
                                 ),
@@ -183,7 +181,6 @@ class NakathDetailPopup extends StatelessWidget {
                                       ?.copyWith(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700,
-                                        color: const Color(0xFF4E2A1E),
                                       ),
                                 ),
                               ),
@@ -206,7 +203,6 @@ class NakathDetailPopup extends StatelessWidget {
                             fontFamily: 'Tharu',
                             fontSize: 16,
                             height: 1.7,
-                            color: Color(0xFF2B1B16),
                           ),
                         ),
                       ],
@@ -222,7 +218,6 @@ class NakathDetailPopup extends StatelessWidget {
                         onPressed: () => Navigator.of(context).pop(),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF2B1B16),
-                          foregroundColor: const Color(0xFFFFF7E6),
                           padding: const EdgeInsets.symmetric(vertical: 18),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),

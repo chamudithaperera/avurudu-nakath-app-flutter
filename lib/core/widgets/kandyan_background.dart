@@ -21,9 +21,9 @@ class KandyanBackground extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFF2B1B16),
-                  Color(0xFF4E2A1E),
-                  Color(0xFF7A2E22),
+                  Color(0xFFFFF7E6),
+                  Color(0xFFF8EED1),
+                  Color(0xFFF1D48E),
                 ],
               ),
             ),
@@ -40,8 +40,8 @@ class KandyanBackground extends StatelessWidget {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
-                  colors: [Color(0xFFC99A3B), Color(0x002B1B16)],
-                  radius: 0.7,
+                  colors: [Color(0x66C99A3B), Color(0x00FFF7E6)],
+                  radius: 0.8,
                 ),
               ),
             ),
@@ -58,8 +58,8 @@ class KandyanBackground extends StatelessWidget {
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
-                  colors: [Color(0xFF8C1B1B), Color(0x002B1B16)],
-                  radius: 0.7,
+                  colors: [Color(0x558C1B1B), Color(0x00FFF7E6)],
+                  radius: 0.8,
                 ),
               ),
             ),
@@ -78,7 +78,7 @@ class KandyanBackground extends StatelessWidget {
                 border: Border.all(color: const Color(0xFFC99A3B), width: 2),
                 boxShadow: const [
                   BoxShadow(
-                    color: Color(0x99C99A3B),
+                    color: Color(0x66C99A3B),
                     blurRadius: 24,
                     spreadRadius: 2,
                   ),
@@ -88,7 +88,7 @@ class KandyanBackground extends StatelessWidget {
                 child: Icon(
                   Icons.wb_sunny_rounded,
                   size: 68,
-                  color: Color(0xFFC99A3B),
+                  color: Color(0xFF8C1B1B),
                 ),
               ),
             ),

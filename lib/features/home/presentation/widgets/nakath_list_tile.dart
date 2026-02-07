@@ -73,7 +73,6 @@ class NakathListTile extends StatelessWidget {
             fontFamily: 'TharuMahee',
             fontWeight: FontWeight.w700,
             fontSize: 16,
-            color: Color(0xFF2B1B16),
           ),
         ),
         subtitle: Padding(
@@ -93,7 +92,6 @@ class NakathListTile extends StatelessWidget {
                     fontFamily: 'GemunuX',
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF4E2A1E),
                   ),
                 ),
               ),

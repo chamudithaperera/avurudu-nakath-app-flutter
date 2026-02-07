@@ -5,9 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CountdownTimer extends StatefulWidget {
   final DateTime targetTime;
-  final Color? labelColor;
 
-  const CountdownTimer({super.key, required this.targetTime, this.labelColor});
+  const CountdownTimer({super.key, required this.targetTime});
 
   @override
   State<CountdownTimer> createState() => _CountdownTimerState();
@@ -52,7 +51,6 @@ class _CountdownTimerState extends State<CountdownTimer> {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.secondary,
           ),
         ),
       );
@@ -90,19 +88,19 @@ class _CountdownTimerState extends State<CountdownTimer> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color(0xFFC99A3B),
-                Color(0xFF8C1B1B),
+                Color(0xFFFFF7E6),
+                Color(0xFFF1D48E),
               ],
             ),
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.35),
+                color: Colors.black.withValues(alpha: 0.15),
                 blurRadius: 8,
                 offset: const Offset(0, 4),
               ),
             ],
-            border: Border.all(color: const Color(0xFFFFF7E6), width: 1),
+            border: Border.all(color: const Color(0xFF8C1B1B), width: 1),
           ),
           constraints: const BoxConstraints(minWidth: 46),
           child: Text(
@@ -111,7 +109,6 @@ class _CountdownTimerState extends State<CountdownTimer> {
             style: GoogleFonts.cinzel(
               fontSize: 20,
               fontWeight: FontWeight.w700,
-              color: const Color(0xFFFFF7E6),
               letterSpacing: 0.8,
             ),
           ),
@@ -123,7 +120,6 @@ class _CountdownTimerState extends State<CountdownTimer> {
             fontFamily: 'GemunuX',
             fontSize: 11,
             fontWeight: FontWeight.w700,
-            color: widget.labelColor ?? const Color(0xFFE9D5A8),
             letterSpacing: 0.5,
           ),
         ),
@@ -139,9 +135,6 @@ class _CountdownTimerState extends State<CountdownTimer> {
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
-          color:
-              widget.labelColor?.withValues(alpha: 0.8) ??
-              const Color(0xFFE9D5A8),
         ),
       ),
     );

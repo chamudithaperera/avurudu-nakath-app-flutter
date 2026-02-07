@@ -93,7 +93,6 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                   fontFamily: 'KDNAMAL',
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFFF8EED1),
                   letterSpacing: 1.2,
                 ),
               ),
@@ -103,7 +102,6 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontSize: 16,
-                  color: const Color(0xFFE9D5A8),
                 ),
               ),
               const SizedBox(height: 48),
@@ -117,6 +115,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
               LanguageButton(
                 label: 'தமிழ்',
                 subLabel: 'Tamil',
+                labelFontFamily: 'TharuRun',
                 onTap: () => _selectLanguage('ta'),
               ),
               const Spacer(),
