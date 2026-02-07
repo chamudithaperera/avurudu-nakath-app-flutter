@@ -14,91 +14,65 @@ class KandyanBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const Positioned.fill(
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFFFFF7E6),
-                  Color(0xFFF8EED1),
-                  Color(0xFFF1D48E),
-                ],
-              ),
+        const Positioned.fill(child: ColoredBox(color: Color(0xFFFDEE94))),
+        Positioned(
+          top: -68,
+          left: -76,
+          child: Opacity(
+            opacity: 0.33,
+            child: Image.asset(
+              'assets/images/sun.png',
+              width: 230,
+              height: 230,
             ),
           ),
         ),
         Positioned(
-          top: -140,
-          right: -140,
+          top: 92,
+          right: -36,
           child: Opacity(
-            opacity: 0.2,
-            child: Container(
-              width: 320,
-              height: 320,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [Color(0x66C99A3B), Color(0x00FFF7E6)],
-                  radius: 0.8,
-                ),
-              ),
+            opacity: 0.28,
+            child: Image.asset('assets/images/erabadu.png', width: 210),
+          ),
+        ),
+        Positioned(
+          bottom: 192,
+          left: -28,
+          child: Opacity(
+            opacity: 0.16,
+            child: Image.asset('assets/images/Kiribath.png', width: 120),
+          ),
+        ),
+        Positioned(
+          bottom: 4,
+          left: -14,
+          child: Opacity(
+            opacity: 0.22,
+            child: Image.asset('assets/images/Kiribath.png', width: 122),
+          ),
+        ),
+        Positioned(
+          bottom: 12,
+          left: 0,
+          right: 0,
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Opacity(
+              opacity: 0.2,
+              child: Image.asset('assets/images/panchagame.png', width: 148),
             ),
           ),
         ),
         Positioned(
-          bottom: -160,
-          left: -160,
+          bottom: -4,
+          right: -18,
           child: Opacity(
-            opacity: 0.2,
-            child: Container(
-              width: 340,
-              height: 340,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [Color(0x558C1B1B), Color(0x00FFF7E6)],
-                  radius: 0.8,
-                ),
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 40,
-          left: -20,
-          child: Opacity(
-            opacity: 0.18,
-            child: Container(
-              width: 160,
-              height: 160,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: const Color(0xFFC99A3B), width: 2),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color(0x66C99A3B),
-                    blurRadius: 24,
-                    spreadRadius: 2,
-                  ),
-                ],
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.wb_sunny_rounded,
-                  size: 68,
-                  color: Color(0xFF8C1B1B),
-                ),
-              ),
-            ),
+            opacity: 0.22,
+            child: Image.asset('assets/images/sweets.png', width: 136),
           ),
         ),
         Positioned.fill(
-          child: Container(
-            padding: padding,
-            child: child,
-          ),
+          child: Padding(padding: padding, child: child),
         ),
       ],
     );
