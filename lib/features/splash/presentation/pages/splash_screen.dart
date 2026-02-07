@@ -95,22 +95,28 @@ class _SplashScreenState extends State<SplashScreen>
         children: [
           // Top Left: Sun
           Positioned(
-            top: -50,
-            left: -50,
+            top: -60,
+            left: -60,
             child: FadeTransition(
               opacity: _sunOpacity,
-              child: Image.asset(
-                'assets/images/sun.png',
-                width: 200,
-                height: 200,
+              child: Opacity(
+                opacity: 0.9,
+                child: Image.asset(
+                  'assets/images/sun.png',
+                  width: 200,
+                  height: 200,
+                ),
               ),
             ),
           ),
           // Top Right: Erabadu
           Positioned(
-            top: 0,
-            right: 0,
-            child: Image.asset('assets/images/erabadu.png', width: 150),
+            top: -20,
+            right: -20,
+            child: Opacity(
+              opacity: 0.8,
+              child: Image.asset('assets/images/erabadu.png', width: 150),
+            ),
           ),
           // Center Content
           Center(
@@ -129,7 +135,7 @@ class _SplashScreenState extends State<SplashScreen>
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'KDNAMAL', // Fallback for 4u-Nisansala
-                            fontSize: 42,
+                            fontSize: 32,
                             fontWeight: FontWeight.bold,
                             color: const Color(0xFFFFD700), // Yellowish fill
                             shadows: [
@@ -158,7 +164,7 @@ class _SplashScreenState extends State<SplashScreen>
                           'எங்கள் புத்தாண்டு நெகத்',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 18,
                             color: Colors.black54,
                             fontWeight: FontWeight.w500,
                           ),
@@ -168,7 +174,7 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                 ),
                 const SizedBox(height: 40),
-                // Main Illustration (Pot/Family)
+                // Main Illustration (Family)
                 ScaleTransition(
                   scale: _sunScale,
                   child: Image.asset(
@@ -181,25 +187,34 @@ class _SplashScreenState extends State<SplashScreen>
           ),
           // Bottom Left: Kiribath
           Positioned(
-            bottom: 20,
-            left: -20,
-            child: Image.asset('assets/images/Kiribath.png', width: 120),
+            bottom: 0,
+            left: -10,
+            child: Opacity(
+              opacity: 0.8,
+              child: Image.asset('assets/images/Kiribath.png', width: 120),
+            ),
           ),
           // Bottom Center: Pancha
           Positioned(
-            bottom: 20,
+            bottom: 10,
             left: 0,
             right: 0,
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: Image.asset('assets/images/panchagame.png', width: 150),
+              child: Opacity(
+                opacity: 0.8,
+                child: Image.asset('assets/images/panchagame.png', width: 130),
+              ),
             ),
           ),
           // Bottom Right: Sweets
           Positioned(
-            bottom: 20,
-            right: -20,
-            child: Image.asset('assets/images/sweets.png', width: 120),
+            bottom: 0,
+            right: -10,
+            child: Opacity(
+              opacity: 0.8,
+              child: Image.asset('assets/images/sweets.png', width: 120),
+            ),
           ),
         ],
       ),
