@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final uiL10n = UiLocalizations.of(context)!;
-    final scale = (MediaQuery.sizeOf(context).width / 390).clamp(0.85, 1.15);
+    final scale = (MediaQuery.sizeOf(context).width / 390).clamp(0.9, 1.08);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -131,77 +131,82 @@ class _HomeScreenState extends State<HomeScreen> {
             return SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               padding: EdgeInsets.fromLTRB(
-                16 * scale,
-                10 * scale,
-                16 * scale,
-                26 * scale,
+                18 * scale,
+                12 * scale,
+                18 * scale,
+                30 * scale,
               ),
               child: SafeArea(
                 bottom: false,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          uiL10n.appTitle,
-                          style: const TextStyle(
-                            fontFamily: 'KDNAMAL',
-                            fontSize: 48,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFFFABF24),
-                            shadows: [
-                              Shadow(
-                                offset: Offset(-1.4, -1.4),
-                                color: Colors.black,
-                              ),
-                              Shadow(
-                                offset: Offset(1.4, -1.4),
-                                color: Colors.black,
-                              ),
-                              Shadow(
-                                offset: Offset(-1.4, 1.4),
-                                color: Colors.black,
-                              ),
-                              Shadow(
-                                offset: Offset(1.4, 1.4),
-                                color: Colors.black,
-                              ),
-                              Shadow(
-                                offset: Offset(0, 6),
-                                blurRadius: 12,
-                                color: Color(0x66000000),
-                              ),
-                            ],
-                          ).copyWith(fontSize: 48 * scale),
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 560),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              uiL10n.appTitle,
+                              style: const TextStyle(
+                                fontFamily: 'KDNAMAL',
+                                fontSize: 42,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xFFFABF24),
+                                shadows: [
+                                  Shadow(
+                                    offset: Offset(-1.1, -1.1),
+                                    color: Colors.black,
+                                  ),
+                                  Shadow(
+                                    offset: Offset(1.1, -1.1),
+                                    color: Colors.black,
+                                  ),
+                                  Shadow(
+                                    offset: Offset(-1.1, 1.1),
+                                    color: Colors.black,
+                                  ),
+                                  Shadow(
+                                    offset: Offset(1.1, 1.1),
+                                    color: Colors.black,
+                                  ),
+                                  Shadow(
+                                    offset: Offset(0, 4),
+                                    blurRadius: 8,
+                                    color: Color(0x44000000),
+                                  ),
+                                ],
+                              ).copyWith(fontSize: 42 * scale),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    SizedBox(height: 16 * scale),
-                    _NextNakathCard(
-                      event: nextEvent,
-                      formattedDate: _formatDateLabel(context, nextEvent),
-                      scale: scale,
-                      onTap: () => _showNakathDetail(nextEvent),
-                    ),
-                    SizedBox(height: 22 * scale),
-                    _SectionHeader(title: uiL10n.allNakath, scale: scale),
-                    SizedBox(height: 14 * scale),
-                    ...List.generate(otherEvents.length, (index) {
-                      final event = otherEvents[index];
-                      return Padding(
-                        padding: EdgeInsets.only(bottom: 12 * scale),
-                        child: _NakathEventTile(
-                          event: event,
-                          dateLabel: _formatDateLabel(context, event),
-                          iconAssetPath: _getNakathIconPath(event.id),
+                        SizedBox(height: 20 * scale),
+                        _NextNakathCard(
+                          event: nextEvent,
+                          formattedDate: _formatDateLabel(context, nextEvent),
                           scale: scale,
-                          onTap: () => _showNakathDetail(event),
+                          onTap: () => _showNakathDetail(nextEvent),
                         ),
-                      );
-                    }),
-                  ],
+                        SizedBox(height: 26 * scale),
+                        _SectionHeader(title: uiL10n.allNakath, scale: scale),
+                        SizedBox(height: 16 * scale),
+                        ...List.generate(otherEvents.length, (index) {
+                          final event = otherEvents[index];
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 12 * scale),
+                            child: _NakathEventTile(
+                              event: event,
+                              dateLabel: _formatDateLabel(context, event),
+                              iconAssetPath: _getNakathIconPath(event.id),
+                              scale: scale,
+                              onTap: () => _showNakathDetail(event),
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             );
@@ -268,19 +273,19 @@ class _NextNakathCard extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        borderRadius: BorderRadius.circular(28 * scale),
+        borderRadius: BorderRadius.circular(24 * scale),
         onTap: onTap,
         child: Ink(
           width: double.infinity,
           decoration: BoxDecoration(
             color: const Color(0xFFFBBF24),
-            borderRadius: BorderRadius.circular(28 * scale),
-            border: Border.all(color: const Color(0xFF15130E), width: 1.8),
+            borderRadius: BorderRadius.circular(24 * scale),
+            border: Border.all(color: const Color(0xFF15130E), width: 1.5),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.28),
-                blurRadius: 18 * scale,
-                offset: Offset(0, 8 * scale),
+                color: Colors.black.withValues(alpha: 0.2),
+                blurRadius: 14 * scale,
+                offset: Offset(0, 6 * scale),
               ),
             ],
           ),
@@ -291,20 +296,20 @@ class _NextNakathCard extends StatelessWidget {
                 top: 14 * scale,
                 bottom: 12 * scale,
                 child: Opacity(
-                  opacity: 0.17,
+                  opacity: 0.1,
                   child: Image.asset(
                     'assets/images/erabadu.png',
-                    width: 160 * scale,
+                    width: 140 * scale,
                     fit: BoxFit.contain,
                   ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                  14 * scale,
-                  14 * scale,
-                  14 * scale,
                   16 * scale,
+                  16 * scale,
+                  16 * scale,
+                  18 * scale,
                 ),
                 child: Column(
                   children: [
@@ -312,29 +317,29 @@ class _NextNakathCard extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                          horizontal: 16 * scale,
-                          vertical: 7 * scale,
+                          horizontal: 14 * scale,
+                          vertical: 6 * scale,
                         ),
                         decoration: BoxDecoration(
                           color: const Color(0xFFEDEDED),
-                          borderRadius: BorderRadius.circular(22 * scale),
+                          borderRadius: BorderRadius.circular(18 * scale),
                           border: Border.all(
                             color: const Color(0xFF111111),
-                            width: 1.5,
+                            width: 1.3,
                           ),
                         ),
                         child: Text(
                           uiL10n.nextUpcoming,
                           style: TextStyle(
                             fontFamily: 'TharuSansala',
-                            fontSize: 20 * scale,
+                            fontSize: 16 * scale,
                             fontWeight: FontWeight.w700,
                             color: const Color(0xFF5F433A),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 14 * scale),
+                    SizedBox(height: 16 * scale),
                     Text(
                       event.getLocalizedTitle(context),
                       textAlign: TextAlign.center,
@@ -342,13 +347,13 @@ class _NextNakathCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontFamily: 'TharuMahee',
-                        fontSize: 38 * scale,
-                        height: 1.1,
+                        fontSize: 31 * scale,
+                        height: 1.15,
                         fontWeight: FontWeight.w700,
                         color: const Color(0xFF060504),
                       ),
                     ),
-                    SizedBox(height: 12 * scale),
+                    SizedBox(height: 16 * scale),
                     if (isFuture)
                       _HomeCountdown(
                         targetTime: targetTime.toLocal(),
@@ -359,7 +364,7 @@ class _NextNakathCard extends StatelessWidget {
                         formattedDate,
                         style: TextStyle(
                           fontFamily: 'GemunuX',
-                          fontSize: 24 * scale,
+                          fontSize: 20 * scale,
                           fontWeight: FontWeight.w700,
                           color: const Color(0xFF3F2C23),
                         ),
@@ -387,9 +392,9 @@ class _SectionHeader extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            height: 3.2 * scale,
+            height: 2.4 * scale,
             decoration: BoxDecoration(
-              color: const Color(0xFF7A6945).withValues(alpha: 0.75),
+              color: const Color(0xFF7A6945).withValues(alpha: 0.55),
               borderRadius: BorderRadius.circular(6 * scale),
             ),
           ),
@@ -400,7 +405,7 @@ class _SectionHeader extends StatelessWidget {
             title,
             style: TextStyle(
               fontFamily: 'TharuMahee',
-              fontSize: 34 * scale,
+              fontSize: 27 * scale,
               fontWeight: FontWeight.w700,
               color: const Color(0xFF080603),
             ),
@@ -408,9 +413,9 @@ class _SectionHeader extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            height: 3.2 * scale,
+            height: 2.4 * scale,
             decoration: BoxDecoration(
-              color: const Color(0xFF7A6945).withValues(alpha: 0.75),
+              color: const Color(0xFF7A6945).withValues(alpha: 0.55),
               borderRadius: BorderRadius.circular(6 * scale),
             ),
           ),
@@ -440,30 +445,30 @@ class _NakathEventTile extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        borderRadius: BorderRadius.circular(26 * scale),
+        borderRadius: BorderRadius.circular(22 * scale),
         onTap: onTap,
         child: Ink(
           padding: EdgeInsets.symmetric(
             horizontal: 14 * scale,
-            vertical: 10 * scale,
+            vertical: 12 * scale,
           ),
           decoration: BoxDecoration(
             color: const Color(0xFFF1E2AC),
-            borderRadius: BorderRadius.circular(26 * scale),
-            border: Border.all(color: const Color(0xFFA69169), width: 1.8),
+            borderRadius: BorderRadius.circular(22 * scale),
+            border: Border.all(color: const Color(0xFFA69169), width: 1.5),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.18),
-                blurRadius: 12 * scale,
-                offset: Offset(0, 7 * scale),
+                color: Colors.black.withValues(alpha: 0.13),
+                blurRadius: 10 * scale,
+                offset: Offset(0, 5 * scale),
               ),
             ],
           ),
           child: Row(
             children: [
               Container(
-                width: 64 * scale,
-                height: 64 * scale,
+                width: 58 * scale,
+                height: 58 * scale,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(color: const Color(0xFF90774E), width: 2),
@@ -485,7 +490,7 @@ class _NakathEventTile extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 12 * scale),
+              SizedBox(width: 13 * scale),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -497,9 +502,9 @@ class _NakathEventTile extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontFamily: 'TharuMahee',
-                        fontSize: 18 * scale,
+                        fontSize: 16 * scale,
                         fontWeight: FontWeight.w700,
-                        height: 1.1,
+                        height: 1.2,
                         color: const Color(0xFF5E463F),
                       ),
                     ),
@@ -510,7 +515,7 @@ class _NakathEventTile extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontFamily: 'GemunuX',
-                        fontSize: 16 * scale,
+                        fontSize: 14 * scale,
                         fontWeight: FontWeight.w700,
                         color: const Color(0xFF5E463F),
                       ),
@@ -518,10 +523,10 @@ class _NakathEventTile extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(width: 8 * scale),
+              SizedBox(width: 10 * scale),
               Container(
-                width: 34 * scale,
-                height: 34 * scale,
+                width: 30 * scale,
+                height: 30 * scale,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Color(0xFFB4A071),
@@ -529,7 +534,7 @@ class _NakathEventTile extends StatelessWidget {
                 child: Icon(
                   Icons.arrow_forward_rounded,
                   color: Colors.white,
-                  size: 20 * scale,
+                  size: 18 * scale,
                 ),
               ),
             ],
@@ -647,18 +652,18 @@ class _CountdownUnit extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 62 * scale,
+          height: 54 * scale,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: const Color(0xFFE7E7E7),
-            borderRadius: BorderRadius.circular(16 * scale),
-            border: Border.all(color: const Color(0xFF111111), width: 1.4),
+            borderRadius: BorderRadius.circular(14 * scale),
+            border: Border.all(color: const Color(0xFF111111), width: 1.2),
           ),
           child: Text(
             value,
             style: TextStyle(
               fontFamily: 'GemunuX',
-              fontSize: 34 * scale,
+              fontSize: 28 * scale,
               height: 1.0,
               fontWeight: FontWeight.w700,
               color: const Color(0xFF62463E),
@@ -674,7 +679,7 @@ class _CountdownUnit extends StatelessWidget {
               label,
               style: TextStyle(
                 fontFamily: 'TharuSansala',
-                fontSize: 20 * scale,
+                fontSize: 16 * scale,
                 fontWeight: FontWeight.w700,
                 color: const Color(0xFF0B0907),
               ),
@@ -697,13 +702,13 @@ class _CountdownDivider extends StatelessWidget {
       padding: EdgeInsets.only(
         left: 3 * scale,
         right: 3 * scale,
-        bottom: 24 * scale,
+        bottom: 19 * scale,
       ),
       child: Text(
         ':',
         style: TextStyle(
           fontFamily: 'GemunuX',
-          fontSize: 32 * scale,
+          fontSize: 26 * scale,
           fontWeight: FontWeight.w700,
           color: const Color(0xFF0B0907),
         ),

@@ -75,53 +75,53 @@ class NakathDetailPopup extends StatelessWidget {
     final uiL10n = UiLocalizations.of(context)!;
     final title = event.getLocalizedTitle(context);
     final description = event.getLocalizedDescription(context);
-    final scale = (MediaQuery.sizeOf(context).width / 390).clamp(0.85, 1.08);
+    final scale = (MediaQuery.sizeOf(context).width / 390).clamp(0.9, 1.05);
     final targetTime = _targetTime();
     final formattedTime = _formattedTimeText(context);
 
     return Dialog(
       backgroundColor: Colors.transparent,
       insetPadding: EdgeInsets.symmetric(
-        horizontal: 16 * scale,
-        vertical: 22 * scale,
+        horizontal: 18 * scale,
+        vertical: 24 * scale,
       ),
       child: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: 820 * scale, maxWidth: 520),
+        constraints: BoxConstraints(maxHeight: 780 * scale, maxWidth: 500),
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
             color: const Color(0xFFF1E2AC),
-            borderRadius: BorderRadius.circular(28 * scale),
-            border: Border.all(color: Colors.black, width: 2),
+            borderRadius: BorderRadius.circular(24 * scale),
+            border: Border.all(color: Colors.black, width: 1.8),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.55),
-                blurRadius: 24,
-                offset: Offset(0, 14 * scale),
+                color: Colors.black.withValues(alpha: 0.42),
+                blurRadius: 16,
+                offset: Offset(0, 8 * scale),
               ),
             ],
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(26 * scale),
+            borderRadius: BorderRadius.circular(22 * scale),
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               padding: EdgeInsets.fromLTRB(
-                22 * scale,
-                28 * scale,
-                22 * scale,
+                20 * scale,
                 24 * scale,
+                20 * scale,
+                22 * scale,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    width: 156 * scale,
-                    height: 156 * scale,
+                    width: 138 * scale,
+                    height: 138 * scale,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: const Color(0xFF9F8353),
-                        width: 2,
+                        width: 1.6,
                       ),
                     ),
                     child: ClipOval(
@@ -139,49 +139,48 @@ class NakathDetailPopup extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 18 * scale),
+                  SizedBox(height: 16 * scale),
                   Text(
                     title,
                     textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
                     style: TextStyle(
                       fontFamily: 'TharuMahee',
-                      fontSize: 28 * scale,
+                      fontSize: 24 * scale,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xFF5A423A),
-                      height: 1.1,
+                      height: 1.2,
                     ),
                   ),
-                  SizedBox(height: 6 * scale),
+                  SizedBox(height: 8 * scale),
                   Text(
                     formattedTime,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontFamily: 'GemunuX',
-                      fontSize: 24 * scale,
+                      fontSize: 19 * scale,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xFF5A423A),
                     ),
                   ),
-                  SizedBox(height: 16 * scale),
+                  SizedBox(height: 18 * scale),
                   Container(
                     width: double.infinity,
                     padding: EdgeInsets.fromLTRB(
-                      14 * scale,
-                      14 * scale,
-                      14 * scale,
-                      10 * scale,
+                      12 * scale,
+                      12 * scale,
+                      12 * scale,
+                      9 * scale,
                     ),
                     decoration: BoxDecoration(
                       color: const Color(0xFFFBBF24),
-                      borderRadius: BorderRadius.circular(22 * scale),
-                      border: Border.all(color: Colors.black, width: 2),
+                      borderRadius: BorderRadius.circular(18 * scale),
+                      border: Border.all(color: Colors.black, width: 1.6),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.2),
-                          blurRadius: 14,
-                          offset: Offset(0, 8 * scale),
+                          color: Colors.black.withValues(alpha: 0.16),
+                          blurRadius: 10,
+                          offset: Offset(0, 4 * scale),
                         ),
                       ],
                     ),
@@ -196,19 +195,19 @@ class NakathDetailPopup extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 18 * scale),
+                  SizedBox(height: 22 * scale),
                   Text(
                     description,
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontFamily: 'TharuSansala',
-                      fontSize: 21 * scale,
-                      fontWeight: FontWeight.w700,
-                      height: 1.26,
+                      fontSize: 18 * scale,
+                      fontWeight: FontWeight.w600,
+                      height: 1.35,
                       color: const Color(0xFF080603),
                     ),
                   ),
-                  SizedBox(height: 28 * scale),
+                  SizedBox(height: 30 * scale),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -216,18 +215,18 @@ class NakathDetailPopup extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF6B4A3D),
                         foregroundColor: Colors.white,
-                        elevation: 7,
+                        elevation: 5,
                         shadowColor: Colors.black54,
-                        padding: EdgeInsets.symmetric(vertical: 14 * scale),
+                        padding: EdgeInsets.symmetric(vertical: 12 * scale),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18 * scale),
+                          borderRadius: BorderRadius.circular(16 * scale),
                         ),
                       ),
                       child: Text(
                         uiL10n.close,
                         style: TextStyle(
                           fontFamily: 'TharuSansala',
-                          fontSize: 30 * scale,
+                          fontSize: 24 * scale,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -359,12 +358,12 @@ class _PopupCountdownUnit extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height: 62 * scale,
+          height: 52 * scale,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: const Color(0xFFE8E8E8),
-            borderRadius: BorderRadius.circular(16 * scale),
-            border: Border.all(color: Colors.black, width: 1.5),
+            borderRadius: BorderRadius.circular(13 * scale),
+            border: Border.all(color: Colors.black, width: 1.2),
           ),
           child: FittedBox(
             fit: BoxFit.scaleDown,
@@ -372,7 +371,7 @@ class _PopupCountdownUnit extends StatelessWidget {
               value,
               style: TextStyle(
                 fontFamily: 'GemunuX',
-                fontSize: 34 * scale,
+                fontSize: 28 * scale,
                 fontWeight: FontWeight.w700,
                 color: const Color(0xFF654941),
                 height: 1,
@@ -389,7 +388,7 @@ class _PopupCountdownUnit extends StatelessWidget {
               label,
               style: TextStyle(
                 fontFamily: 'TharuSansala',
-                fontSize: 24 * scale,
+                fontSize: 16 * scale,
                 fontWeight: FontWeight.w700,
                 color: Colors.black,
               ),
@@ -412,13 +411,13 @@ class _PopupDivider extends StatelessWidget {
       padding: EdgeInsets.only(
         left: 4 * scale,
         right: 4 * scale,
-        bottom: 28 * scale,
+        bottom: 20 * scale,
       ),
       child: Text(
         ':',
         style: TextStyle(
           fontFamily: 'GemunuX',
-          fontSize: 30 * scale,
+          fontSize: 24 * scale,
           fontWeight: FontWeight.w700,
           color: Colors.black,
         ),
