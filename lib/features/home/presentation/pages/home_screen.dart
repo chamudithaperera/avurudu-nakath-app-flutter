@@ -195,8 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: _NakathEventTile(
                           event: event,
                           dateLabel: _formatDateLabel(context, event),
-                          iconAssetPath:
-                              'assets/images/nakath icons/nakath${(index % 8) + 1}.png',
+                          iconAssetPath: _getNakathIconPath(event.id),
                           scale: scale,
                           onTap: () => _showNakathDetail(event),
                         ),
@@ -210,6 +209,34 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  String _getNakathIconPath(String id) {
+    if (id.contains('new_moon')) {
+      return 'assets/images/nakath icons/nakath1.png';
+    }
+    if (id.contains('bathing_last_year')) {
+      return 'assets/images/nakath icons/nakath2.png';
+    }
+    if (id.contains('punya_kalaya')) {
+      return 'assets/images/nakath icons/nakath3.png';
+    }
+    if (id.contains('new_year_dawn')) {
+      return 'assets/images/nakath icons/nakath4.png';
+    }
+    if (id.contains('cooking_food')) {
+      return 'assets/images/nakath icons/nakath5.png';
+    }
+    if (id.contains('eating_working')) {
+      return 'assets/images/nakath icons/nakath6.png';
+    }
+    if (id.contains('anointing_oil')) {
+      return 'assets/images/nakath icons/nakath7.png';
+    }
+    if (id.contains('leaving_for_work')) {
+      return 'assets/images/nakath icons/nakath8.png';
+    }
+    return 'assets/images/nakath icons/nakath1.png';
   }
 }
 
