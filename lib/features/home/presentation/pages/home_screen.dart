@@ -79,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final uiL10n = UiLocalizations.of(context)!;
+    final scale = (MediaQuery.sizeOf(context).width / 390).clamp(0.85, 1.15);
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -129,7 +130,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
             return SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.fromLTRB(18, 12, 18, 32),
+              padding: EdgeInsets.fromLTRB(
+                16 * scale,
+                10 * scale,
+                16 * scale,
+                26 * scale,
+              ),
               child: SafeArea(
                 bottom: false,
                 child: Column(
@@ -142,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           uiL10n.appTitle,
                           style: const TextStyle(
                             fontFamily: 'KDNAMAL',
-                            fontSize: 56,
+                            fontSize: 48,
                             fontWeight: FontWeight.w700,
                             color: Color(0xFFFABF24),
                             shadows: [
@@ -168,28 +174,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Color(0x66000000),
                               ),
                             ],
-                          ),
+                          ).copyWith(fontSize: 48 * scale),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 18),
+                    SizedBox(height: 16 * scale),
                     _NextNakathCard(
                       event: nextEvent,
                       formattedDate: _formatDateLabel(context, nextEvent),
+                      scale: scale,
                       onTap: () => _showNakathDetail(nextEvent),
                     ),
-                    const SizedBox(height: 24),
-                    _SectionHeader(title: uiL10n.allNakath),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 22 * scale),
+                    _SectionHeader(title: uiL10n.allNakath, scale: scale),
+                    SizedBox(height: 14 * scale),
                     ...List.generate(otherEvents.length, (index) {
                       final event = otherEvents[index];
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 14),
+                        padding: EdgeInsets.only(bottom: 12 * scale),
                         child: _NakathEventTile(
                           event: event,
                           dateLabel: _formatDateLabel(context, event),
                           iconAssetPath:
                               'assets/images/nakath icons/nakath${(index % 8) + 1}.png',
+                          scale: scale,
                           onTap: () => _showNakathDetail(event),
                         ),
                       );
@@ -208,11 +216,13 @@ class _HomeScreenState extends State<HomeScreen> {
 class _NextNakathCard extends StatelessWidget {
   final NakathEvent event;
   final String formattedDate;
+  final double scale;
   final VoidCallback onTap;
 
   const _NextNakathCard({
     required this.event,
     required this.formattedDate,
+    required this.scale,
     required this.onTap,
   });
 
@@ -231,19 +241,19 @@ class _NextNakathCard extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(28 * scale),
         onTap: onTap,
         child: Ink(
           width: double.infinity,
           decoration: BoxDecoration(
             color: const Color(0xFFFBBF24),
-            borderRadius: BorderRadius.circular(30),
-            border: Border.all(color: const Color(0xFF15130E), width: 2),
+            borderRadius: BorderRadius.circular(28 * scale),
+            border: Border.all(color: const Color(0xFF15130E), width: 1.8),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.28),
-                blurRadius: 20,
-                offset: const Offset(0, 10),
+                blurRadius: 18 * scale,
+                offset: Offset(0, 8 * scale),
               ),
             ],
           ),
@@ -251,70 +261,80 @@ class _NextNakathCard extends StatelessWidget {
             children: [
               Positioned(
                 right: -38,
-                top: 18,
-                bottom: 18,
+                top: 14 * scale,
+                bottom: 12 * scale,
                 child: Opacity(
                   opacity: 0.17,
                   child: Image.asset(
                     'assets/images/erabadu.png',
-                    width: 180,
+                    width: 160 * scale,
                     fit: BoxFit.contain,
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 20),
+                padding: EdgeInsets.fromLTRB(
+                  14 * scale,
+                  14 * scale,
+                  14 * scale,
+                  16 * scale,
+                ),
                 child: Column(
                   children: [
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 18,
-                          vertical: 8,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16 * scale,
+                          vertical: 7 * scale,
                         ),
                         decoration: BoxDecoration(
                           color: const Color(0xFFEDEDED),
-                          borderRadius: BorderRadius.circular(22),
+                          borderRadius: BorderRadius.circular(22 * scale),
                           border: Border.all(
                             color: const Color(0xFF111111),
-                            width: 1.8,
+                            width: 1.5,
                           ),
                         ),
                         child: Text(
                           uiL10n.nextUpcoming,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontFamily: 'TharuSansala',
-                            fontSize: 24,
+                            fontSize: 20 * scale,
                             fontWeight: FontWeight.w700,
-                            color: Color(0xFF5F433A),
+                            color: const Color(0xFF5F433A),
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(height: 18),
+                    SizedBox(height: 14 * scale),
                     Text(
                       event.getLocalizedTitle(context),
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
                         fontFamily: 'TharuMahee',
-                        fontSize: 50,
+                        fontSize: 38 * scale,
                         height: 1.1,
                         fontWeight: FontWeight.w700,
-                        color: Color(0xFF060504),
+                        color: const Color(0xFF060504),
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 12 * scale),
                     if (isFuture)
-                      _HomeCountdown(targetTime: targetTime.toLocal())
+                      _HomeCountdown(
+                        targetTime: targetTime.toLocal(),
+                        scale: scale,
+                      )
                     else
                       Text(
                         formattedDate,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'GemunuX',
-                          fontSize: 30,
+                          fontSize: 24 * scale,
                           fontWeight: FontWeight.w700,
-                          color: Color(0xFF3F2C23),
+                          color: const Color(0xFF3F2C23),
                         ),
                       ),
                   ],
@@ -330,8 +350,9 @@ class _NextNakathCard extends StatelessWidget {
 
 class _SectionHeader extends StatelessWidget {
   final String title;
+  final double scale;
 
-  const _SectionHeader({required this.title});
+  const _SectionHeader({required this.title, required this.scale});
 
   @override
   Widget build(BuildContext context) {
@@ -339,31 +360,31 @@ class _SectionHeader extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            height: 4,
+            height: 3.2 * scale,
             decoration: BoxDecoration(
               color: const Color(0xFF7A6945).withValues(alpha: 0.75),
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: BorderRadius.circular(6 * scale),
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18),
+          padding: EdgeInsets.symmetric(horizontal: 14 * scale),
           child: Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'TharuMahee',
-              fontSize: 42,
+              fontSize: 34 * scale,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF080603),
+              color: const Color(0xFF080603),
             ),
           ),
         ),
         Expanded(
           child: Container(
-            height: 4,
+            height: 3.2 * scale,
             decoration: BoxDecoration(
               color: const Color(0xFF7A6945).withValues(alpha: 0.75),
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: BorderRadius.circular(6 * scale),
             ),
           ),
         ),
@@ -376,12 +397,14 @@ class _NakathEventTile extends StatelessWidget {
   final NakathEvent event;
   final String dateLabel;
   final String iconAssetPath;
+  final double scale;
   final VoidCallback onTap;
 
   const _NakathEventTile({
     required this.event,
     required this.dateLabel,
     required this.iconAssetPath,
+    required this.scale,
     required this.onTap,
   });
 
@@ -390,33 +413,33 @@ class _NakathEventTile extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(26 * scale),
         onTap: onTap,
         child: Ink(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: EdgeInsets.symmetric(
+            horizontal: 14 * scale,
+            vertical: 10 * scale,
+          ),
           decoration: BoxDecoration(
             color: const Color(0xFFF1E2AC),
-            borderRadius: BorderRadius.circular(28),
-            border: Border.all(color: const Color(0xFFA69169), width: 2),
+            borderRadius: BorderRadius.circular(26 * scale),
+            border: Border.all(color: const Color(0xFFA69169), width: 1.8),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: 0.18),
-                blurRadius: 14,
-                offset: const Offset(0, 8),
+                blurRadius: 12 * scale,
+                offset: Offset(0, 7 * scale),
               ),
             ],
           ),
           child: Row(
             children: [
               Container(
-                width: 74,
-                height: 74,
+                width: 64 * scale,
+                height: 64 * scale,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: const Color(0xFF90774E),
-                    width: 2.2,
-                  ),
+                  border: Border.all(color: const Color(0xFF90774E), width: 2),
                 ),
                 child: ClipOval(
                   child: Image.asset(
@@ -435,7 +458,7 @@ class _NakathEventTile extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 14),
+              SizedBox(width: 12 * scale),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -445,41 +468,41 @@ class _NakathEventTile extends StatelessWidget {
                       event.getLocalizedTitle(context),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'TharuMahee',
-                        fontSize: 22,
+                        fontSize: 18 * scale,
                         fontWeight: FontWeight.w700,
                         height: 1.1,
-                        color: Color(0xFF5E463F),
+                        color: const Color(0xFF5E463F),
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 6 * scale),
                     Text(
                       dateLabel,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: 'GemunuX',
-                        fontSize: 18,
+                        fontSize: 16 * scale,
                         fontWeight: FontWeight.w700,
-                        color: Color(0xFF5E463F),
+                        color: const Color(0xFF5E463F),
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(width: 10),
+              SizedBox(width: 8 * scale),
               Container(
-                width: 38,
-                height: 38,
+                width: 34 * scale,
+                height: 34 * scale,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Color(0xFFB4A071),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.arrow_forward_rounded,
                   color: Colors.white,
-                  size: 22,
+                  size: 20 * scale,
                 ),
               ),
             ],
@@ -492,8 +515,9 @@ class _NakathEventTile extends StatelessWidget {
 
 class _HomeCountdown extends StatefulWidget {
   final DateTime targetTime;
+  final double scale;
 
-  const _HomeCountdown({required this.targetTime});
+  const _HomeCountdown({required this.targetTime, required this.scale});
 
   @override
   State<_HomeCountdown> createState() => _HomeCountdownState();
@@ -548,27 +572,31 @@ class _HomeCountdownState extends State<_HomeCountdown> {
           child: _CountdownUnit(
             value: days.toString().padLeft(2, '0'),
             label: uiL10n.days,
+            scale: widget.scale,
           ),
         ),
-        const _CountdownDivider(),
+        _CountdownDivider(scale: widget.scale),
         Expanded(
           child: _CountdownUnit(
             value: hours.toString().padLeft(2, '0'),
             label: uiL10n.hours,
+            scale: widget.scale,
           ),
         ),
-        const _CountdownDivider(),
+        _CountdownDivider(scale: widget.scale),
         Expanded(
           child: _CountdownUnit(
             value: minutes.toString().padLeft(2, '0'),
             label: uiL10n.minutes,
+            scale: widget.scale,
           ),
         ),
-        const _CountdownDivider(),
+        _CountdownDivider(scale: widget.scale),
         Expanded(
           child: _CountdownUnit(
             value: seconds.toString().padLeft(2, '0'),
             label: uiL10n.seconds,
+            scale: widget.scale,
           ),
         ),
       ],
@@ -579,44 +607,49 @@ class _HomeCountdownState extends State<_HomeCountdown> {
 class _CountdownUnit extends StatelessWidget {
   final String value;
   final String label;
+  final double scale;
 
-  const _CountdownUnit({required this.value, required this.label});
+  const _CountdownUnit({
+    required this.value,
+    required this.label,
+    required this.scale,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          height: 72,
+          height: 62 * scale,
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: const Color(0xFFE7E7E7),
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: const Color(0xFF111111), width: 1.6),
+            borderRadius: BorderRadius.circular(16 * scale),
+            border: Border.all(color: const Color(0xFF111111), width: 1.4),
           ),
           child: Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'GemunuX',
-              fontSize: 38,
+              fontSize: 34 * scale,
               height: 1.0,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF62463E),
+              color: const Color(0xFF62463E),
             ),
           ),
         ),
-        const SizedBox(height: 5),
+        SizedBox(height: 4 * scale),
         SizedBox(
           width: double.infinity,
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               label,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'TharuSansala',
-                fontSize: 24,
+                fontSize: 20 * scale,
                 fontWeight: FontWeight.w700,
-                color: Color(0xFF0B0907),
+                color: const Color(0xFF0B0907),
               ),
             ),
           ),
@@ -627,19 +660,25 @@ class _CountdownUnit extends StatelessWidget {
 }
 
 class _CountdownDivider extends StatelessWidget {
-  const _CountdownDivider();
+  final double scale;
+
+  const _CountdownDivider({required this.scale});
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(left: 4, right: 4, bottom: 30),
+    return Padding(
+      padding: EdgeInsets.only(
+        left: 3 * scale,
+        right: 3 * scale,
+        bottom: 24 * scale,
+      ),
       child: Text(
         ':',
         style: TextStyle(
           fontFamily: 'GemunuX',
-          fontSize: 36,
+          fontSize: 32 * scale,
           fontWeight: FontWeight.w700,
-          color: Color(0xFF0B0907),
+          color: const Color(0xFF0B0907),
         ),
       ),
     );
