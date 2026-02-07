@@ -121,33 +121,43 @@ class _SplashScreenState extends State<SplashScreen>
                     opacity: _sunOpacity.value,
                     child: Transform.scale(
                       scale: _sunScale.value,
-                      child: Transform.rotate(
-                        angle: _controller.value * 0.2,
-                        child: Container(
-                          padding: const EdgeInsets.all(18),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: const Color(0xFFC99A3B),
-                              width: 2.5,
-                            ),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black54,
-                                blurRadius: 18,
-                                offset: Offset(0, 10),
+                        child: Transform.rotate(
+                          angle: _controller.value * 0.2,
+                          child: Container(
+                            padding: const EdgeInsets.all(18),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0xFFC99A3B),
+                                width: 2.5,
                               ),
-                            ],
-                          ),
-                          child: Image.asset(
-                            'assets/images/lotus_mandala.png',
-                            height: 190,
-                            width: 190,
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black54,
+                                  blurRadius: 18,
+                                  offset: Offset(0, 10),
+                                ),
+                              ],
+                              gradient: const RadialGradient(
+                                colors: [Color(0xFFC99A3B), Color(0xFF8C1B1B)],
+                                radius: 0.9,
+                              ),
+                            ),
+                            child: const SizedBox(
+                              height: 190,
+                              width: 190,
+                              child: Center(
+                                child: Icon(
+                                  Icons.wb_sunny_rounded,
+                                  size: 92,
+                                  color: Color(0xFFFFF7E6),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
+                    );
                 },
               ),
               const SizedBox(height: 50),

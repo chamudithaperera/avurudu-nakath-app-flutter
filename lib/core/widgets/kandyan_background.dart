@@ -29,39 +29,69 @@ class KandyanBackground extends StatelessWidget {
             ),
           ),
         ),
-        Positioned.fill(
+        Positioned(
+          top: -140,
+          right: -140,
           child: Opacity(
-            opacity: 0.5,
-            child: Image.asset(
-              'assets/images/parchment_texture.png',
-              fit: BoxFit.cover,
-              color: const Color(0xFFBFA47A),
-              colorBlendMode: BlendMode.softLight,
+            opacity: 0.2,
+            child: Container(
+              width: 320,
+              height: 320,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [Color(0xFFC99A3B), Color(0x002B1B16)],
+                  radius: 0.7,
+                ),
+              ),
             ),
           ),
         ),
         Positioned(
-          top: -120,
-          right: -120,
+          bottom: -160,
+          left: -160,
           child: Opacity(
-            opacity: 0.12,
-            child: Image.asset('assets/images/lotus_mandala.png', width: 320),
-          ),
-        ),
-        Positioned(
-          bottom: -140,
-          left: -140,
-          child: Opacity(
-            opacity: 0.12,
-            child: Image.asset('assets/images/lotus_mandala.png', width: 340),
+            opacity: 0.2,
+            child: Container(
+              width: 340,
+              height: 340,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [Color(0xFF8C1B1B), Color(0x002B1B16)],
+                  radius: 0.7,
+                ),
+              ),
+            ),
           ),
         ),
         Positioned(
           top: 40,
           left: -20,
           child: Opacity(
-            opacity: 0.15,
-            child: Image.asset('assets/images/sun.png', width: 160),
+            opacity: 0.18,
+            child: Container(
+              width: 160,
+              height: 160,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: const Color(0xFFC99A3B), width: 2),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x99C99A3B),
+                    blurRadius: 24,
+                    spreadRadius: 2,
+                  ),
+                ],
+              ),
+              child: const Center(
+                child: Icon(
+                  Icons.wb_sunny_rounded,
+                  size: 68,
+                  color: Color(0xFFC99A3B),
+                ),
+              ),
+            ),
           ),
         ),
         Positioned.fill(

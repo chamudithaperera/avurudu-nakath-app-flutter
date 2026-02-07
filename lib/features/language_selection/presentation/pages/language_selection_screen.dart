@@ -68,11 +68,21 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> {
                       offset: Offset(0, 8),
                     ),
                   ],
+                  gradient: const RadialGradient(
+                    colors: [Color(0xFFC99A3B), Color(0xFF8C1B1B)],
+                    radius: 0.9,
+                  ),
                 ),
-                child: Image.asset(
-                  'assets/images/lotus_mandala.png',
+                child: const SizedBox(
                   height: 120,
                   width: 120,
+                  child: Center(
+                    child: Icon(
+                      Icons.auto_awesome,
+                      size: 64,
+                      color: Color(0xFFFFF7E6),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 36),
