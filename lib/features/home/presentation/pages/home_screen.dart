@@ -104,10 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return const Center(
-                child: Text(
-                  'No nakath events found.',
-                  style: TextStyle(),
-                ),
+                child: Text('No nakath events found.', style: TextStyle()),
               );
             }
 
@@ -115,12 +112,14 @@ class _HomeScreenState extends State<HomeScreen> {
             final now = DateTime.now();
             final upcomingEvents = events.where((e) {
               final t =
-                  e.start ?? (e.date != null ? DateTime.tryParse(e.date!) : null);
+                  e.start ??
+                  (e.date != null ? DateTime.tryParse(e.date!) : null);
               return t != null && t.isAfter(now);
             }).toList();
 
-            final nextEvent =
-                upcomingEvents.isNotEmpty ? upcomingEvents.first : events.first;
+            final nextEvent = upcomingEvents.isNotEmpty
+                ? upcomingEvents.first
+                : events.first;
             final otherEvents = events.where((e) => e != nextEvent).toList();
 
             return CustomScrollView(
@@ -146,7 +145,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  const Color(0xFFC99A3B).withValues(alpha: 0.2),
+                                  const Color(
+                                    0xFFC99A3B,
+                                  ).withValues(alpha: 0.2),
                                   const Color(0xFFC99A3B),
                                 ],
                               ),
@@ -173,7 +174,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               gradient: LinearGradient(
                                 colors: [
                                   const Color(0xFFC99A3B),
-                                  const Color(0xFFC99A3B).withValues(alpha: 0.2),
+                                  const Color(
+                                    0xFFC99A3B,
+                                  ).withValues(alpha: 0.2),
                                 ],
                               ),
                               borderRadius: BorderRadius.circular(8),
@@ -207,7 +210,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           'A Product of ChamXdev by Chamuditha Perera',
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w700,
                               ),
@@ -215,9 +219,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(height: 6),
                         Text(
                           '© 2026 Nakath App. All rights reserved.',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontSize: 11,
-                              ),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodyMedium?.copyWith(fontSize: 11),
                         ),
                       ],
                     ),
