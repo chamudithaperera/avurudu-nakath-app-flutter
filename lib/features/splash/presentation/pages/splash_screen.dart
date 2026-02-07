@@ -170,10 +170,10 @@ class _SplashScreenState extends State<SplashScreen>
                 const SizedBox(height: 40),
                 // Main Illustration (Pot/Family)
                 ScaleTransition(
-                  scale: _sunScale, // Reusing scale animation
+                  scale: _sunScale,
                   child: Image.asset(
-                    'assets/images/pot.png', // Placeholder for family
-                    height: 250,
+                    'assets/images/splash cover.png',
+                    height: 300,
                   ),
                 ),
               ],
