@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:avurudu_nakath_app/core/theme/app_fonts.dart';
 import '../../domain/entities/nakath_event.dart';
 import '../mappers/nakath_localizer.dart';
 
@@ -31,16 +32,10 @@ class NakathListTile extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Color(0xFFF8EED1),
-            Color(0xFFE8CC8A),
-          ],
+          colors: [Color(0xFFF8EED1), Color(0xFFE8CC8A)],
         ),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: const Color(0xFFC99A3B),
-          width: 1.8,
-        ),
+        border: Border.all(color: const Color(0xFFC99A3B), width: 1.8),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.35),
@@ -69,8 +64,8 @@ class NakathListTile extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: const TextStyle(
-            fontFamily: 'TharuMahee',
+          style: TextStyle(
+            fontFamily: AppFonts.localeAwareTextFamily(context),
             fontWeight: FontWeight.w700,
             fontSize: 16,
           ),
@@ -88,8 +83,8 @@ class NakathListTile extends StatelessWidget {
               Flexible(
                 child: Text(
                   timeInfo,
-                  style: const TextStyle(
-                    fontFamily: 'GemunuX',
+                  style: TextStyle(
+                    fontFamily: AppFonts.localeAwareTextFamily(context),
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                   ),

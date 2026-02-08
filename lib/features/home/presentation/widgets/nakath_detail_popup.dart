@@ -4,6 +4,7 @@ import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/theme/app_fonts.dart';
 import '../../domain/entities/nakath_event.dart';
 import '../mappers/nakath_localizer.dart';
 
@@ -145,7 +146,7 @@ class NakathDetailPopup extends StatelessWidget {
                     textAlign: TextAlign.center,
                     maxLines: 3,
                     style: TextStyle(
-                      fontFamily: 'TharuMahee',
+                      fontFamily: AppFonts.localeAwareTextFamily(context),
                       fontSize: 24 * scale,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xFF5A423A),
@@ -157,7 +158,7 @@ class NakathDetailPopup extends StatelessWidget {
                     formattedTime,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: 'GemunuX',
+                      fontFamily: AppFonts.localeAwareTextFamily(context),
                       fontSize: 19 * scale,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xFF5A423A),
@@ -200,7 +201,7 @@ class NakathDetailPopup extends StatelessWidget {
                     description,
                     textAlign: TextAlign.justify,
                     style: TextStyle(
-                      fontFamily: 'TharuSansala',
+                      fontFamily: AppFonts.localeAwareTextFamily(context),
                       fontSize: 18 * scale,
                       fontWeight: FontWeight.w600,
                       height: 1.35,
@@ -225,7 +226,7 @@ class NakathDetailPopup extends StatelessWidget {
                       child: Text(
                         uiL10n.close,
                         style: TextStyle(
-                          fontFamily: 'TharuSansala',
+                          fontFamily: AppFonts.localeAwareTextFamily(context),
                           fontSize: 24 * scale,
                           fontWeight: FontWeight.w700,
                         ),
@@ -370,7 +371,7 @@ class _PopupCountdownUnit extends StatelessWidget {
             child: Text(
               value,
               style: TextStyle(
-                fontFamily: 'GemunuX',
+                fontFamily: AppFonts.localeAwareTextFamily(context),
                 fontSize: 28 * scale,
                 fontWeight: FontWeight.w700,
                 color: const Color(0xFF654941),
@@ -387,7 +388,7 @@ class _PopupCountdownUnit extends StatelessWidget {
             child: Text(
               label,
               style: TextStyle(
-                fontFamily: 'TharuSansala',
+                fontFamily: AppFonts.localeAwareTextFamily(context),
                 fontSize: 16 * scale,
                 fontWeight: FontWeight.w700,
                 color: Colors.black,
@@ -416,7 +417,7 @@ class _PopupDivider extends StatelessWidget {
       child: Text(
         ':',
         style: TextStyle(
-          fontFamily: 'GemunuX',
+          fontFamily: AppFonts.localeAwareTextFamily(context),
           fontSize: 24 * scale,
           fontWeight: FontWeight.w700,
           color: Colors.black,

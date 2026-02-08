@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:avurudu_nakath_app/core/theme/app_fonts.dart';
 import '../../domain/entities/nakath_event.dart';
 import '../mappers/nakath_localizer.dart';
 import 'countdown_timer.dart';
@@ -56,10 +57,7 @@ class NakathHeroCard extends StatelessWidget {
                   offset: const Offset(0, 8),
                 ),
               ],
-              border: Border.all(
-                color: const Color(0xFF8C1B1B),
-                width: 2,
-              ),
+              border: Border.all(color: const Color(0xFF8C1B1B), width: 2),
             ),
             child: Stack(
               children: [
@@ -86,8 +84,10 @@ class NakathHeroCard extends StatelessWidget {
                             ),
                             child: Text(
                               uiL10n.nextUpcoming.toUpperCase(),
-                              style: const TextStyle(
-                                fontFamily: 'GemunuX',
+                              style: TextStyle(
+                                fontFamily: AppFonts.localeAwareTextFamily(
+                                  context,
+                                ),
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
                                 letterSpacing: 1,
@@ -104,8 +104,8 @@ class NakathHeroCard extends StatelessWidget {
                       const SizedBox(height: 20),
                       Text(
                         title,
-                        style: const TextStyle(
-                          fontFamily: 'TharuMahee',
+                        style: TextStyle(
+                          fontFamily: AppFonts.localeAwareTextFamily(context),
                           fontSize: 22,
                           fontWeight: FontWeight.w700,
                           height: 1.2,
@@ -113,14 +113,12 @@ class NakathHeroCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 12),
                       if (isFuture) ...[
-                        CountdownTimer(
-                          targetTime: targetTime,
-                        ),
+                        CountdownTimer(targetTime: targetTime),
                       ] else ...[
                         Text(
                           displayDate,
-                          style: const TextStyle(
-                            fontFamily: 'GemunuX',
+                          style: TextStyle(
+                            fontFamily: AppFonts.localeAwareTextFamily(context),
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                           ),

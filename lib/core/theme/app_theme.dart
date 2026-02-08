@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'app_fonts.dart';
+
 class AppTheme {
   // Kandyan Color Palette
   static const Color kandyanCrimson = Color(0xFF8C1B1B);
@@ -13,30 +15,26 @@ class AppTheme {
 
   static ThemeData lightThemeForLocale(Locale? locale) {
     final base = ThemeData.light();
-    TextTheme textTheme =
-        GoogleFonts.cormorantGaramondTextTheme(base.textTheme);
+    TextTheme textTheme = GoogleFonts.cormorantGaramondTextTheme(
+      base.textTheme,
+    );
     final code = locale?.languageCode;
     if (code == 'si') {
       textTheme = textTheme.copyWith(
         displayLarge: textTheme.displayLarge?.copyWith(
-          fontFamily: 'GemunuX',
-          fontFamilyFallback: const ['Ranee', 'Anupama', 'TharuNidahasa'],
+          fontFamily: AppFonts.sinhalaUi,
         ),
         titleLarge: textTheme.titleLarge?.copyWith(
-          fontFamily: 'Ranee',
-          fontFamilyFallback: const ['GemunuX', 'Anupama', 'TharuSansala'],
+          fontFamily: AppFonts.sinhalaUi,
         ),
         bodyLarge: textTheme.bodyLarge?.copyWith(
-          fontFamily: 'Anupama',
-          fontFamilyFallback: const ['GemunuX', 'Ranee', 'TharuRun'],
+          fontFamily: AppFonts.sinhalaUi,
         ),
         bodyMedium: textTheme.bodyMedium?.copyWith(
-          fontFamily: 'Anupama',
-          fontFamilyFallback: const ['GemunuX', 'Ranee', 'TharuRun'],
+          fontFamily: AppFonts.sinhalaUi,
         ),
         labelLarge: textTheme.labelLarge?.copyWith(
-          fontFamily: 'TharuSansala',
-          fontFamilyFallback: const ['GemunuX', 'Ranee', 'Anupama'],
+          fontFamily: AppFonts.sinhalaUi,
         ),
       );
     } else if (code == 'ta') {
@@ -81,11 +79,8 @@ class AppTheme {
           fontWeight: FontWeight.w700,
           letterSpacing: 0.4,
         ),
-        bodyLarge: textTheme.bodyLarge?.copyWith(
-          fontSize: 16,
-        ),
-        bodyMedium: textTheme.bodyMedium?.copyWith(
-        ),
+        bodyLarge: textTheme.bodyLarge?.copyWith(fontSize: 16),
+        bodyMedium: textTheme.bodyMedium?.copyWith(),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../core/theme/app_fonts.dart';
 import '../../../../core/services/notification_service.dart';
 import '../../../../core/widgets/kandyan_background.dart';
 import '../../data/datasources/nakath_local_data_source.dart';
@@ -150,8 +151,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             fit: BoxFit.scaleDown,
                             child: Text(
                               uiL10n.appTitle,
-                              style: const TextStyle(
-                                fontFamily: 'KDNAMAL',
+                              style: TextStyle(
+                                fontFamily: AppFonts.kandyanDisplay,
                                 fontSize: 42,
                                 fontWeight: FontWeight.w700,
                                 color: Color(0xFFFABF24),
@@ -342,7 +343,7 @@ class _NextNakathCard extends StatelessWidget {
                         child: Text(
                           uiL10n.nextUpcoming,
                           style: TextStyle(
-                            fontFamily: 'TharuSansala',
+                            fontFamily: AppFonts.localeAwareTextFamily(context),
                             fontSize: 16 * scale,
                             fontWeight: FontWeight.w700,
                             color: const Color(0xFF5F433A),
@@ -357,7 +358,7 @@ class _NextNakathCard extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontFamily: 'TharuMahee',
+                        fontFamily: AppFonts.localeAwareTextFamily(context),
                         fontSize: 31 * scale,
                         height: 1.15,
                         fontWeight: FontWeight.w700,
@@ -374,7 +375,7 @@ class _NextNakathCard extends StatelessWidget {
                       Text(
                         formattedDate,
                         style: TextStyle(
-                          fontFamily: 'GemunuX',
+                          fontFamily: AppFonts.localeAwareTextFamily(context),
                           fontSize: 20 * scale,
                           fontWeight: FontWeight.w700,
                           color: const Color(0xFF3F2C23),
@@ -415,7 +416,7 @@ class _SectionHeader extends StatelessWidget {
           child: Text(
             title,
             style: TextStyle(
-              fontFamily: 'TharuMahee',
+              fontFamily: AppFonts.localeAwareTextFamily(context),
               fontSize: 27 * scale,
               fontWeight: FontWeight.w700,
               color: const Color(0xFF080603),
@@ -512,7 +513,7 @@ class _NakathEventTile extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontFamily: 'TharuMahee',
+                        fontFamily: AppFonts.localeAwareTextFamily(context),
                         fontSize: 16 * scale,
                         fontWeight: FontWeight.w700,
                         height: 1.2,
@@ -525,7 +526,7 @@ class _NakathEventTile extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontFamily: 'GemunuX',
+                        fontFamily: AppFonts.localeAwareTextFamily(context),
                         fontSize: 14 * scale,
                         fontWeight: FontWeight.w700,
                         color: const Color(0xFF5E463F),
@@ -673,7 +674,7 @@ class _CountdownUnit extends StatelessWidget {
           child: Text(
             value,
             style: TextStyle(
-              fontFamily: 'GemunuX',
+              fontFamily: AppFonts.localeAwareTextFamily(context),
               fontSize: 28 * scale,
               height: 1.0,
               fontWeight: FontWeight.w700,
@@ -689,7 +690,7 @@ class _CountdownUnit extends StatelessWidget {
             child: Text(
               label,
               style: TextStyle(
-                fontFamily: 'TharuSansala',
+                fontFamily: AppFonts.localeAwareTextFamily(context),
                 fontSize: 16 * scale,
                 fontWeight: FontWeight.w700,
                 color: const Color(0xFF0B0907),
@@ -718,7 +719,7 @@ class _CountdownDivider extends StatelessWidget {
       child: Text(
         ':',
         style: TextStyle(
-          fontFamily: 'GemunuX',
+          fontFamily: AppFonts.localeAwareTextFamily(context),
           fontSize: 26 * scale,
           fontWeight: FontWeight.w700,
           color: const Color(0xFF0B0907),

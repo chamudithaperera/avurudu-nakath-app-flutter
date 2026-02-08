@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
+import 'package:avurudu_nakath_app/core/theme/app_fonts.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CountdownTimer extends StatefulWidget {
@@ -48,10 +49,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
       return Center(
         child: Text(
           'Auspicious Time Begun',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       );
     }
@@ -87,10 +85,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
             gradient: const LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [
-                Color(0xFFFFF7E6),
-                Color(0xFFF1D48E),
-              ],
+              colors: [Color(0xFFFFF7E6), Color(0xFFF1D48E)],
             ),
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
@@ -117,7 +112,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
         Text(
           label,
           style: TextStyle(
-            fontFamily: 'GemunuX',
+            fontFamily: AppFonts.localeAwareTextFamily(context),
             fontSize: 11,
             fontWeight: FontWeight.w700,
             letterSpacing: 0.5,
@@ -132,10 +127,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
       margin: const EdgeInsets.only(left: 4, right: 4, bottom: 20),
       child: Text(
         ':',
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
     );
   }
