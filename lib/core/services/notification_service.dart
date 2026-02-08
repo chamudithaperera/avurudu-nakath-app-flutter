@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -9,6 +10,9 @@ class NotificationService {
   static final NotificationService _instance = NotificationService._internal();
   factory NotificationService() => _instance;
   NotificationService._internal();
+
+  static const String _permissionRequestedKey =
+      'notification_permission_requested';
 
   static const AndroidNotificationChannel _channel = AndroidNotificationChannel(
     'nakath_channel_id',
@@ -67,6 +71,10 @@ class NotificationService {
   }
 
   Future<void> requestPermissions() async {
+    final prefs = await SharedPreferences.getInstance();
+    final alreadyAsked = prefs.getBool(_permissionRequestedKey) ?? false;
+    if (alreadyAsked) return;
+
     if (Platform.isAndroid) {
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
           flutterLocalNotificationsPlugin
@@ -83,6 +91,8 @@ class NotificationService {
           >()
           ?.requestPermissions(alert: true, badge: true, sound: true);
     }
+
+    await prefs.setBool(_permissionRequestedKey, true);
   }
 
   Future<void> scheduleNotifications(List<NakathEvent> events) async {
