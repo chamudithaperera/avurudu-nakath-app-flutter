@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 import '../../../../core/theme/app_fonts.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/services/notification_service.dart';
-import '../../../../core/services/storage_service.dart';
+
 import '../../../../core/widgets/kandyan_background.dart';
 import '../../data/datasources/nakath_local_data_source.dart';
 import '../../data/repositories/nakath_repository_impl.dart';
@@ -26,15 +26,17 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   late Future<List<NakathEvent>> _eventsFuture;
   List<NakathEvent> _cachedEvents = [];
-  bool _notificationsEnabled = true;
+  bool _notificationsEnabled = false;
 
   @override
   void initState() {
     super.initState();
-    _loadNotificationPref();
+    WidgetsBinding.instance.addObserver(this);
+    _checkSystemPermissionState();
+
     // DI Setup
     final dataSource = NakathLocalDataSourceImpl();
     final repository = NakathRepositoryImpl(localDataSource: dataSource);
@@ -42,98 +44,107 @@ class _HomeScreenState extends State<HomeScreen> {
 
     _eventsFuture = useCase().then((events) async {
       _cachedEvents = events;
-      // Schedule notifications when data is loaded
-      final storage = StorageService();
-      final enabled =
-          await storage.getBool(StorageService.keyNotificationsEnabled) ?? true;
-      if (enabled) {
+      // If enabled by system, ensure schedules are set
+      if (_notificationsEnabled) {
         final notificationService = NotificationService();
         await notificationService.init();
-        await notificationService.requestPermissions();
         await notificationService.scheduleNotifications(events);
       }
       return events;
     });
   }
 
-  Future<void> _loadNotificationPref() async {
-    final storage = StorageService();
-    final enabled = await storage.getBool(
-      StorageService.keyNotificationsEnabled,
-    );
-    if (!mounted) return;
-    setState(() {
-      _notificationsEnabled = enabled ?? true;
-    });
-    if (enabled == null) {
-      await storage.saveBool(StorageService.keyNotificationsEnabled, true);
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _checkSystemPermissionState();
+    }
+  }
+
+  Future<void> _checkSystemPermissionState() async {
+    final status = await Permission.notification.status;
+    final isGranted = status.isGranted;
+
+    if (_notificationsEnabled != isGranted) {
+      setState(() {
+        _notificationsEnabled = isGranted;
+      });
+
+      // Sync schedules
+      final notificationService = NotificationService();
+      if (isGranted) {
+        await notificationService.init();
+        final events = _cachedEvents.isNotEmpty
+            ? _cachedEvents
+            : await _eventsFuture;
+        await notificationService.scheduleNotifications(events);
+      } else {
+        await notificationService.cancelAll();
+      }
     }
   }
 
   Future<void> _setNotificationsEnabled(bool value) async {
     if (value) {
-      // User wants to enable notifications
-      final status = await Permission.notification.request();
-
-      if (status.isGranted) {
-        _updateNotificationState(true);
+      // User wants to enable (Turn ON)
+      final status = await Permission.notification.status;
+      if (status.isDenied) {
+        final result = await Permission.notification.request();
+        if (result.isGranted) {
+          await _checkSystemPermissionState();
+        }
       } else if (status.isPermanentlyDenied) {
+        // Guide to settings
         if (mounted) {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: Text(
-                UiLocalizations.of(context)!.appTitle,
-              ), // Reuse title or generic
-              content: const Text(
-                'Notifications are disabled. Please enable them in settings to receive reminders.',
-              ), // Hardcoded for English or add to l10n
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    openAppSettings();
-                  },
-                  child: const Text('Settings'),
-                ),
-              ],
-            ),
+          _showSettingsDialog(
+            'Enable Notifications',
+            'Please enable notifications in settings to receive Nakath reminders.',
           );
         }
-        _updateNotificationState(false);
-      } else {
-        // Denied
-        _updateNotificationState(false);
+      } else if (status.isGranted) {
+        await _checkSystemPermissionState();
       }
     } else {
-      // User wants to disable notifications
-      _updateNotificationState(false);
+      // User wants to disable (Turn OFF) -> Revoke System Permission
+      // We cannot do this programmatically, must guide to settings
+      if (mounted) {
+        _showSettingsDialog(
+          'Disable Notifications',
+          'To turn off notifications, please block them in the system settings.',
+        );
+      }
+      // We don't optimistically set to false here;
+      // we wait for them to come back from settings via didChangeAppLifecycleState
     }
   }
 
-  Future<void> _updateNotificationState(bool value) async {
-    final storage = StorageService();
-    await storage.saveBool(StorageService.keyNotificationsEnabled, value);
-    if (!mounted) return;
-    setState(() {
-      _notificationsEnabled = value;
-    });
-
-    final notificationService = NotificationService();
-    if (value) {
-      await notificationService.init();
-      // We already checked/requested permissions above
-      final events = _cachedEvents.isNotEmpty
-          ? _cachedEvents
-          : await _eventsFuture;
-      await notificationService.scheduleNotifications(events);
-    } else {
-      await notificationService.cancelAll();
-    }
+  void _showSettingsDialog(String title, String content) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              openAppSettings();
+            },
+            child: const Text('Open Settings'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _showNakathDetail(NakathEvent event) {
