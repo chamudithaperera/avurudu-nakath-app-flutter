@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/services/notification_service.dart';
 import '../../../../core/services/storage_service.dart';
 import '../../../home/presentation/pages/home_screen.dart';
 import '../../../language_selection/presentation/pages/language_selection_screen.dart';
@@ -58,6 +59,11 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     _controller.forward().then((value) async {
+      // Initialize Notification Service and Request Permissions
+      final notificationService = NotificationService();
+      await notificationService.init();
+      await notificationService.requestPermissions();
+
       // Check for language selection
       final storageService = StorageService();
       final hasLanguage = await storageService.hasKey(

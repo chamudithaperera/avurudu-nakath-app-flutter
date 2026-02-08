@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -73,9 +74,19 @@ class NotificationService {
   Future<void> requestPermissions() async {
     final prefs = await SharedPreferences.getInstance();
     final alreadyAsked = prefs.getBool(_permissionRequestedKey) ?? false;
+
+    // Always check for permission status on Android 13+ even if we "asked" before
+    // because the user might have denied it and we might want to show rationale or similar
+    // (though for now we stick to the simple flow)
+
     if (alreadyAsked) return;
 
     if (Platform.isAndroid) {
+      // Android 13+ Permission
+      if (await Permission.notification.isDenied) {
+        await Permission.notification.request();
+      }
+
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
           flutterLocalNotificationsPlugin
               .resolvePlatformSpecificImplementation<
