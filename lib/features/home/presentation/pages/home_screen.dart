@@ -343,6 +343,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                           formattedDate: _formatDateLabel(context, nextEvent),
                           scale: scale,
                           onTap: () => _showNakathDetail(nextEvent),
+                          onCountdownCompleted: () {
+                            if (!mounted) return;
+                            setState(() {});
+                          },
                         ),
                         SizedBox(height: 26 * scale),
                         _SectionHeader(title: uiL10n.allNakath, scale: scale),
@@ -493,12 +497,14 @@ class _NextNakathCard extends StatelessWidget {
   final String formattedDate;
   final double scale;
   final VoidCallback onTap;
+  final VoidCallback onCountdownCompleted;
 
   const _NextNakathCard({
     required this.event,
     required this.formattedDate,
     required this.scale,
     required this.onTap,
+    required this.onCountdownCompleted,
   });
 
   DateTime? _targetTime() {
@@ -601,6 +607,7 @@ class _NextNakathCard extends StatelessWidget {
                       _HomeCountdown(
                         targetTime: targetTime.toLocal(),
                         scale: scale,
+                        onCompleted: onCountdownCompleted,
                       )
                     else
                       Text(
@@ -791,8 +798,13 @@ class _NakathEventTile extends StatelessWidget {
 class _HomeCountdown extends StatefulWidget {
   final DateTime targetTime;
   final double scale;
+  final VoidCallback? onCompleted;
 
-  const _HomeCountdown({required this.targetTime, required this.scale});
+  const _HomeCountdown({
+    required this.targetTime,
+    required this.scale,
+    this.onCompleted,
+  });
 
   @override
   State<_HomeCountdown> createState() => _HomeCountdownState();
@@ -801,6 +813,7 @@ class _HomeCountdown extends StatefulWidget {
 class _HomeCountdownState extends State<_HomeCountdown> {
   Timer? _timer;
   Duration _remaining = Duration.zero;
+  bool _completed = false;
 
   @override
   void initState() {
@@ -815,6 +828,7 @@ class _HomeCountdownState extends State<_HomeCountdown> {
   void didUpdateWidget(covariant _HomeCountdown oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.targetTime != widget.targetTime) {
+      _completed = false;
       _updateRemaining();
     }
   }
@@ -831,6 +845,10 @@ class _HomeCountdownState extends State<_HomeCountdown> {
     setState(() {
       _remaining = difference.isNegative ? Duration.zero : difference;
     });
+    if (_remaining == Duration.zero && !_completed) {
+      _completed = true;
+      widget.onCompleted?.call();
+    }
   }
 
   @override
