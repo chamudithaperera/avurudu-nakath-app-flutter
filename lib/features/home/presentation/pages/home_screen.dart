@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/theme/app_fonts.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../../../core/services/notification_service.dart';
 import '../../../../core/services/storage_service.dart';
 import '../../../../core/widgets/kandyan_background.dart';
@@ -132,9 +133,30 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Color(0xFF2B1B16), size: 20),
+        backgroundColor: AppTheme.warmIvory,
+        surfaceTintColor: Colors.transparent,
+        elevation: 3,
+        shadowColor: Colors.black.withValues(alpha: 0.25),
+        iconTheme: const IconThemeData(color: AppTheme.deepBrown, size: 20),
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            uiL10n.appTitle,
+            style: TextStyle(
+              fontFamily: AppFonts.kandyanDisplay,
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+              color: AppTheme.deepBrown,
+            ),
+          ),
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(2),
+          child: Container(
+            height: 2,
+            color: AppTheme.kandyanGold.withValues(alpha: 0.65),
+          ),
+        ),
       ),
       drawer: _HomeDrawer(
         notificationsEnabled: _notificationsEnabled,
@@ -200,45 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     constraints: const BoxConstraints(maxWidth: 560),
                     child: Column(
                       children: [
-                        SizedBox(
-                          width: double.infinity,
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              uiL10n.appTitle,
-                              style: TextStyle(
-                                fontFamily: AppFonts.kandyanDisplay,
-                                fontSize: 42,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFFFABF24),
-                                shadows: [
-                                  Shadow(
-                                    offset: Offset(-1.1, -1.1),
-                                    color: Colors.black,
-                                  ),
-                                  Shadow(
-                                    offset: Offset(1.1, -1.1),
-                                    color: Colors.black,
-                                  ),
-                                  Shadow(
-                                    offset: Offset(-1.1, 1.1),
-                                    color: Colors.black,
-                                  ),
-                                  Shadow(
-                                    offset: Offset(1.1, 1.1),
-                                    color: Colors.black,
-                                  ),
-                                  Shadow(
-                                    offset: Offset(0, 4),
-                                    blurRadius: 8,
-                                    color: Color(0x44000000),
-                                  ),
-                                ],
-                              ).copyWith(fontSize: 42 * scale),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20 * scale),
+                        SizedBox(height: 12 * scale),
                         _NextNakathCard(
                           event: nextEvent,
                           formattedDate: _formatDateLabel(context, nextEvent),

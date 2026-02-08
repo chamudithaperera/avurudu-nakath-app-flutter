@@ -52,13 +52,16 @@ class AppTheme {
       ),
       scaffoldBackgroundColor: warmIvory,
       appBarTheme: AppBarTheme(
-        backgroundColor: Colors.transparent,
+        backgroundColor: warmIvory,
+        foregroundColor: deepBrown,
+        surfaceTintColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
         titleTextStyle: textTheme.titleLarge?.copyWith(
           fontWeight: FontWeight.w700,
           letterSpacing: 1.2,
         ),
+        iconTheme: const IconThemeData(color: deepBrown),
       ),
       cardTheme: CardThemeData(
         color: warmIvory,
