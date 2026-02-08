@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../core/theme/app_fonts.dart';
 import '../../../../core/services/notification_service.dart';
+import '../../../../core/services/storage_service.dart';
 import '../../../../core/widgets/kandyan_background.dart';
 import '../../data/datasources/nakath_local_data_source.dart';
 import '../../data/repositories/nakath_repository_impl.dart';
@@ -14,6 +15,7 @@ import '../../domain/entities/nakath_event.dart';
 import '../../domain/usecases/get_all_nakath_events.dart';
 import '../mappers/nakath_localizer.dart';
 import '../widgets/nakath_detail_popup.dart';
+import '../../../language_selection/presentation/pages/language_selection_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,23 +26,67 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<List<NakathEvent>> _eventsFuture;
+  List<NakathEvent> _cachedEvents = [];
+  bool _notificationsEnabled = true;
 
   @override
   void initState() {
     super.initState();
+    _loadNotificationPref();
     // DI Setup
     final dataSource = NakathLocalDataSourceImpl();
     final repository = NakathRepositoryImpl(localDataSource: dataSource);
     final useCase = GetAllNakathEvents(repository);
 
     _eventsFuture = useCase().then((events) async {
+      _cachedEvents = events;
       // Schedule notifications when data is loaded
-      final notificationService = NotificationService();
-      await notificationService.init();
-      await notificationService.requestPermissions();
-      await notificationService.scheduleNotifications(events);
+      final storage = StorageService();
+      final enabled =
+          await storage.getBool(StorageService.keyNotificationsEnabled) ?? true;
+      if (enabled) {
+        final notificationService = NotificationService();
+        await notificationService.init();
+        await notificationService.requestPermissions();
+        await notificationService.scheduleNotifications(events);
+      }
       return events;
     });
+  }
+
+  Future<void> _loadNotificationPref() async {
+    final storage = StorageService();
+    final enabled = await storage.getBool(
+      StorageService.keyNotificationsEnabled,
+    );
+    if (!mounted) return;
+    setState(() {
+      _notificationsEnabled = enabled ?? true;
+    });
+    if (enabled == null) {
+      await storage.saveBool(StorageService.keyNotificationsEnabled, true);
+    }
+  }
+
+  Future<void> _setNotificationsEnabled(bool value) async {
+    final storage = StorageService();
+    await storage.saveBool(StorageService.keyNotificationsEnabled, value);
+    if (!mounted) return;
+    setState(() {
+      _notificationsEnabled = value;
+    });
+
+    final notificationService = NotificationService();
+    if (value) {
+      await notificationService.init();
+      await notificationService.requestPermissions();
+      final events = _cachedEvents.isNotEmpty
+          ? _cachedEvents
+          : await _eventsFuture;
+      await notificationService.scheduleNotifications(events);
+    } else {
+      await notificationService.cancelAll();
+    }
   }
 
   void _showNakathDetail(NakathEvent event) {
@@ -85,6 +131,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Color(0xFF2B1B16), size: 20),
+      ),
+      drawer: _HomeDrawer(
+        notificationsEnabled: _notificationsEnabled,
+        onNotificationsChanged: _setNotificationsEnabled,
+      ),
       body: KandyanBackground(
         child: FutureBuilder<List<NakathEvent>>(
           future: _eventsFuture,
@@ -254,6 +309,85 @@ class _HomeScreenState extends State<HomeScreen> {
       return 'assets/images/nakath icons/nakath8.png';
     }
     return 'assets/images/nakath icons/nakath1.png';
+  }
+}
+
+class _HomeDrawer extends StatelessWidget {
+  final bool notificationsEnabled;
+  final ValueChanged<bool> onNotificationsChanged;
+
+  const _HomeDrawer({
+    required this.notificationsEnabled,
+    required this.onNotificationsChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final uiL10n = UiLocalizations.of(context)!;
+    return Drawer(
+      backgroundColor: const Color(0xFFF8EED1),
+      child: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+              color: const Color(0xFFF1D48E),
+              child: Text(
+                uiL10n.appTitle,
+                style: TextStyle(
+                  fontFamily: AppFonts.kandyanDisplay,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xFF2B1B16),
+                ),
+              ),
+            ),
+            SwitchListTile.adaptive(
+              value: notificationsEnabled,
+              onChanged: onNotificationsChanged,
+              title: const Text('Notifications'),
+              subtitle: const Text('Remind me on time and 5 minutes before'),
+              secondary: const Icon(Icons.notifications_active_outlined),
+            ),
+            ListTile(
+              leading: const Icon(Icons.language),
+              title: const Text('Change Language'),
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const LanguageSelectionScreen(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text('About'),
+              onTap: () {
+                showDialog<void>(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text('Avurudu Nakath'),
+                      content: const Text(
+                        'Local notifications for Sinhala & Tamil Avurudu nakath times.',
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('Close'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
