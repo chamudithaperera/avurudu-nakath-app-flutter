@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter/services.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -10,6 +9,13 @@ class NotificationService {
   static final NotificationService _instance = NotificationService._internal();
   factory NotificationService() => _instance;
   NotificationService._internal();
+
+  static const AndroidNotificationChannel _channel = AndroidNotificationChannel(
+    'nakath_channel_id',
+    'Nakath Notifications',
+    description: 'Reminders for Avurudu Nakath events',
+    importance: Importance.max,
+  );
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -52,6 +58,11 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.initialize(
       settings: initializationSettings,
     );
+    final androidImplementation = flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
+    await androidImplementation?.createNotificationChannel(_channel);
     _isInitialized = true;
   }
 
@@ -78,6 +89,7 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.cancelAll();
 
     int notificationId = 0;
+    final scheduleMode = await _resolveAndroidScheduleMode();
 
     for (var event in events) {
       if (event.start == null) continue;
@@ -91,19 +103,19 @@ class NotificationService {
         title: 'Nakath Time',
         body: 'Upcoming auspicious time is starting now.',
         scheduledDate: startTime,
+        scheduleMode: scheduleMode,
       );
 
       // Minus 5
       if (event.notificationPolicy == 'atStartAndMinus5') {
         final minus5 = startTime.subtract(const Duration(minutes: 5));
-        if (minus5.isAfter(DateTime.now())) {
-          await _scheduleOne(
-            id: notificationId++,
-            title: 'Nakath Reminder',
-            body: '5 minutes to go!',
-            scheduledDate: minus5,
-          );
-        }
+        await _scheduleOne(
+          id: notificationId++,
+          title: 'Nakath Reminder',
+          body: '5 minutes to go!',
+          scheduledDate: minus5,
+          scheduleMode: scheduleMode,
+        );
       }
     }
   }
@@ -113,14 +125,16 @@ class NotificationService {
     required String title,
     required String body,
     required DateTime scheduledDate,
+    required AndroidScheduleMode scheduleMode,
   }) async {
-    if (scheduledDate.isBefore(DateTime.now())) return;
+    final scheduledTz = tz.TZDateTime.from(scheduledDate, tz.local);
+    if (scheduledTz.isBefore(tz.TZDateTime.now(tz.local))) return;
 
-    final notificationDetails = const NotificationDetails(
+    final notificationDetails = NotificationDetails(
       android: AndroidNotificationDetails(
-        'nakath_channel_id',
-        'Nakath Notifications',
-        channelDescription: 'Reminders for Avurudu Nakath events',
+        _channel.id,
+        _channel.name,
+        channelDescription: _channel.description,
         importance: Importance.max,
         priority: Priority.high,
       ),
@@ -131,30 +145,28 @@ class NotificationService {
       ),
     );
 
-    final scheduledTz = tz.TZDateTime.from(scheduledDate, tz.local);
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      id: id,
+      title: title,
+      body: body,
+      scheduledDate: scheduledTz,
+      notificationDetails: notificationDetails,
+      androidScheduleMode: scheduleMode,
+    );
+  }
 
-    try {
-      await flutterLocalNotificationsPlugin.zonedSchedule(
-        id: id,
-        title: title,
-        body: body,
-        scheduledDate: scheduledTz,
-        notificationDetails: notificationDetails,
-        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      );
-    } on PlatformException catch (e) {
-      if (Platform.isAndroid && e.code == 'exact_alarms_not_permitted') {
-        await flutterLocalNotificationsPlugin.zonedSchedule(
-          id: id,
-          title: title,
-          body: body,
-          scheduledDate: scheduledTz,
-          notificationDetails: notificationDetails,
-          androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-        );
-        return;
-      }
-      rethrow;
+  Future<AndroidScheduleMode> _resolveAndroidScheduleMode() async {
+    if (!Platform.isAndroid) {
+      return AndroidScheduleMode.exactAllowWhileIdle;
     }
+    final androidImplementation = flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
+    final canExact = await androidImplementation
+        ?.canScheduleExactNotifications();
+    return (canExact ?? false)
+        ? AndroidScheduleMode.exactAllowWhileIdle
+        : AndroidScheduleMode.inexactAllowWhileIdle;
   }
 }
