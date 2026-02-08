@@ -73,24 +73,21 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _setNotificationsEnabled(bool value) async {
     if (value) {
       // User wants to enable notifications
-      final status = await Permission.notification.status;
-      if (status.isDenied) {
-        final result = await Permission.notification.request();
-        if (result.isGranted) {
-          _updateNotificationState(true);
-        } else {
-          _updateNotificationState(false);
-        }
+      final status = await Permission.notification.request();
+
+      if (status.isGranted) {
+        _updateNotificationState(true);
       } else if (status.isPermanentlyDenied) {
         if (mounted) {
-          // Show dialog to explain why we need to open settings
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              title: const Text('Notifications Permission'),
+              title: Text(
+                UiLocalizations.of(context)!.appTitle,
+              ), // Reuse title or generic
               content: const Text(
-                'Please enable notifications in settings to receive Nakath reminders.',
-              ),
+                'Notifications are disabled. Please enable them in settings to receive reminders.',
+              ), // Hardcoded for English or add to l10n
               actions: [
                 TextButton(
                   onPressed: () => Navigator.pop(context),
@@ -101,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.pop(context);
                     openAppSettings();
                   },
-                  child: const Text('Open Settings'),
+                  child: const Text('Settings'),
                 ),
               ],
             ),
@@ -109,8 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
         }
         _updateNotificationState(false);
       } else {
-        // Already granted
-        _updateNotificationState(true);
+        // Denied
+        _updateNotificationState(false);
       }
     } else {
       // User wants to disable notifications

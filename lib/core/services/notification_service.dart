@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -72,10 +73,16 @@ class NotificationService {
 
   Future<void> requestPermissions() async {
     final prefs = await SharedPreferences.getInstance();
-    final alreadyAsked = prefs.getBool(_permissionRequestedKey) ?? false;
-    if (alreadyAsked) return;
 
+    // We want to ensure we ask for permission on Android 13+
     if (Platform.isAndroid) {
+      // Using permission_handler to request permission.
+      // This will show the native popup if not determined yet.
+      // If permanently denied, it does nothing (as expected on startup).
+      await Permission.notification.request();
+
+      // We still run the plugin specific request for older Android versions
+      // or to ensure the channel is properly registered.
       final AndroidFlutterLocalNotificationsPlugin? androidImplementation =
           flutterLocalNotificationsPlugin
               .resolvePlatformSpecificImplementation<
