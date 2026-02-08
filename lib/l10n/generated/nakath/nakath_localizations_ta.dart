@@ -55,4 +55,16 @@ class NakathLocalizationsTa extends NakathLocalizations {
 
   @override
   String get nakath_leavingForWork_desc => 'ஏப்ரல் 17 ஆம் திகதி வியாழக்கிழமை காலை 06.28 க்கு பொன்னிற ஆடை அணிந்து வெல்லம் கலந்த பால்சோறு உட்கொண்டு கிழக்கு திசையை நோக்கி வேலைக்குச் செல்லுதல் நன்று.';
+
+  @override
+  String get notification_5min_suffix => ' is in 5 minutes.';
+
+  @override
+  String get notification_ontime_prefix => 'It is now ';
+
+  @override
+  String get notification_ontime_suffix => ' time.';
+
+  @override
+  String get notification_today_suffix => ' is today.';
 }

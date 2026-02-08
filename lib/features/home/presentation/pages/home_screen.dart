@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
+import 'package:avurudu_nakath_app/l10n/generated/nakath/nakath_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -48,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       if (_notificationsEnabled) {
         final notificationService = NotificationService();
         await notificationService.init();
-        await notificationService.scheduleNotifications(events);
+        await _scheduleLocalizedNotifications(events);
       }
       return events;
     });
@@ -67,6 +68,63 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     }
   }
 
+  Future<void> _scheduleLocalizedNotifications(List<NakathEvent> events) async {
+    final nakathL10n = NakathLocalizations.of(context)!;
+    final requests = <NotificationRequest>[];
+
+    for (var event in events) {
+      if (event.notificationPolicy == 'none') continue;
+
+      // Date Only Events (e.g., New Moon, Bathing)
+      if (event.type == 'dateOnly' && event.date != null) {
+        final date = DateTime.parse(event.date!);
+        // Schedule for 00:01 AM on that day
+        final scheduledTime = DateTime(date.year, date.month, date.day, 0, 1);
+
+        requests.add(
+          NotificationRequest(
+            title: event.getLocalizedTitle(context),
+            body:
+                '${event.getLocalizedTitle(context)}${nakathL10n.notification_today_suffix}',
+            time: scheduledTime,
+            payload: event.id,
+          ),
+        );
+      }
+      // Time-based Events
+      else if (event.start != null) {
+        final startTime = event.start!;
+        final title = event.getLocalizedTitle(context);
+
+        // On-time notification
+        requests.add(
+          NotificationRequest(
+            title: title,
+            body:
+                '${nakathL10n.notification_ontime_prefix}$title${nakathL10n.notification_ontime_suffix}',
+            time: startTime,
+            payload: event.id,
+          ),
+        );
+
+        // 5-minute reminder
+        if (event.notificationPolicy == 'atStartAndMinus5') {
+          requests.add(
+            NotificationRequest(
+              title: title,
+              body: '$title${nakathL10n.notification_5min_suffix}',
+              time: startTime.subtract(const Duration(minutes: 5)),
+              payload: event.id,
+            ),
+          );
+        }
+      }
+    }
+
+    final notificationService = NotificationService();
+    await notificationService.scheduleNotifications(requests);
+  }
+
   Future<void> _checkSystemPermissionState() async {
     final status = await Permission.notification.status;
     final isGranted = status.isGranted;
@@ -83,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
         final events = _cachedEvents.isNotEmpty
             ? _cachedEvents
             : await _eventsFuture;
-        await notificationService.scheduleNotifications(events);
+        await _scheduleLocalizedNotifications(events);
       } else {
         await notificationService.cancelAll();
       }

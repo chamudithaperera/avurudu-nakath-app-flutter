@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
-import '../../features/home/domain/entities/nakath_event.dart';
 
 class NotificationService {
   static final NotificationService _instance = NotificationService._internal();
@@ -102,38 +101,24 @@ class NotificationService {
     await prefs.setBool(_permissionRequestedKey, true);
   }
 
-  Future<void> scheduleNotifications(List<NakathEvent> events) async {
+  Future<void> scheduleNotifications(List<NotificationRequest> requests) async {
     await flutterLocalNotificationsPlugin.cancelAll();
 
     int notificationId = 0;
     final scheduleMode = await _resolveAndroidScheduleMode();
 
-    for (var event in events) {
-      if (event.start == null) continue;
-      if (event.notificationPolicy == 'none') continue;
+    for (var request in requests) {
+      // Helper to ensure we don't schedule in the past
+      // (The helper _scheduleOne already checks this, but good to be explicit)
 
-      final startTime = event.start!;
-
-      // At Start
       await _scheduleOne(
         id: notificationId++,
-        title: 'Nakath Time',
-        body: 'Upcoming auspicious time is starting now.',
-        scheduledDate: startTime,
+        title: request.title,
+        body: request.body,
+        scheduledDate: request.time,
         scheduleMode: scheduleMode,
+        payload: request.payload,
       );
-
-      // Minus 5
-      if (event.notificationPolicy == 'atStartAndMinus5') {
-        final minus5 = startTime.subtract(const Duration(minutes: 5));
-        await _scheduleOne(
-          id: notificationId++,
-          title: 'Nakath Reminder',
-          body: '5 minutes to go!',
-          scheduledDate: minus5,
-          scheduleMode: scheduleMode,
-        );
-      }
     }
   }
 
@@ -147,6 +132,7 @@ class NotificationService {
     required String body,
     required DateTime scheduledDate,
     required AndroidScheduleMode scheduleMode,
+    String? payload,
   }) async {
     final scheduledTz = tz.TZDateTime.from(scheduledDate, tz.local);
     if (scheduledTz.isBefore(tz.TZDateTime.now(tz.local))) return;
@@ -173,6 +159,7 @@ class NotificationService {
       scheduledDate: scheduledTz,
       notificationDetails: notificationDetails,
       androidScheduleMode: scheduleMode,
+      payload: payload,
     );
   }
 
@@ -190,4 +177,18 @@ class NotificationService {
         ? AndroidScheduleMode.exactAllowWhileIdle
         : AndroidScheduleMode.inexactAllowWhileIdle;
   }
+}
+
+class NotificationRequest {
+  final String title;
+  final String body;
+  final DateTime time;
+  final String? payload;
+
+  NotificationRequest({
+    required this.title,
+    required this.body,
+    required this.time,
+    this.payload,
+  });
 }

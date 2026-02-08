@@ -190,6 +190,30 @@ abstract class NakathLocalizations {
   /// In si, this message translates to:
   /// **'අප්‍රේල් මස 17 වැනි බ්‍රහස්පතින්දා පෙරවරු 06.28 ට රන්වන් පැහැති වස්ත්‍රාභරණයෙන් සැරසී හකුරු මිශ්‍ර කිරිබතක් අනුභව කර නැගෙනහිර දිශාව බලා පිටත්ව යෑම මැනවි.'**
   String get nakath_leavingForWork_desc;
+
+  /// No description provided for @notification_5min_suffix.
+  ///
+  /// In si, this message translates to:
+  /// **' නැකැතට තව මිනිත්තු 5යි.'**
+  String get notification_5min_suffix;
+
+  /// No description provided for @notification_ontime_prefix.
+  ///
+  /// In si, this message translates to:
+  /// **'දැන් '**
+  String get notification_ontime_prefix;
+
+  /// No description provided for @notification_ontime_suffix.
+  ///
+  /// In si, this message translates to:
+  /// **' නැකැතයි.'**
+  String get notification_ontime_suffix;
+
+  /// No description provided for @notification_today_suffix.
+  ///
+  /// In si, this message translates to:
+  /// **' නැකැත අදයි.'**
+  String get notification_today_suffix;
 }
 
 class _NakathLocalizationsDelegate extends LocalizationsDelegate<NakathLocalizations> {

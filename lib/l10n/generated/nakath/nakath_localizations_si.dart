@@ -55,4 +55,16 @@ class NakathLocalizationsSi extends NakathLocalizations {
 
   @override
   String get nakath_leavingForWork_desc => 'අප්‍රේල් මස 17 වැනි බ්‍රහස්පතින්දා පෙරවරු 06.28 ට රන්වන් පැහැති වස්ත්‍රාභරණයෙන් සැරසී හකුරු මිශ්‍ර කිරිබතක් අනුභව කර නැගෙනහිර දිශාව බලා පිටත්ව යෑම මැනවි.';
+
+  @override
+  String get notification_5min_suffix => ' නැකැතට තව මිනිත්තු 5යි.';
+
+  @override
+  String get notification_ontime_prefix => 'දැන් ';
+
+  @override
+  String get notification_ontime_suffix => ' නැකැතයි.';
+
+  @override
+  String get notification_today_suffix => ' නැකැත අදයි.';
 }
