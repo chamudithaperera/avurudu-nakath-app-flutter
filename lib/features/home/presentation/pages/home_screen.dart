@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
 import 'package:flutter/material.dart';
@@ -70,6 +71,54 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _setNotificationsEnabled(bool value) async {
+    if (value) {
+      // User wants to enable notifications
+      final status = await Permission.notification.status;
+      if (status.isDenied) {
+        final result = await Permission.notification.request();
+        if (result.isGranted) {
+          _updateNotificationState(true);
+        } else {
+          _updateNotificationState(false);
+        }
+      } else if (status.isPermanentlyDenied) {
+        if (mounted) {
+          // Show dialog to explain why we need to open settings
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Notifications Permission'),
+              content: const Text(
+                'Please enable notifications in settings to receive Nakath reminders.',
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    openAppSettings();
+                  },
+                  child: const Text('Open Settings'),
+                ),
+              ],
+            ),
+          );
+        }
+        _updateNotificationState(false);
+      } else {
+        // Already granted
+        _updateNotificationState(true);
+      }
+    } else {
+      // User wants to disable notifications
+      _updateNotificationState(false);
+    }
+  }
+
+  Future<void> _updateNotificationState(bool value) async {
     final storage = StorageService();
     await storage.saveBool(StorageService.keyNotificationsEnabled, value);
     if (!mounted) return;
@@ -80,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final notificationService = NotificationService();
     if (value) {
       await notificationService.init();
-      await notificationService.requestPermissions();
+      // We already checked/requested permissions above
       final events = _cachedEvents.isNotEmpty
           ? _cachedEvents
           : await _eventsFuture;
@@ -330,13 +379,13 @@ class _HomeDrawer extends StatelessWidget {
             SwitchListTile.adaptive(
               value: notificationsEnabled,
               onChanged: onNotificationsChanged,
-              title: const Text('Notifications'),
-              subtitle: const Text('Remind me on time and 5 minutes before'),
+              title: Text(uiL10n.drawerNotificationsTitle),
+              subtitle: Text(uiL10n.drawerNotificationsSubtitle),
               secondary: const Icon(Icons.notifications_active_outlined),
             ),
             ListTile(
               leading: const Icon(Icons.language),
-              title: const Text('Change Language'),
+              title: Text(uiL10n.drawerChangeLanguage),
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -347,20 +396,18 @@ class _HomeDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.info_outline),
-              title: const Text('About'),
+              title: Text(uiL10n.drawerAbout),
               onTap: () {
                 showDialog<void>(
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: const Text('Avurudu Nakath'),
-                      content: const Text(
-                        'Local notifications for Sinhala & Tamil Avurudu nakath times.',
-                      ),
+                      title: Text(uiL10n.appTitle),
+                      content: Text(uiL10n.drawerAboutBody),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(),
-                          child: const Text('Close'),
+                          child: Text(uiL10n.close),
                         ),
                       ],
                     );

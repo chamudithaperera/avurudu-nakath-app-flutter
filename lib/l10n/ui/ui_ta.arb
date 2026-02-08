@@ -12,5 +12,10 @@
   "days": "நாட்கள்",
   "hours": "மணி",
   "minutes": "நிமிடங்கள்",
-  "seconds": "வினாடிகள்"
+  "seconds": "வினாடிகள்",
+  "drawerNotificationsTitle": "அறிவிப்புகள்",
+  "drawerNotificationsSubtitle": "நேரத்தில் மற்றும் 5 நிமிடங்களுக்கு முன் நினைவூட்டுகிறது",
+  "drawerChangeLanguage": "மொழியை மாற்றவும்",
+  "drawerAbout": "பற்றி",
+  "drawerAboutBody": "சிங்களம் மற்றும் தமிழ் புத்தாண்டு நெகத் நேரங்களுக்கான உள்ளூர் அறிவிப்புகள்."
 }

@@ -172,6 +172,36 @@ abstract class UiLocalizations {
   /// In si, this message translates to:
   /// **'තත්පර'**
   String get seconds;
+
+  /// No description provided for @drawerNotificationsTitle.
+  ///
+  /// In si, this message translates to:
+  /// **'දැනුම්දීම්'**
+  String get drawerNotificationsTitle;
+
+  /// No description provided for @drawerNotificationsSubtitle.
+  ///
+  /// In si, this message translates to:
+  /// **'කාලයට හා මිනිත්තු 5කට පෙර මතක් කරයි'**
+  String get drawerNotificationsSubtitle;
+
+  /// No description provided for @drawerChangeLanguage.
+  ///
+  /// In si, this message translates to:
+  /// **'භාෂාව වෙනස් කරන්න'**
+  String get drawerChangeLanguage;
+
+  /// No description provided for @drawerAbout.
+  ///
+  /// In si, this message translates to:
+  /// **'අපේ ගැන'**
+  String get drawerAbout;
+
+  /// No description provided for @drawerAboutBody.
+  ///
+  /// In si, this message translates to:
+  /// **'සිංහල සහ දෙමළ අලුත් අවුරුදු නැකැත් සඳහා දේශීය දැනුම්දීම්.'**
+  String get drawerAboutBody;
 }
 
 class _UiLocalizationsDelegate extends LocalizationsDelegate<UiLocalizations> {

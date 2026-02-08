@@ -46,4 +46,19 @@ class UiLocalizationsTa extends UiLocalizations {
 
   @override
   String get seconds => 'வினாடிகள்';
+
+  @override
+  String get drawerNotificationsTitle => 'அறிவிப்புகள்';
+
+  @override
+  String get drawerNotificationsSubtitle => 'நேரத்தில் மற்றும் 5 நிமிடங்களுக்கு முன் நினைவூட்டுகிறது';
+
+  @override
+  String get drawerChangeLanguage => 'மொழியை மாற்றவும்';
+
+  @override
+  String get drawerAbout => 'பற்றி';
+
+  @override
+  String get drawerAboutBody => 'சிங்களம் மற்றும் தமிழ் புத்தாண்டு நெகத் நேரங்களுக்கான உள்ளூர் அறிவிப்புகள்.';
 }

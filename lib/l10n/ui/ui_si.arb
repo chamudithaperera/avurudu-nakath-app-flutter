@@ -12,5 +12,10 @@
   "days": "දින",
   "hours": "පැය",
   "minutes": "මිනිත්තු",
-  "seconds": "තත්පර"
+  "seconds": "තත්පර",
+  "drawerNotificationsTitle": "දැනුම්දීම්",
+  "drawerNotificationsSubtitle": "කාලයට හා මිනිත්තු 5කට පෙර මතක් කරයි",
+  "drawerChangeLanguage": "භාෂාව වෙනස් කරන්න",
+  "drawerAbout": "අපේ ගැන",
+  "drawerAboutBody": "සිංහල සහ දෙමළ අලුත් අවුරුදු නැකැත් සඳහා දේශීය දැනුම්දීම්."
 }

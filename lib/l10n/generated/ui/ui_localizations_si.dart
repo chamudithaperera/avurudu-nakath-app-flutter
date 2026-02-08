@@ -46,4 +46,19 @@ class UiLocalizationsSi extends UiLocalizations {
 
   @override
   String get seconds => 'තත්පර';
+
+  @override
+  String get drawerNotificationsTitle => 'දැනුම්දීම්';
+
+  @override
+  String get drawerNotificationsSubtitle => 'කාලයට හා මිනිත්තු 5කට පෙර මතක් කරයි';
+
+  @override
+  String get drawerChangeLanguage => 'භාෂාව වෙනස් කරන්න';
+
+  @override
+  String get drawerAbout => 'අපේ ගැන';
+
+  @override
+  String get drawerAboutBody => 'සිංහල සහ දෙමළ අලුත් අවුරුදු නැකැත් සඳහා දේශීය දැනුම්දීම්.';
 }
