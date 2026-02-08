@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:avurudu_nakath_app/l10n/generated/ui/ui_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/services/notification_service.dart';
@@ -204,6 +205,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           );
                         }),
+                        SizedBox(height: 24 * scale),
+                        Text(
+                          'A Product of ChamXdev by Chamuditha Perera\n© Avurudu Nakath App - 2026',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                            fontSize: 12 * scale,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFF8D6E63), // Muted brown
+                          ),
+                        ),
                       ],
                     ),
                   ),
