@@ -68,6 +68,10 @@ class NakathDetailPopup extends StatelessWidget {
   String _formattedTimeText(BuildContext context) {
     final start = _targetTime();
     if (start == null) return '';
+    if (event.type == 'dateOnly') {
+      final local = start.toLocal();
+      return DateFormat('yyyy-MM-dd').format(local);
+    }
     return _formatMoment(context, start);
   }
 
