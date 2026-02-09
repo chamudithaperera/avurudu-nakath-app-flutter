@@ -200,7 +200,7 @@ abstract class UiLocalizations {
   /// No description provided for @drawerAboutBody.
   ///
   /// In si, this message translates to:
-  /// **'සිංහල සහ දෙමළ අලුත් අවුරුදු නැකැත් සඳහා දේශීය දැනුම්දීම්.'**
+  /// **'සිංහල සහ දෙමළ අලුත් අවුරුදු නැකැත් සඳහා දේශීය දැනුම්දීම්.\n\nA Product of ChamXdev by Chamuditha Perera\n© Avurudu Nakath App - 2026'**
   String get drawerAboutBody;
 }
 

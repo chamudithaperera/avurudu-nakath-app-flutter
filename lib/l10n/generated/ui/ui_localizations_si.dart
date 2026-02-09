@@ -60,5 +60,5 @@ class UiLocalizationsSi extends UiLocalizations {
   String get drawerAbout => 'අපේ ගැන';
 
   @override
-  String get drawerAboutBody => 'සිංහල සහ දෙමළ අලුත් අවුරුදු නැකැත් සඳහා දේශීය දැනුම්දීම්.';
+  String get drawerAboutBody => 'සිංහල සහ දෙමළ අලුත් අවුරුදු නැකැත් සඳහා දේශීය දැනුම්දීම්.\n\nA Product of ChamXdev by Chamuditha Perera\n© Avurudu Nakath App - 2026';
 }
