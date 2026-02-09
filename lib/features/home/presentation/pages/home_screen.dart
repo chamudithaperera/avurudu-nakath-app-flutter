@@ -258,7 +258,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           child: Text(
             uiL10n.appTitle,
             style: TextStyle(
-              fontFamily: AppFonts.kandyanDisplay,
+              fontFamily:
+                  AppFonts.isSinhala(context) ? AppFonts.kandyanDisplay : null,
               fontSize: 22,
               fontWeight: FontWeight.w700,
               color: AppTheme.deepBrown,
@@ -439,7 +440,9 @@ class _HomeDrawer extends StatelessWidget {
               child: Text(
                 uiL10n.appTitle,
                 style: TextStyle(
-                  fontFamily: AppFonts.kandyanDisplay,
+                  fontFamily: AppFonts.isSinhala(context)
+                      ? AppFonts.kandyanDisplay
+                      : null,
                   fontSize: 22,
                   fontWeight: FontWeight.w700,
                   color: const Color(0xFF2B1B16),
