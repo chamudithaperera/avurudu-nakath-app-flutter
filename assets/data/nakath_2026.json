@@ -6,7 +6,7 @@
       "type": "dateOnly",
       "titleKey": "nakath_newMoon_title",
       "descriptionKey": "nakath_newMoon_desc",
-      "date": "2026-03-30",
+      "date": "2026-02-10",
       "notificationPolicy": "none"
     },
     {
@@ -31,7 +31,7 @@
       "type": "dateTime",
       "titleKey": "nakath_newYearDawn_title",
       "descriptionKey": "nakath_newYearDawn_desc",
-      "start": "2026-04-14T03:21:00+05:30",
+      "start": "2026-02-10T10:00:00+05:30",
       "notificationPolicy": "atStartAndMinus5"
     },
     {
