@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'nakath_localizations_en.dart';
 import 'nakath_localizations_si.dart';
 import 'nakath_localizations_ta.dart';
 
@@ -91,6 +92,7 @@ abstract class NakathLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
     Locale('si'),
     Locale('ta')
   ];
@@ -225,7 +227,7 @@ class _NakathLocalizationsDelegate extends LocalizationsDelegate<NakathLocalizat
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['si', 'ta'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'si', 'ta'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_NakathLocalizationsDelegate old) => false;
@@ -236,6 +238,7 @@ NakathLocalizations lookupNakathLocalizations(Locale locale) {
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en': return NakathLocalizationsEn();
     case 'si': return NakathLocalizationsSi();
     case 'ta': return NakathLocalizationsTa();
   }

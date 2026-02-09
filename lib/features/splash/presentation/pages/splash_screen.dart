@@ -175,6 +175,16 @@ class _SplashScreenState extends State<SplashScreen>
                             fontWeight: FontWeight.w500,
                           ),
                         ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Our Avurudu Nakath',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ],
                     ),
                   ),

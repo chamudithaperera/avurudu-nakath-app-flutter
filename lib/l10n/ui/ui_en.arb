@@ -1,0 +1,21 @@
+{
+  "@@locale": "en",
+  "appTitle": "Our Avurudu Nakath",
+  "nextUpcoming": "Next Nakath",
+  "allNakath": "All Nakath",
+  "close": "Close",
+  "selectLanguage": "Select Language",
+  "pleaseSelectLanguage": "Please select your preferred language",
+  "english": "English",
+  "sinhala": "Sinhala",
+  "tamil": "Tamil",
+  "days": "Days",
+  "hours": "Hours",
+  "minutes": "Minutes",
+  "seconds": "Seconds",
+  "drawerNotificationsTitle": "Notifications",
+  "drawerNotificationsSubtitle": "Reminds on time and 5 minutes before",
+  "drawerChangeLanguage": "Change Language",
+  "drawerAbout": "About",
+  "drawerAboutBody": "Local notifications for Sinhala and Tamil New Year Nakath times.\n\nA Product of ChamXdev by Chamuditha Perera\n© Avurudu Nakath App - 2026"
+}

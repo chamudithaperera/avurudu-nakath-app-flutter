@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'ui_localizations_en.dart';
 import 'ui_localizations_si.dart';
 import 'ui_localizations_ta.dart';
 
@@ -91,6 +92,7 @@ abstract class UiLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
     Locale('si'),
     Locale('ta')
   ];
@@ -213,7 +215,7 @@ class _UiLocalizationsDelegate extends LocalizationsDelegate<UiLocalizations> {
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['si', 'ta'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'si', 'ta'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_UiLocalizationsDelegate old) => false;
@@ -224,6 +226,7 @@ UiLocalizations lookupUiLocalizations(Locale locale) {
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en': return UiLocalizationsEn();
     case 'si': return UiLocalizationsSi();
     case 'ta': return UiLocalizationsTa();
   }

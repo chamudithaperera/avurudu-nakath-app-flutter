@@ -167,6 +167,18 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                                 ), // Slightly lighter brown
                               ),
                             ),
+                            const SizedBox(height: 6),
+
+                            // English Title
+                            Text(
+                              'Select your language',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF6D4C41),
+                              ),
+                            ),
                             const SizedBox(height: 40),
 
                             // Sinhala Button
@@ -182,6 +194,13 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen>
                               label: 'தமிழ்',
                               // Removed TharuRun as it's likely a Sinhala font
                               onTap: () => _selectLanguage('ta'),
+                            ),
+                            const SizedBox(height: 16),
+
+                            // English Button
+                            _buildLanguageButton(
+                              label: 'English',
+                              onTap: () => _selectLanguage('en'),
                             ),
                           ],
                         ),
